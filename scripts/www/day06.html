@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第6天 | 视觉训练评估流程</title>
+<style>
+  :root{--primary:#d97706;--secondary:#b45309;--accent:#2563eb;--success:#10b981;--danger:#ef4444;--bg:#fffbeb;--card:#fff;--text:#1e293b;--muted:#64748b;--border:#e2e8f0;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Microsoft YaHei',Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+  .header{background:linear-gradient(135deg,#d97706,#92400e);color:#fff;padding:2rem;text-align:center;}
+  .header .phase{font-size:.85rem;background:rgba(255,255,255,.2);border-radius:20px;padding:.2rem .8rem;display:inline-block;margin-bottom:.5rem;}
+  .header h1{font-size:1.8rem;margin-bottom:.3rem;}
+  .header p{opacity:.9;font-size:.95rem;}
+  .nav-bar{background:#fff;padding:.8rem 1.5rem;display:flex;align-items:center;justify-content:space-between;border-bottom:2px solid var(--border);flex-wrap:wrap;gap:.5rem;}
+  .nav-bar a{color:var(--primary);text-decoration:none;font-size:.9rem;padding:.3rem .7rem;border-radius:6px;transition:background .2s;}
+  .nav-bar a:hover{background:var(--bg);}
+  .container{max-width:960px;margin:0 auto;padding:1.5rem 1.5rem 3rem;}
+  .card{background:var(--card);border-radius:12px;padding:1.5rem;margin-bottom:1.5rem;box-shadow:0 2px 8px rgba(0,0,0,.06);}
+  .card-title{font-size:1.1rem;font-weight:700;color:var(--primary);margin-bottom:1rem;display:flex;align-items:center;gap:.5rem;}
+  .card-title .icon{width:28px;height:28px;background:var(--primary);border-radius:6px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:.85rem;}
+  .target-box{background:linear-gradient(135deg,#fffbeb,#fef3c7);border-radius:8px;padding:1rem 1.2rem;margin-bottom:1.5rem;}
+  .target-box h3{color:var(--primary);font-size:.95rem;margin-bottom:.4rem;}
+  h2{font-size:1.2rem;color:var(--secondary);margin-bottom:1rem;padding-bottom:.4rem;border-bottom:2px solid var(--border);}
+  h3{font-size:1rem;color:var(--text);margin:1rem 0 .5rem;}
+  p{margin-bottom:.7rem;font-size:.95rem;}
+  ul,ol{padding-left:1.4rem;margin-bottom:.7rem;}
+  li{margin-bottom:.35rem;font-size:.95rem;}
+  .highlight{background:#fef3c7;border-radius:4px;padding:.1rem .3rem;color:#92400e;}
+  .table-wrap{overflow-x:auto;}
+  table{width:100%;border-collapse:collapse;font-size:.9rem;}
+  th{background:var(--primary);color:#fff;padding:.6rem .8rem;text-align:left;}
+  td{padding:.55rem .8rem;border-bottom:1px solid var(--border);}
+  tr:nth-child(even) td{background:#f8fafc;}
+  .inquiry-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:1rem;margin:.8rem 0;}
+  .inquiry-item{background:#f8fafc;border-radius:10px;padding:1rem;}
+  .inquiry-item h4{font-size:.9rem;color:var(--muted);margin-bottom:.4rem;}
+  .inquiry-item ul{padding-left:1.2rem;}
+  .inquiry-item li{font-size:.88rem;}
+  .diag-logic{background:linear-gradient(135deg,#fffbeb,#fef3c7);border-radius:10px;padding:1.2rem;margin:.8rem 0;}
+  .diag-step{display:flex;align-items:flex-start;gap:.7rem;margin-bottom:.8rem;}
+  .diag-num{min-width:28px;height:28px;background:var(--primary);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:700;margin-top:.1rem;}
+  .diag-content h4{font-size:.9rem;font-weight:700;margin-bottom:.2rem;}
+  .diag-content p{font-size:.88rem;margin:0;color:var(--muted);}
+  .form-section{background:#f8fafc;border-radius:10px;padding:1.2rem;border:1.5px solid var(--border);}
+  .form-row{display:grid;grid-template-columns:1fr 2fr;gap:.5rem;margin-bottom:.5rem;align-items:center;}
+  .form-label{font-size:.85rem;color:var(--muted);font-weight:600;}
+  .form-field{background:#fff;border:1.5px solid var(--border);border-radius:6px;padding:.35rem .6rem;font-size:.88rem;color:var(--text);}
+  .practice-box{background:linear-gradient(135deg,#f0fdf4,#dcfce7);border-radius:8px;padding:1.2rem;}
+  .practice-box h3{color:var(--success);margin:0 0 .6rem;}
+  .exam-box{background:linear-gradient(135deg,#eff6ff,#dbeafe);border-radius:8px;padding:1.2rem;}
+  .exam-box h3{color:var(--accent);margin:0 0 .6rem;}
+  .answer-area{background:#fff;border:2px dashed var(--border);border-radius:8px;padding:1rem;min-height:60px;margin:.5rem 0;color:var(--muted);font-size:.9rem;}
+  .footer{text-align:center;padding:2rem;color:#fff;font-size:.85rem;margin-top:2rem;background:linear-gradient(135deg,#1e3a5f,#0f172a);border-radius:16px 16px 0 0;}
+  .footer .course-title{font-size:1rem;font-weight:600;margin-bottom:.3rem;}
+  .footer .course-info{opacity:.85;font-size:.85rem;}
+  .footer-sep{border-top:1px solid rgba(255,255,255,.2);margin:1.5rem 0;}
+  .footer-nav{display:flex;justify-content:center;gap:1rem;margin-top:1rem;}
+  .footer-nav a{color:#fff;opacity:.8;text-decoration:none;font-size:.85rem;padding:.4rem 1rem;background:rgba(255,255,255,.1);border-radius:6px;transition:all .2s;}
+  .footer-nav a:hover{opacity:1;background:rgba(255,255,255,.2);}
+  @media(max-width:600px){.header h1{font-size:1.4rem;}.form-row{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="phase">📚 第一阶段｜基础筑基期（第1-7天）</div>
+  <h1>第 6 天｜视觉训练评估流程</h1>
+  <p>建立「问诊 - 检查 - 数据解读」闭环——从主诉到诊断</p>
+</div>
+
+<div class="nav-bar">
+  <a href="day05.html">← 第5天</a>
+  <a href="index.html">🏠 课程总览</a>
+  <a href="day07.html">第7天 →</a>
+</div>
+
+<div class="container">
+
+  <div class="target-box">
+    <h3>🎯 今日学习目标</h3>
+    <p>① 掌握视觉问题问诊的重点内容；② 能解读隐斜、AC/A、调节反应、融像范围等关键数据；③ 建立「先排器质性→再定功能异常」的诊断逻辑；④ 独立完成1份视觉问题评估表。</p>
+  </div>
+
+  <!-- 问诊重点 -->
+  <div class="card">
+    <div class="card-title"><span class="icon">💬</span>第一步：问诊——从主诉提取关键信息</div>
+    <h2>问诊的艺术：听什么、问什么</h2>
+    <p>好的问诊是检查的引导图。患者的<span class="highlight">主诉词汇</span>往往直接指向诊断方向，不要遗漏。</p>
+    
+    <h3>✅ 标准问诊五步法</h3>
+    <ol>
+      <li>开场问候：建立信任，说明问诊目的</li>
+      <li>主诉采集：记录患者最核心的不适症状（不超过20字）</li>
+      <li>现病史追问：症状发生时间、频率、诱因、缓解方式</li>
+      <li>病史采集：眼部、全身、配镜、家族史</li>
+      <li>生活习惯：用眼时长、环境、工作/学习状态</li>
+    </ol>
+
+    <div class="inquiry-grid">
+      <div class="inquiry-item">
+        <h4>👁️ 视疲劳相关</h4>
+        <ul>
+          <li>看近多久开始眼酸？</li>
+          <li>疲劳时有没有重影？</li>
+          <li>是近距还是远距更明显？</li>
+          <li>休息后能缓解吗？</li>
+        </ul>
+        <p style="font-size:.82rem;color:#b45309;margin-top:.5rem;">→ 提示：调节/集合异常</p>
+      </div>
+      <div class="inquiry-item">
+        <h4>📖 阅读相关</h4>
+        <ul>
+          <li>阅读时跳行、漏字吗？</li>
+          <li>需要手指追踪才能读对吗？</li>
+          <li>阅读速度比同龄人慢吗？</li>
+          <li>需要重读同一行吗？</li>
+        </ul>
+        <p style="font-size:.82rem;color:#b45309;margin-top:.5rem;">→ 提示：眼球运动/集合异常</p>
+      </div>
+      <div class="inquiry-item">
+        <h4>👥 双眼视相关</h4>
+        <ul>
+          <li>有看双影（复视）吗？何时出现？</li>
+          <li>疲劳时有眼位偏斜吗？</li>
+          <li>遮住一眼感觉如何？</li>
+          <li>立体感/距离感有问题吗？</li>
+        </ul>
+        <p style="font-size:.82rem;color:#b45309;margin-top:.5rem;">→ 提示：斜视/双眼视异常</p>
+      </div>
+      <div class="inquiry-item">
+        <h4>🏫 用眼习惯</h4>
+        <ul>
+          <li>每天近距离用眼几小时？</li>
+          <li>户外活动时间？</li>
+          <li>使用电子屏幕习惯？</li>
+          <li>工作性质（驾驶/精细操作）？</li>
+        </ul>
+        <p style="font-size:.82rem;color:#b45309;margin-top:.5rem;">→ 提示：训练需求与方案定制</p>
+      </div>
+    </div>
+
+    <h3>✅ 必问5类核心病史</h3>
+    <ul>
+      <li>既往眼病史：斜视、弱视、眼底病、眼部手术史</li>
+      <li>配镜史：首次配镜年龄、度数变化、佩戴舒适度</li>
+      <li>全身病史：糖尿病、高血压、脑部疾病（影响视觉功能）</li>
+      <li>学习/工作史：学生课业、成人伏案/驾驶时长</li>
+      <li>家族史：父母斜视、弱视、高度近视史</li>
+    </ul>
+
+    <h3>症状-诊断快速映射</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>患者主诉</th><th>最可能的问题</th><th>需重点检查项目</th></tr></thead>
+        <tbody>
+          <tr><td>看书20分钟头痛/眼酸</td><td>集合不足 / 调节异常</td><td>NPC、隐斜、调节幅度、AC/A</td></tr>
+          <tr><td>看远模糊，看近清楚，有时复视</td><td>发散不足 / 远距内隐斜</td><td>远距隐斜、远距NFV</td></tr>
+          <tr><td>下午视力下降，早上正常</td><td>调节不持久 / 调节疲劳</td><td>调节灵敏度、持久调节力</td></tr>
+          <tr><td>阅读跳行，漏字</td><td>眼球运动异常（扫视）</td><td>DEM测试、NSUCO评估</td></tr>
+          <tr><td>孩子单眼视力差，无斜视</td><td>屈光参差性弱视</td><td>屈光度数差异、视力、立体视</td></tr>
+          <tr><td>遮住一眼不难受，双眼看反而不舒服</td><td>双眼视抑制 / 融像异常</td><td>Worth四点灯、Bagolini线状镜</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>⚠️ 问诊避坑技巧</h3>
+    <p>1. 不使用专业术语，用通俗语言提问；2. 不主观预判，不引导患者回答；3. 儿童问诊需结合家长描述+孩子自身感受；4. 重点记录<span class="highlight">双眼不适、单眼缓解</span>的核心特征。</p>
+  </div>
+
+  <!-- 数据解读 -->
+  <div class="card">
+    <div class="card-title"><span class="icon">📊</span>第二步：数据解读——从数字到诊断</div>
+    <h2>关键检查数据解读指南</h2>
+
+    <h3>📌 Morgan视觉功能临床正常值（核心标准）</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>检查项目</th><th>正常参考值</th><th>单位</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>远距隐斜</td><td>0~4Δ外隐斜</td><td>棱镜度</td></tr>
+          <tr><td>近距隐斜</td><td>0~6Δ外隐斜</td><td>棱镜度</td></tr>
+          <tr><td>AC/A比值</td><td>3~5/1</td><td>Δ/D</td></tr>
+          <tr><td>集合近点(NPC)</td><td>≤5cm</td><td>厘米</td></tr>
+          <tr><td>正融像集合(PFV)</td><td>≥15Δ</td><td>棱镜度</td></tr>
+          <tr><td>调节幅度(AMP)</td><td>18-年龄/2 ~ 25-年龄</td><td>D</td></tr>
+          <tr><td>调节灵敏度</td><td>单眼≥11cpm，双眼≥8cpm</td><td>次/分钟</td></tr>
+          <tr><td>NRA/PRA</td><td>NRA +0.75~+1.25D；PRA -1.50~-2.50D</td><td>屈光度</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>📌 单项数据异常解读</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>检查项目</th><th>结果偏低/异常</th><th>结果偏高/异常</th><th>临床意义</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>近距隐斜（马氏杆）</strong></td><td>外隐斜>6Δ</td><td>内隐斜>2Δ</td><td>外→集合不足；内→集合过度</td></tr>
+          <tr><td><strong>远距隐斜</strong></td><td>外隐斜>4Δ</td><td>内隐斜>2Δ</td><td>外→发散过强；内→发散不足</td></tr>
+          <tr><td><strong>AC/A（计算法）</strong></td><td>＜3/1（低AC/A）</td><td>＞5/1（高AC/A）</td><td>低→集合不足/发散不足；高→集合过度</td></tr>
+          <tr><td><strong>NPC</strong></td><td>—</td><td>＞10cm</td><td>集合不足核心指标</td></tr>
+          <tr><td><strong>PFV（近距融像）破裂点</strong></td><td>＜15Δ</td><td>—</td><td>集合幅度不足→集合不足</td></tr>
+          <tr><td><strong>调节幅度（AMP）</strong></td><td>低于Hofstetter最小值</td><td>极少见</td><td>调节不足的关键指标</td></tr>
+          <tr><td><strong>调节灵敏度（单眼）</strong></td><td>＜11cpm</td><td>—</td><td>调节灵敏度异常，注意卡在+还是-</td></tr>
+          <tr><td><strong>NRA/PRA</strong></td><td>NRA低（调节不足）；PRA低（集合过度或调节灵敏度差）</td><td>—</td><td>相对调节能力判断</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>数据解读综合案例</h3>
+    <div class="diag-logic">
+      <p><strong>案例1（集合不足）：</strong>12岁学生，近距隐斜8Δ外、NPC 15cm、PFV近距破裂点12Δ、AC/A=2.5/1、调节幅度正常、调节灵敏度正常</p>
+      <br>
+      <p><strong>解读步骤：</strong></p>
+      <div class="diag-step">
+        <div class="diag-num">1</div>
+        <div class="diag-content"><h4>近距外隐斜8Δ（＞正常3Δ）</h4><p>提示近距集合需求大于融合能力，有集合不足倾向</p></div>
+      </div>
+      <div class="diag-step">
+        <div class="diag-num">2</div>
+        <div class="diag-content"><h4>NPC 15cm（＞正常5cm）</h4><p>集合近点明显远移，集合不足关键阳性指征</p></div>
+      </div>
+      <div class="diag-step">
+        <div class="diag-num">3</div>
+        <div class="diag-content"><h4>PFV破裂12Δ（＜正常15Δ）</h4><p>正融像集合幅度不足</p></div>
+      </div>
+      <div class="diag-step">
+        <div class="diag-num">4</div>
+        <div class="diag-content"><h4>AC/A=2.5/1（低AC/A）</h4><td>支持集合不足诊断（低AC/A型集合不足）</div>
+      </div>
+      <p><strong>→ 诊断：集合不足（低AC/A型）</strong> | 训练方向：正融像集合训练</p>
+    </div>
+
+    <div class="diag-logic" style="margin-top:1rem;">
+      <p><strong>案例2（调节不足）：</strong>10岁学生，调节幅度8D（正常13D）、调节灵敏度6cpm、NRA+0.50D、PRA-0.75D、隐斜正常</p>
+      <br>
+      <div class="diag-step">
+        <div class="diag-num">1</div>
+        <div class="diag-content"><h4>调节幅度远低于正常值</h4><p>调节能力低下，无法满足近距离用眼需求</p></div>
+      </div>
+      <div class="diag-step">
+        <div class="diag-num">2</div>
+        <div class="diag-content"><h4>调节灵敏度、NRA/PRA均异常</h4><p>调节反应迟钝， confirm调节不足诊断</p></div>
+      </div>
+      <p><strong>→ 诊断：调节不足</strong> | 训练方向：调节幅度、调节灵敏度训练</p>
+    </div>
+
+    <h3>🧠 数据解读速记口诀</h3>
+    <p>外斜大了集合差，内斜大了集合强；AC偏低集合差，AC偏高集合强；调节低了看不清，NPC远了眼不聚。</p>
+  </div>
+
+  <!-- 诊断逻辑 -->
+  <div class="card">
+    <div class="card-title"><span class="icon">🧩</span>第三步：诊断逻辑</div>
+    <h2>先排器质性，再定功能异常</h2>
+    
+    <div class="diag-logic">
+      <div class="diag-step">
+        <div class="diag-num">1</div>
+        <div class="diag-content">
+          <h4>排除器质性眼病</h4>
+          <p>眼底检查（排除视网膜病变/视神经病变）、眼前节检查（角膜/晶体/玻璃体）、眼压（排除青光眼）。有器质性病变→转眼科医生处理，不急于视觉训练。</p>
+        </div>
+      </div>
+      <div class="diag-step">
+        <div class="diag-num">2</div>
+        <div class="diag-content">
+          <h4>确认屈光状态</h4>
+          <p>完全矫正屈光不正后，视功能异常是否持续存在？若矫正后症状消失→可能只需配镜。症状持续→功能性问题，进入训练流程。</p>
+        </div>
+      </div>
+      <div class="diag-step">
+        <div class="diag-num">3</div>
+        <div class="diag-content">
+          <h4>功能性问题诊断分层</h4>
+          <p>按"调节→集合→眼球运动→双眼视感知"顺序逐一分析，对照Morgan正常值，找出异常维度。</p>
+        </div>
+      </div>
+      <div class="diag-step">
+        <div class="diag-num">4</div>
+        <div class="diag-content">
+          <h4>确定主要诊断与次要诊断</h4>
+          <p>多个功能异常并存时，找出根本原因（如高AC/A导致调节过度+集合过度同时出现），主次排序后制定训练优先级。</p>
+        </div>
+      </div>
+    </div>
+
+    <h3>✅ 六大常见视觉功能异常诊断标准</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>诊断名称</th><th>核心诊断指标</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>集合不足</td><td>近距外隐斜大、NPC远、PFV低、AC/A低</td></tr>
+          <tr><td>集合过度</td><td>近距内隐斜、AC/A高、NPC近</td></tr>
+          <tr><td>调节不足</td><td>调节幅度低、调节灵敏度差、NRA/PRA异常</td></tr>
+          <tr><td>调节过度</td><td>PRA异常偏高、调节痉挛、近视力模糊</td></tr>
+          <tr><td>发散不足</td><td>远距内隐斜、远距融像范围低</td></tr>
+          <tr><td>发散过强</td><td>远距外隐斜大、远距负融像不足</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>⚠️ 视觉训练转诊/禁忌指征</h3>
+    <ul>
+      <li>存在未控制的青光眼、白内障、视网膜病变</li>
+      <li>急性眼部炎症、眼部术后未恢复</li>
+      <li>脑部外伤、神经系统疾病导致的视觉异常</li>
+      <li>屈光不正未完全矫正，且配镜后症状消失</li>
+    </ul>
+  </div>
+
+  <!-- 评估表模板 -->
+  <div class="card">
+    <div class="card-title"><span class="icon">📝</span>视觉问题评估表（标准模板）</div>
+    
+    <h3>📌 评估表填写规范</h3>
+    <p>1. 所有数据需客观测量，不主观填写；2. 屈光数据填写散瞳/主觉验光最终结果；3. 诊断需先标注器质性排除结果；4. 训练建议需匹配诊断结果。</p>
+    
+    <div class="form-section">
+      <h3 style="margin-top:0;">基本信息</h3>
+      <div class="form-row"><span class="form-label">姓名/年龄：</span><span class="form-field">_______________</span></div>
+      <div class="form-row"><span class="form-label">主诉：</span><span class="form-field">_______________</span></div>
+      <div class="form-row"><span class="form-label">症状出现时间：</span><span class="form-field">_______________</span></div>
+      <div class="form-row"><span class="form-label">近距用眼时间/天：</span><span class="form-field">_______________</span></div>
+      <div class="form-row"><span class="form-label">既往眼病史：</span><span class="form-field">_______________</span></div>
+      
+      <h3>检查数据</h3>
+      <div class="form-row"><span class="form-label">远视力（右/左）：</span><span class="form-field">___/___</span></div>
+      <div class="form-row"><span class="form-label">近视力（右/左）：</span><span class="form-field">___/___</span></div>
+      <div class="form-row"><span class="form-label">屈光度（右/左）：</span><span class="form-field">___/___</span></div>
+      <div class="form-row"><span class="form-label">远/近隐斜量：</span><span class="form-field">远___Δ / 近___Δ</span></div>
+      <div class="form-row"><span class="form-label">NPC（破裂/恢复）：</span><span class="form-field">___/___cm</span></div>
+      <div class="form-row"><span class="form-label">AC/A：</span><span class="form-field">___/1</span></div>
+      <div class="form-row"><span class="form-label">调节幅度（右/左）：</span><span class="form-field">___/___D</span></div>
+      <div class="form-row"><span class="form-label">调节灵敏度（单/双眼）：</span><span class="form-field">___/___cpm</span></div>
+      <div class="form-row"><span class="form-label">立体视：</span><span class="form-field">___秒弧</span></div>
+      <div class="form-row"><span class="form-label">NRA/PRA：</span><span class="form-field">___/___D</span></div>
+      
+      <h3>诊断</h3>
+      <div class="form-row"><span class="form-label">排除器质性病变：</span><span class="form-field">□ 是 □ 否</span></div>
+      <div class="form-row"><span class="form-label">主要功能诊断：</span><span class="form-field">_______________</span></div>
+      <div class="form-row"><span class="form-label">次要功能诊断：</span><span class="form-field">_______________</span></div>
+      <div class="form-row"><span class="form-label">训练适应症：</span><span class="form-field">□ 是 □ 否 □ 需转诊</span></div>
+      <div class="form-row"><span class="form-label">处理建议：</span><span class="form-field">_______________</span></div>
+    </div>
+  </div>
+
+  <!-- 实操任务 -->
+  <div class="card">
+    <div class="practice-box">
+      <h3>🛠️ 实操任务：模拟问诊练习</h3>
+      <p>三人一组（检查者/患者/观察者轮换），对以下模拟患者进行问诊，提取关键症状，完成评估表基本信息部分：</p>
+      <p><strong>模拟患者A：</strong>9岁学生，家长说"孩子看书20分钟就说眼睛酸，经常揉眼，最近语文成绩下降，阅读理解扣分多"</p>
+      <p><strong>模拟患者B：</strong>28岁办公室白领，"看电脑工作3小时后头疼，下午视力感觉模糊，闭眼休息后能缓解，已换了三副眼镜但症状没改善"</p>
+      
+      <h3>💡 参考答案提示</h3>
+      <p>患者A：主诉→视疲劳、阅读困难；判断→调节/集合功能异常；重点查NPC、调节幅度</p>
+      <p>患者B：主诉→电脑视疲劳、午后视力下降；判断→调节不持久、调节灵敏度异常</p>
+      
+      <div class="answer-area" style="min-height:100px;">记录问诊要点与初步判断……</div>
+    </div>
+  </div>
+
+  <!-- 考核 -->
+  <div class="card">
+    <div class="exam-box">
+      <h3>📝 今日考核：完成1份视觉问题评估表</h3>
+      <p>使用今日提供的评估表模板，对1名真实或模拟被检者完成完整评估，要求：</p>
+      <ul>
+        <li>✅ 完整问诊，记录主诉和症状关键词</li>
+        <li>✅ 完成所有必查项目（至少6项）并填入数据</li>
+        <li>✅ 给出初步功能诊断（先排器质性）</li>
+        <li>✅ 写出下一步训练或转诊建议</li>
+      </ul>
+      <h3>🏆 考核评分标准</h3>
+      <ul>
+        <li>问诊完整（20分）、数据准确（30分）、诊断正确（30分）、建议合理（20分）</li>
+        <li>合格线：80分，需独立完成无参考</li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <div class="course-title">📚 视觉训练30天专业培训体系｜基于《视觉训练的原理和方法》（刘陇黔主编）</div>
+  <div class="course-info">第6天 共30天｜每天1小时｜资料整理：高级验光技师闫胜君工作室</div>
+  <div class="footer-sep"></div>
+  <div class="footer-nav">
+    <a href="day05.html">← 第5天</a>
+    <a href="index.html">🏠 课程总览</a>
+    <a href="day07.html">第7天 →</a>
+  </div>
+</div>
+</body>
+</html>
