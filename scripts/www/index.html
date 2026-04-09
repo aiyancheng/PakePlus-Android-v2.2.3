@@ -1,11 +1,325 @@
+
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>PakePlus</title>
-    </head>
-    <body>
-        PakePlus
-    </body>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>视觉训练30天专业培训体系｜总导航</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Microsoft YaHei',-apple-system,BlinkMacSystemFont,sans-serif;background:#f0f4f8;color:#1d1d1f;line-height:1.7;min-height:100vh;}
+
+  /* 头部渐变背景 */
+  .hero{
+    background:linear-gradient(135deg,#1e3a5f 0%,#2d5a87 40%,#3498db 100%);
+    padding:4rem 2rem;
+    text-align:center;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero::before{
+    content:'';
+    position:absolute;
+    top:-50%;
+    left:-50%;
+    width:200%;
+    height:200%;
+    background:radial-gradient(circle,rgba(255,255,255,0.1) 0%,transparent 60%);
+    animation:shine 8s ease-in-out infinite;
+  }
+  @keyframes shine{
+    0%,100%{transform:translate(0,0);}
+    50%{transform:translate(10%,10%);}
+  }
+  .hero .badge{
+    display:inline-block;
+    background:linear-gradient(135deg,#ffd700,#ffb347);
+    color:#1e3a5f;
+    padding:.3rem 1rem;
+    border-radius:25px;
+    font-size:.8rem;
+    font-weight:600;
+    margin-bottom:1rem;
+    box-shadow:0 4px 15px rgba(255,215,0,0.4);
+  }
+  .hero h1{font-size:2.2rem;font-weight:700;margin-bottom:.8rem;color:#fff;letter-spacing:.02em;text-shadow:0 2px 10px rgba(0,0,0,0.3);}
+  .hero p{color:rgba(255,255,255,0.95);font-size:.95rem;max-width:680px;margin:0 auto;line-height:1.7;}
+  .hero .meta{display:flex;justify-content:center;gap:2rem;flex-wrap:wrap;margin-top:1.5rem;}
+  .hero .meta span{color:rgba(255,255,255,0.9);font-size:.85rem;background:rgba(255,255,255,0.15);padding:.4rem 1rem;border-radius:20px;backdrop-filter:blur(10px);}
+
+  /* 主容器 */
+  .container{max-width:1000px;margin:0 auto;padding:2.5rem 1.5rem;}
+
+  /* 阶段区块 */
+  .phase{margin-bottom:2.5rem;}
+  
+  .phase-header{margin-bottom:1.2rem;padding-bottom:.8rem;border-bottom:2px solid #e5e5ea;}
+  .phase-header h2{font-size:1.15rem;color:#1d1d1f;font-weight:700;margin:0;}
+  .phase-header p{font-size:.8rem;color:#6e6e73;margin:0;}
+
+  /* 天数卡片网格 */
+  .days{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:.8rem;}
+  .day-card{
+    display:flex;align-items:center;gap:.9rem;
+    background:#fff;
+    border-radius:12px;
+    padding:1rem 1.2rem;
+    border:1px solid #e8ecf0;
+    transition:all .3s;
+    cursor:pointer;text-decoration:none;color:inherit;
+    box-shadow:0 2px 8px rgba(0,0,0,0.04);
+  }
+  .day-card:hover{
+    border-color:#3498db;
+    transform:translateY(-3px);
+    box-shadow:0 8px 25px rgba(52,152,219,0.2);
+  }
+  .day-card.current{border-color:#e74c3c;background:linear-gradient(135deg,#fff5f5,#fef0f0);}
+  .day-num{
+    font-size:.9rem;font-weight:700;
+    width:40px;height:40px;
+    text-align:center;flex-shrink:0;
+    border-radius:10px;
+    display:flex;align-items:center;justify-content:center;
+    background:linear-gradient(135deg,#f8f9fa,#e9ecef);
+    color:#495057;
+    transition:all .3s;
+  }
+  .day-card:hover .day-num,.day-card.current .day-num{
+    background:linear-gradient(135deg,#3498db,#2980b9);
+    color:#fff;
+  }
+  .day-info{flex:1;min-width:0;}
+  .day-info .title{font-size:.9rem;font-weight:600;color:#2c3e50;}
+  .day-info .sub{font-size:.78rem;color:#7f8c8d;margin-top:.2rem;}
+
+  /* 阶段颜色 - 各阶段独特配色 */
+  .p1 .phase-header{border-bottom-color:#3498db;}
+  .p2 .phase-header{border-bottom-color:#9b59b6;}
+  .p3 .phase-header{border-bottom-color:#27ae60;}
+  .p4 .phase-header{border-bottom-color:#e67e22;}
+  .p5 .phase-header{border-bottom-color:#e74c3c;}
+
+  /* 课程总览卡片 */
+  .toc-summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;margin:1rem 0;}
+  .toc-card{
+    background:linear-gradient(145deg,#fff,#f8f9fa);
+    border-radius:16px;
+    padding:1.5rem;
+    border:1px solid #e8ecf0;
+    box-shadow:0 4px 15px rgba(0,0,0,0.05);
+    position:relative;
+    overflow:hidden;
+  }
+  .toc-card::before{
+    content:'';
+    position:absolute;
+    top:0;left:0;right:0;
+    height:3px;
+  }
+  .toc-card:nth-child(1)::before{background:linear-gradient(90deg,#3498db,#2980b9);}
+  .toc-card:nth-child(2)::before{background:linear-gradient(90deg,#9b59b6,#8e44ad);}
+  .toc-card:nth-child(3)::before{background:linear-gradient(90deg,#27ae60,#1e8449);}
+  .toc-card h4{font-size:.9rem;color:#2c3e50;font-weight:700;margin-bottom:.5rem;display:flex;align-items:center;gap:.4rem;}
+  .toc-card p{font-size:.82rem;color:#5d6d7e;margin:0;line-height:1.6;}
+
+  /* 进度指示器 */
+  .progress-bar{
+    background:linear-gradient(90deg,#3498db,#2ecc71);
+    height:4px;
+    border-radius:2px;
+    margin-top:.5rem;
+  }
+  .progress-text{font-size:.75rem;color:#7f8c8d;margin-top:.3rem;}
+
+  /* 底部区域 */
+  .footer-section{
+    background:linear-gradient(135deg,#1e3a5f 0%,#0f2744 100%);
+    padding:2.5rem;
+    margin-top:2rem;
+    border-radius:16px 16px 0 0;
+  }
+  .footer-section h3{color:#fff;font-size:1rem;margin-bottom:1rem;text-align:center;}
+  .footer-links{display:flex;justify-content:center;gap:2rem;flex-wrap:wrap;margin-bottom:1.5rem;}
+  .footer-links a{color:rgba(255,255,255,0.8);text-decoration:none;font-size:.85rem;transition:color .2s;}
+  .footer-links a:hover{color:#ffd700;}
+  .footer-bar{text-align:center;color:rgba(255,255,255,0.6);font-size:.8rem;padding-top:1rem;border-top:1px solid rgba(255,255,255,0.1);}
+
+  /* 图标装饰 */
+  .icon-eye{
+    display:inline-block;
+    width:50px;height:50px;
+    background:linear-gradient(135deg,#3498db,#2980b9);
+    border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    margin-bottom:1rem;
+    box-shadow:0 6px 20px rgba(52,152,219,0.4);
+  }
+  .icon-eye::after{
+    content:'👁';
+    font-size:1.5rem;
+  }
+
+  /* 响应式 */
+  @media(max-width:600px){
+    .hero{padding:2.5rem 1rem;}
+    .hero h1{font-size:1.5rem;}
+    .hero .meta{gap:1rem;}
+    .days{grid-template-columns:1fr;}
+    .toc-summary{grid-template-columns:1fr;}
+    .footer-section{padding:1.5rem;}
+    .footer-links{gap:1rem;}
+  }
+
+  /* 悬停动画 */
+  @keyframes float{
+    0%,100%{transform:translateY(0);}
+    50%{transform:translateY(-5px);}
+  }
+  .icon-eye{animation:float 3s ease-in-out infinite;}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>30天视觉训练专项培训</h1>
+  <p>基于《视觉训练的原理和方法》（刘陇黔主编），融合2025最新临床指南与AR/VR技术</p>
+  <p>按「基础筑基→病理原理→实操技能→方案定制→临床落地」阶梯式设计</p>
+</div>
+
+<div class="container">
+
+  <!-- 课程总览 -->
+  <div class="phase p1" style="margin-bottom:2.5rem;">
+    <div class="phase-header">
+      <div>
+        <h2>课程目标总览</h2>
+        <p>掌握7大类视觉问题训练原理，精通诊室+家庭全流程，独立开展视觉训练服务</p>
+      </div>
+    </div>
+    <div class="toc-summary">
+      <div class="toc-card">
+        <h4>🎯 培训总目标</h4>
+        <p>①掌握生理基础/分类/适应症<br>②精通7大类问题训练<br>③熟练全流程设备操作<br>④具备方案定制/评估能力<br>⑤掌握授课沟通技巧</p>
+      </div>
+      <div class="toc-card">
+        <h4>📚 配套资料</h4>
+        <p>教材：视觉训练的原理和方法<br>工具：视功能正常值表/设备手册<br>案例：7大类典型案例库<br>技术：2025 AR/VR应用指南</p>
+      </div>
+      <div class="toc-card">
+        <h4>👥 适用对象</h4>
+        <p>眼镜门店验光师<br>眼科医生<br>培训师<br>视光专业学生</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 第一阶段 -->
+  <div class="phase p1">
+    <div class="phase-header">
+      <div>
+        <h2>第一阶段｜基础筑基期</h2>
+        <p>第1-7天 · 筑牢理论根基</p>
+      </div>
+    </div>
+    <div class="days">
+      <a href="day01.html" class="day-card"><div class="day-num">D1</div><div class="day-info"><div class="title">视觉训练核心定义与行业定位</div><div class="sub">厘清本质，区分眼保健操/视力训练</div></div></a>
+      <a href="day02.html" class="day-card"><div class="day-num">D2</div><div class="day-info"><div class="title">视觉训练生理/神经基础</div><div class="sub">神经可塑性/LTP/LTD/视觉通路</div></div></a>
+      <a href="day03.html" class="day-card"><div class="day-num">D3</div><div class="day-info"><div class="title">三大分类（正位/行为/感知）</div><div class="sub">Orthoptic/Behavioral/Perceptual</div></div></a>
+      <a href="day04.html" class="day-card"><div class="day-num">D4</div><div class="day-info"><div class="title">临床应用全范畴</div><div class="sub">8大应用场景/年龄适配</div></div></a>
+      <a href="day05.html" class="day-card"><div class="day-num">D5</div><div class="day-info"><div class="title">核心检查基础</div><div class="sub">Morgan正常值/视功能标准化检查</div></div></a>
+      <a href="day06.html" class="day-card"><div class="day-num">D6</div><div class="day-info"><div class="title">评估流程（问诊→检查→诊断）</div><div class="sub">数据解读/诊断逻辑闭环</div></div></a>
+      <a href="day07.html" class="day-card"><div class="day-num">D7</div><div class="day-info"><div class="title">适应症/禁忌与风险防控</div><div class="sub">遮盖性弱视/训练过度/接诊边界</div></div></a>
+    </div>
+  </div>
+
+  <!-- 第二阶段 -->
+  <div class="phase p2">
+    <div class="phase-header">
+      <div>
+        <h2>第二阶段｜核心病理与训练原理期</h2>
+        <p>第8-18天 · 精通7大类问题训练逻辑</p>
+      </div>
+    </div>
+    <div class="days">
+      <a href="day08.html" class="day-card"><div class="day-num">D8</div><div class="day-info"><div class="title">弱视病理与诊断</div><div class="sub">4类分型/2011专家共识/神经机制</div></div></a>
+      <a href="day09.html" class="day-card"><div class="day-num">D9</div><div class="day-info"><div class="title">弱视基础治疗</div><div class="sub">屈光矫正/遮盖疗法/压抑疗法</div></div></a>
+      <a href="day10.html" class="day-card"><div class="day-num">D10</div><div class="day-info"><div class="title">弱视专项训练</div><div class="sub">后像/红光/海丁格刷/知觉训练</div></div></a>
+      <a href="day11.html" class="day-card"><div class="day-num">D11</div><div class="day-info"><div class="title">斜视病理与双眼视异常</div><div class="sub">分类/4大异常/检查方法</div></div></a>
+      <a href="day12.html" class="day-card"><div class="day-num">D12</div><div class="day-info"><div class="title">内斜视视觉训练</div><div class="sub">6阶段标准化流程</div></div></a>
+      <a href="day13.html" class="day-card"><div class="day-num">D13</div><div class="day-info"><div class="title">外斜视非手术训练</div><div class="sub">4种分类/9大步训练步骤</div></div></a>
+      <a href="day14.html" class="day-card"><div class="day-num">D14</div><div class="day-info"><div class="title">调节功能异常分类</div><div class="sub">5类/Hofstetter公式/诊断指标</div></div></a>
+      <a href="day15.html" class="day-card"><div class="day-num">D15</div><div class="day-info"><div class="title">调节功能训练方法</div><div class="sub">推进/反转拍/Hart表</div></div></a>
+      <a href="day16.html" class="day-card"><div class="day-num">D16</div><div class="day-info"><div class="title">集合不足/发散不足</div><div class="sub">CITT研究/12次诊室训练计划</div></div></a>
+      <a href="day17.html" class="day-card"><div class="day-num">D17</div><div class="day-info"><div class="title">集合过度/基本型隐斜</div><div class="sub">8大分类/高AC/A型方案</div></div></a>
+      <a href="day18.html" class="day-card"><div class="day-num">D18</div><div class="day-info"><div class="title">眼球运动异常训练</div><div class="sub">注视/扫视/追随/18大原则</div></div></a>
+    </div>
+  </div>
+
+  <!-- 第三阶段 -->
+  <div class="phase p3">
+    <div class="phase-header">
+      <div>
+        <h2>第三阶段｜实操技能期</h2>
+        <p>第19-24天 · 诊室+家庭训练全落地</p>
+      </div>
+    </div>
+    <div class="days">
+      <a href="day19.html" class="day-card"><div class="day-num">D19</div><div class="day-info"><div class="title">低视力康复基础</div><div class="sub">WHO分级/检查/助视器选配</div></div></a>
+      <a href="day20.html" class="day-card"><div class="day-num">D20</div><div class="day-info"><div class="title">低视力视觉康复训练</div><div class="sub">放大原理/等效屈光度/残余视力</div></div></a>
+      <a href="day21.html" class="day-card"><div class="day-num">D21</div><div class="day-info"><div class="title">获得性脑损伤视觉康复</div><div class="sub">神经视光学/4大异常/代偿训练</div></div></a>
+      <a href="day22.html" class="day-card"><div class="day-num">D22</div><div class="day-info"><div class="title">核心方法实操</div><div class="sub">脱抑制/融像/立体视全流程</div></div></a>
+      <a href="day23.html" class="day-card"><div class="day-num">D23</div><div class="day-info"><div class="title">诊室训练设备使用</div><div class="sub">同视机/AR/VR/5种设备操作</div></div></a>
+      <a href="day24.html" class="day-card"><div class="day-num">D24</div><div class="day-info"><div class="title">家庭训练方案设计</div><div class="sub">30天方案模板/依从性管理</div></div></a>
+    </div>
+  </div>
+
+  <!-- 第四阶段 -->
+  <div class="phase p4">
+    <div class="phase-header">
+      <div>
+        <h2>第四阶段｜方案定制与评估期</h2>
+        <p>第25-28天 · 独立出具客户解决方案</p>
+      </div>
+    </div>
+    <div class="days">
+      <a href="day25.html" class="day-card"><div class="day-num">D25</div><div class="day-info"><div class="title">个性化方案定制逻辑</div><div class="sub">症状→检查→方案/12-24次疗程</div></div></a>
+      <a href="day26.html" class="day-card"><div class="day-num">D26</div><div class="day-info"><div class="title">复查与方案调整</div><div class="sub">8大评估指标/动态调整</div></div></a>
+      <a href="day27.html" class="day-card"><div class="day-num">D27</div><div class="day-info"><div class="title">依从性管理与沟通</div><div class="sub">儿童家长/成人/拒绝处理话术</div></div></a>
+      <a href="day28.html" class="day-card"><div class="day-num">D28</div><div class="day-info"><div class="title">特殊人群视觉训练</div><div class="sub">儿童/成人/老年/学习障碍</div></div></a>
+    </div>
+  </div>
+
+  <!-- 第五阶段 -->
+  <div class="phase p5">
+    <div class="phase-header">
+      <div>
+        <h2>第五阶段｜综合应用与结业</h2>
+        <p>第29-30天 · 临床落地+培训授课</p>
+      </div>
+    </div>
+    <div class="days">
+      <a href="day29.html" class="day-card"><div class="day-num">D29</div><div class="day-info"><div class="title">临床案例会诊</div><div class="sub">弱视+斜视+异常视网膜对应；调节+集合+视疲劳</div></div></a>
+      <a href="day30.html" class="day-card"><div class="day-num">D30</div><div class="day-info"><div class="title">体系复盘+授课技巧+临床落地</div><div class="sub">30天总结/培训师授课/门店运营/结业考试</div></div></a>
+    </div>
+  </div>
+
+</div>
+
+<!-- 底部 -->
+<div class="footer-section">
+  <h3>📚 视觉训练30天专业培训体系</h3>
+  <div class="footer-links">
+    <a href="day01.html">第1天</a>
+    <a href="day08.html">第8天</a>
+    <a href="day19.html">第19天</a>
+    <a href="day25.html">第25天</a>
+    <a href="day30.html">第30天</a>
+  </div>
+  <div class="footer-bar">
+    <p>基于《视觉训练的原理和方法》（刘陇黔主编）</p>
+    <p style="margin-top:.3rem;">每天1小时 · 资料整理：高级验光技师闫胜君工作室</p>
+  </div>
+</div>
+
+</body>
 </html>
