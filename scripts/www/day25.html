@@ -1,0 +1,267 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第25天 | 个性化训练方案定制逻辑</title>
+<style>
+  :root{--primary:#0f766e;--secondary:#115e59;--accent:#f59e0b;--success:#10b981;--bg:#f0fdfa;--card:#fff;--text:#1e293b;--muted:#64748b;--border:#e2e8f0;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Microsoft YaHei',Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+  .header{background:linear-gradient(135deg,#0f766e,#134e4a);color:#fff;padding:2rem;text-align:center;}
+  .header .phase{font-size:.85rem;background:rgba(255,255,255,.2);border-radius:20px;padding:.2rem .8rem;display:inline-block;margin-bottom:.5rem;}
+  .header h1{font-size:1.8rem;margin-bottom:.3rem;}
+  .header p{opacity:.9;font-size:.95rem;}
+  .nav-bar{background:#fff;padding:.8rem 1.5rem;display:flex;align-items:center;justify-content:space-between;border-bottom:2px solid var(--border);flex-wrap:wrap;gap:.5rem;}
+  .nav-bar a{color:var(--primary);text-decoration:none;font-size:.9rem;padding:.3rem .7rem;border-radius:6px;}
+  .container{max-width:960px;margin:0 auto;padding:1.5rem 1.5rem 3rem;}
+  .card{background:var(--card);border-radius:12px;padding:1.5rem;margin-bottom:1.5rem;box-shadow:0 2px 8px rgba(0,0,0,.06);}
+  .card-title{font-size:1.1rem;font-weight:700;color:var(--primary);margin-bottom:1rem;display:flex;align-items:center;gap:.5rem;}
+  .card-title .icon{width:28px;height:28px;background:var(--primary);border-radius:6px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:.85rem;}
+  .target-box{background:linear-gradient(135deg,#f0fdfa,#ccfbf1);border-radius:8px;padding:1rem 1.2rem;margin-bottom:1.5rem;}
+  .target-box h3{color:var(--primary);font-size:.95rem;margin-bottom:.4rem;}
+  h2{font-size:1.2rem;color:var(--secondary);margin-bottom:1rem;padding-bottom:.4rem;border-bottom:2px solid var(--border);}
+  h3{font-size:1rem;color:var(--text);margin:1rem 0 .5rem;}
+  p{margin-bottom:.7rem;font-size:.95rem;}
+  ul,ol{padding-left:1.4rem;margin-bottom:.7rem;}
+  li{margin-bottom:.35rem;font-size:.95rem;}
+  .highlight{background:#ccfbf1;border-radius:4px;padding:.1rem .3rem;color:#134e4a;}
+  .table-wrap{overflow-x:auto;}
+  table{width:100%;border-collapse:collapse;font-size:.9rem;}
+  th{background:var(--primary);color:#fff;padding:.6rem .8rem;text-align:left;}
+  td{padding:.55rem .8rem;border-bottom:1px solid var(--border);}
+  tr:nth-child(even) td{background:#f8fafc;}
+  .flow-box{background:#ccfbf1;border-radius:10px;padding:1.2rem;margin:.8rem 0;border:2px solid #0f766e;}
+  .case-box{background:#d1fae5;border-radius:10px;padding:1.2rem;margin:.8rem 0;border:2px solid #059669;}
+  .case-box h4{color:#047857;margin-bottom:.5rem;}
+  .practice-box{background:linear-gradient(135deg,#f0fdf4,#dcfce7);border-radius:8px;padding:1.2rem;}
+  .practice-box h3{color:var(--success);margin:0 0 .6rem;}
+  .exam-box{background:linear-gradient(135deg,#fff7ed,#ffedd5);border-radius:8px;padding:1.2rem;}
+  .exam-box h3{color:#d97706;margin:0 0 .6rem;}
+  .answer-area{background:#f8fafc;border:2px dashed var(--border);border-radius:8px;padding:1rem;min-height:60px;margin:.5rem 0;color:var(--muted);font-size:.9rem;}
+  .footer{text-align:center;padding:2rem;color:#fff;font-size:.85rem;margin-top:2rem;background:linear-gradient(135deg,#1e3a5f,#0f172a);border-radius:16px 16px 0 0;}
+  .footer .course-title{font-size:1rem;font-weight:600;margin-bottom:.3rem;}
+  .footer .course-info{opacity:.85;font-size:.85rem;}
+  .footer-sep{border-top:1px solid rgba(255,255,255,.2);margin:1.5rem 0;}
+  .footer-nav{display:flex;justify-content:center;gap:1rem;margin-top:1rem;}
+  .footer-nav a{color:#fff;opacity:.8;text-decoration:none;font-size:.85rem;padding:.4rem 1rem;background:rgba(255,255,255,.1);border-radius:6px;transition:all .2s;}
+  .footer-nav a:hover{opacity:1;background:rgba(255,255,255,.2);}
+  @media(max-width:600px){.header h1{font-size:1.4rem;}}
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="phase">📚 第四阶段｜方案定制与评估期（第25-28天）</div>
+  <h1>第 25 天｜个性化训练方案定制逻辑</h1>
+  <p>从症状到方案——「症状-检查-方案」定制思维</p>
+</div>
+<div class="nav-bar">
+  <a href="day24.html">← 第24天</a>
+  <a href="index.html">🏠 课程总览</a>
+  <a href="day26.html">第26天 →</a>
+</div>
+<div class="container">
+  <div class="target-box">
+    <h3>🎯 今日学习目标</h3>
+    <p>① 掌握个性化训练方案的5大定制依据；② 建立「症状-检查-方案」定制思维；③ 了解进阶逻辑（基础→高阶、单眼→双眼）；④ 能为「10岁调节不足+集合不足」定制完整方案。</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">🔧</span>训练方案定制5大依据</div>
+    <h2>个性化——不是一套方案打天下</h2>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>依据</th><th>内容</th><th>临床意义</th></tr></thead>
+        <tbody>
+          <tr><td><strong>1. 年龄</strong></td><td>儿童/成人/老年</td><td>决定训练强度、工具选择、依从性策略</td></tr>
+          <tr><td><strong>2. 症状</strong></td><td>视疲劳/复视/阅读困难/立体视差</td><td>确定主要训练目标</td></tr>
+          <tr><td><strong>3. 检查数据</strong></td><td>调节/集合/眼球运动/立体视指标</td><td>量化异常程度，匹配训练难度</td></tr>
+          <tr><td><strong>4. 病因</strong></td><td>原发/继发问题</td><td>先治原发，再处理继发</td></tr>
+          <tr><td><strong>5. 依从性</strong></td><td>配合度/时间/经济因素</td><td>调整训练频次和工具</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">📈</span>进阶逻辑——先基础后高阶</div>
+    <h2>训练不是越难越好——循序渐进是关键</h2>
+    <div class="flow-box">
+      <p style="font-weight:700;color:#115e59;margin-bottom:.5rem;">进阶路线图：</p>
+      <div style="display:flex;flex-wrap:wrap;gap:.4rem;align-items:center;margin-bottom:.8rem;">
+        <span style="background:#0f766e;color:#fff;padding:.2rem .6rem;border-radius:5px;font-size:.85rem;">单眼基础训练</span>
+        <span style="color:#0f766e;font-weight:700;">→</span>
+        <span style="background:#0f766e;color:#fff;padding:.2rem .6rem;border-radius:5px;font-size:.85rem;">双眼基础训练</span>
+        <span style="color:#0f766e;font-weight:700;">→</span>
+        <span style="background:#0f766e;color:#fff;padding:.2rem .6rem;border-radius:5px;font-size:.85rem;">功能整合训练</span>
+        <span style="color:#0f766e;font-weight:700;">→</span>
+        <span style="background:#0f766e;color:#fff;padding:.2rem .6rem;border-radius:5px;font-size:.85rem;">泛化训练</span>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:.4rem;align-items:center;">
+        <span style="background:#059669;color:#fff;padding:.2rem .6rem;border-radius:5px;font-size:.85rem;">幅度训练</span>
+        <span style="color:#059669;font-weight:700;">→</span>
+        <span style="background:#059669;color:#fff;padding:.2rem .6rem;border-radius:5px;font-size:.85rem;">灵敏度训练</span>
+        <span style="color:#059669;font-weight:700;">→</span>
+        <span style="background:#059669;color:#fff;padding:.2rem .6rem;border-radius:5px;font-size:.85rem;">持久性训练</span>
+        <span style="color:#059669;font-weight:700;">→</span>
+        <span style="background:#059669;color:#fff;padding:.2rem .6rem;border-radius:5px;font-size:.85rem;">生活泛化</span>
+      </div>
+    </div>
+    <h3>疗程设计原则</h3>
+    <ul>
+      <li><strong>标准疗程：</strong>12-24次诊室训练 + 家庭巩固</li>
+      <li><strong>阶段划分：</strong>每4-8次为一个评估节点</li>
+      <li><strong>第一阶段（1-4次）：</strong>基础建立——消除抑制，建立意识</li>
+      <li><strong>第二阶段（5-12次）：</strong>能力提升——幅度、灵敏度、融像范围</li>
+      <li><strong>第三阶段（13-24次）：</strong>巩固维持——泛化到日常生活</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="case-box">
+      <h4>📋 实战案例：10岁调节不足+集合不足</h4>
+      <p><strong>检查数据：</strong>AMP=8D（Hofstetter最小值10D↓），NRA=+1.50D，AF=7cpm；近距外隐斜6Δ，NPC=11cm，AC/A=3.5</p>
+      <p><strong>诊断：</strong>①调节不足 ②集合不足（低AC/A型）</p>
+      <p><strong>方案制定：</strong></p>
+      <ol>
+        <li><strong>优先级：</strong>先调节（基础）→后集合（功能整合）</li>
+        <li><strong>第一阶段（1-4次）：</strong>推进训练+反转拍（单眼）→恢复调节幅度</li>
+        <li><strong>第二阶段（5-8次）：</strong>双眼反转拍+聚散球→调节-集合协调</li>
+        <li><strong>第三阶段（9-12次）：</strong>Hart字母表+裂隙尺BO→扫视+融像泛化</li>
+        <li><strong>家庭配合：</strong>反转拍±2.00D 7min/天 + 聚散球10min/天</li>
+        <li><strong>复查：</strong>每4次评估，12次后综合评估</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="practice-box">
+      <h3>🛠️ 实操任务</h3>
+      <p>为以下案例制定完整个性化训练方案（必须包含：诊断、训练优先级、阶段划分、工具选择、复查计划）：</p>
+      <p><strong>案例：</strong>15岁男生，主诉阅读1小时就头痛。检查：AMP=7D（N正常10D↓），NRA=+1.75D，PRA=-1.75D，单眼AF=9cpm；近距外隐斜8Δ，NPC=10cm，AC/A=2.8。</p>
+      <div class="answer-area">参考：诊断：①调节不足 ②集合不足。优先级：调节→集合。方案：推进训练+单眼反转拍（1-4次）→双眼反转拍+聚散球（5-8次）→裂隙尺BO+Hart字母表（9-12次）</div>
+    </div>
+  </div>
+
+
+
+  <!-- 👇 以下为统一样式+丰富内容后的模块 -->
+  <div class="card">
+    <div class="card-title"><span class="icon">📌</span>方案微调策略</div>
+    <h2>动态调整原则：根据训练进度实时优化</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>训练状态</th>
+            <th>核心表现</th>
+            <th>微调方案</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>进步过快</strong></td>
+            <td>指标快速达标，症状完全消失</td>
+            <td>降低训练强度，延长维持训练，增加生活泛化练习</td>
+          </tr>
+          <tr>
+            <td><strong>进步停滞</strong></td>
+            <td>连续2-4次训练无改善，指标无变化</td>
+            <td>更换训练工具，提升训练频次，增加辅助训练项目</td>
+          </tr>
+          <tr>
+            <td><strong>训练不适</strong></td>
+            <td>训练后头痛、眼胀、复视加重</td>
+            <td>立即降低难度，缩短训练时长，暂停双眼训练，恢复单眼基础</td>
+          </tr>
+          <tr>
+            <td><strong>依从性差</strong></td>
+            <td>无法坚持家庭训练，配合度低</td>
+            <td>简化训练流程，选用趣味工具，制定短周期、高频次计划</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">📋</span>方案调整案例</div>
+    <h2>临床实战：停滞/不适/快速进步调整示范</h2>
+    
+    <div class="case-box">
+      <h4>案例1：集合功能训练中期进步停滞</h4>
+      <p><strong>基础信息：</strong>12岁集合不足患者，第8次训练后NPC从8cm降至6cm后连续3次无变化</p>
+      <p><strong>原方案：</strong>聚散球+裂隙尺常规训练</p>
+      <p><strong>调整方案：</strong>每周训练频次从1次提升至2次，增加聚散球快速聚散练习，家庭训练增加笔尖训练</p>
+      <p><strong>训练结果：</strong>第12次训练后NPC恢复至5cm正常范围，症状明显改善</p>
+    </div>
+
+    <div class="case-box">
+      <h4>案例2：调节训练后出现眼部不适</h4>
+      <p><strong>基础信息：</strong>16岁调节不足，使用±2.00D反转拍训练后出现眼胀、头痛</p>
+      <p><strong>调整方案：</strong>更换为±1.50D低强度反转拍，单次训练时长从10分钟缩短至5分钟</p>
+      <p><strong>训练结果：</strong>不适症状消失，训练依从性提升，2周后恢复正常强度</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">👥</span>特殊人群方案调整</div>
+    <h2>针对不同人群的个性化适配方案</h2>
+    
+    <div class="flow-box">
+      <h3>👶 儿童人群（≤10岁）</h3>
+      <ul>
+        <li>核心原则：趣味性优先，家长全程陪同监督</li>
+        <li>训练工具：卡通视觉训练卡、动画式训练程序、玩具化聚散球</li>
+        <li>时长设置：单次训练15-20分钟，每日1-2次，避免疲劳</li>
+        <li>强度控制：低强度起步，以建立习惯和配合度为主</li>
+      </ul>
+    </div>
+
+    <div class="flow-box">
+      <h3>👨‍🎓 青少年人群（11-18岁）</h3>
+      <ul>
+        <li>核心原则：学业与训练兼顾，强化家庭自主训练</li>
+        <li>训练工具：反转拍、Hart字母表、裂隙尺，适配碎片化时间</li>
+        <li>时长设置：单次20-25分钟，每日1次，周末可增加诊室训练</li>
+        <li>重点方向：调节灵敏度、双眼协调、阅读视疲劳改善</li>
+      </ul>
+    </div>
+
+    <div class="flow-box">
+      <h3>👨‍💻 成人人群（≥18岁）</h3>
+      <ul>
+        <li>核心原则：自主训练为主，数字化工具辅助</li>
+        <li>训练工具：电脑/手机视觉训练程序、便携反转拍、远近聚焦训练</li>
+        <li>时长设置：利用工作间隙训练，每次20分钟，每周5-6天</li>
+        <li>重点方向：视疲劳缓解、调节持久度、双眼视功能稳定</li>
+      </ul>
+    </div>
+  </div>
+  <div class="card">
+    <div class="exam-box">
+      <h3>📝 今日考核</h3>
+      <ol>
+        <li>训练方案定制的5大依据是什么？</li>
+        <li>为什么调节不足合并集合不足时，要先训练调节？</li>
+        <li>标准疗程（12-24次）如何划分阶段？每个阶段的核心目标是什么？</li>
+        <li>独立完成1份完整个性化训练方案（使用案例或自选案例）。</li>
+      </ol>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <div class="course-title">📚 视觉训练30天专业培训体系｜基于《视觉训练的原理和方法》（刘陇黔主编）</div>
+  <div class="course-info">第25天 共30天｜每天1小时｜资料整理：高级验光技师闫胜君工作室</div>
+  <div class="footer-sep"></div>
+  <div class="footer-nav">
+    <a href="day24.html">← 第24天</a>
+    <a href="index.html">🏠 课程总览</a>
+    <a href="day26.html">第26天 →</a>
+  </div>
+</div>
+</body>
+</html>
