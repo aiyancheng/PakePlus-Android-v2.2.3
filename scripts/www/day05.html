@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第5天 | 视觉训练核心检查基础</title>
+<style>
+  :root{--primary:#dc2626;--secondary:#b91c1c;--accent:#f59e0b;--success:#10b981;--bg:#fef2f2;--card:#fff;--text:#1e293b;--muted:#64748b;--border:#e2e8f0;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Microsoft YaHei',-apple-system,BlinkMacSystemFont,sans-serif;background:var(--bg);color:var(--text);line-height:1.8;}
+  .header{background:linear-gradient(135deg,#dc2626,#b91c1c);color:#fff;padding:2.5rem 2rem;text-align:center;}
+  .header .phase{font-size:.85rem;background:rgba(255,255,255,.2);border-radius:20px;padding:.2rem .8rem;display:inline-block;margin-bottom:.5rem;}
+  .header h1{font-size:2rem;margin-bottom:.3rem;}
+  .header p{opacity:.9;font-size:.95rem;}
+  .nav-bar{background:#fff;padding:.8rem 1.5rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);flex-wrap:wrap;gap:.5rem;}
+  .nav-bar a{color:var(--primary);text-decoration:none;font-size:.9rem;padding:.3rem .7rem;border-radius:6px;transition:background .2s;}
+  .nav-bar a:hover{background:#fef2f2;}
+  .container{max-width:1000px;margin:0 auto;padding:2rem 1.5rem;}
+  .card{background:var(--card);border-radius:16px;padding:1.8rem;margin-bottom:1.8rem;box-shadow:0 2px 12px rgba(0,0,0,.04);}
+  .card-title{font-size:1.15rem;font-weight:700;color:var(--primary);margin-bottom:1.2rem;display:flex;align-items:center;gap:.6rem;}
+  .card-title .icon{width:32px;height:32px;background:var(--primary);border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:1rem;}
+  .target-box{background:linear-gradient(135deg,#fef2f2,#fee2e2);border-radius:12px;padding:1.2rem 1.5rem;margin-bottom:1.8rem;}
+  .target-box h3{color:var(--primary);font-size:1rem;margin-bottom:.5rem;}
+  h2{font-size:1.3rem;color:var(--secondary);margin-bottom:1.2rem;padding-bottom:.5rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:.5rem;}
+  h2 .emoji{font-size:1.4rem;}
+  h3{font-size:1.05rem;color:var(--text);margin:1.2rem 0 .6rem;font-weight:600;}
+  p{margin-bottom:.8rem;font-size:.95rem;}
+  ul,ol{padding-left:1.5rem;margin-bottom:.8rem;}
+  li{margin-bottom:.4rem;font-size:.95rem;}
+  .highlight{background:#fee2e2;border-radius:4px;padding:.1rem .3rem;color:#991b1b;font-weight:500;}
+  .table-wrap{overflow-x:auto;margin:1rem 0;}
+  table{width:100%;border-collapse:collapse;font-size:.9rem;}
+  th{background:var(--primary);color:#fff;padding:.7rem 1rem;text-align:left;font-weight:600;}
+  td{padding:.6rem 1rem;border-bottom:1px solid var(--border);}
+  tr:nth-child(even) td{background:#f8fafc;}
+  .exam-card{background:#fef2f2;border-radius:12px;padding:1.2rem;margin:.8rem 0;border:2px solid #fecaca;}
+  .exam-card h4{color:#dc2626;font-size:.95rem;margin-bottom:.5rem;}
+  .exam-card p{font-size:.9rem;margin-bottom:.3rem;}
+  .normal-value{background:#dcfce7;border-radius:10px;padding:1rem;margin:.8rem 0;border:1px solid #86efac;}
+  .normal-value h4{color:#15803d;font-size:.9rem;margin-bottom:.5rem;}
+  .practice-box{background:linear-gradient(135deg,#f0fdf4,#dcfce7);border-radius:12px;padding:1.3rem;}
+  .practice-box h3{color:#15803d;margin:0 0 .8rem;font-size:1rem;}
+  .exam-box{background:linear-gradient(135deg,#fff7ed,#ffedd5);border-radius:12px;padding:1.3rem;}
+  .exam-box h3{color:#c2410c;margin:0 0 .8rem;font-size:1rem;}
+  .case-study{background:#f0fdf4;border-radius:12px;padding:1.2rem;margin:1rem 0;border:1px solid #a7f3d0;}
+  .case-study h4{color:#15803d;font-size:.95rem;margin-bottom:.6rem;}
+  .case-study p{font-size:.9rem;margin-bottom:.4rem;}
+  .answer-area{background:#f8fafc;border:2px dashed var(--border);border-radius:10px;padding:1rem;min-height:100px;margin:.8rem 0;color:var(--muted);font-size:.9rem;}
+  .flow-box{background:#f8fafc;border-radius:12px;padding:1.2rem;margin:1rem 0;}
+  .flow-row{display:flex;align-items:center;flex-wrap:wrap;gap:.4rem;margin:.5rem 0;}
+  .flow-step{background:var(--primary);color:#fff;border-radius:6px;padding:.35rem .7rem;font-size:.82rem;font-weight:600;}
+  .flow-arrow{color:var(--primary);font-weight:700;}
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin:1rem 0;}
+  @media(max-width:700px){.two-col{grid-template-columns:1fr;}.header h1{font-size:1.5rem;}}
+  .footer{text-align:center;padding:2rem;color:#fff;font-size:.85rem;margin-top:2rem;background:linear-gradient(135deg,#1e3a5f,#0f172a);border-radius:16px 16px 0 0;}
+  .footer .course-title{font-size:1rem;font-weight:600;margin-bottom:.3rem;}
+  .footer .course-info{opacity:.85;font-size:.85rem;}
+  .footer-sep{border-top:1px solid rgba(255,255,255,.2);margin:1.5rem 0;}
+  .footer-nav{display:flex;justify-content:center;gap:1rem;margin-top:1rem;}
+  .footer-nav a{color:#fff;opacity:.8;text-decoration:none;font-size:.85rem;padding:.4rem 1rem;background:rgba(255,255,255,.1);border-radius:6px;transition:all .2s;}
+  .footer-nav a:hover{opacity:1;background:rgba(255,255,255,.2);}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="phase">📚 第一阶段｜基础筑基期（第1-7天）</div>
+  <h1>第 5 天｜视觉训练核心检查基础</h1>
+  <p>掌握视功能检查标准——Morgan正常值/视功能标准化检查</p>
+</div>
+
+<div class="nav-bar">
+  <a href="day04.html">← 第4天</a>
+  <a href="index.html">🏠 课程总览</a>
+  <a href="day06.html">第6天 →</a>
+</div>
+
+<div class="container">
+
+  <div class="target-box">
+    <h3>🎯 今日学习目标</h3>
+    <p>① 掌握视力检查、屈光检查、眼位检查的标准方法；② 熟记Morgan双眼视功能正常值；③ 掌握调节功能检查（幅度/灵敏度/反应）；④ 掌握集合功能检查（集合近点/融像范围）；⑤ 掌握眼球运动检查方法；⑥ 能模拟视功能检查标准化流程。</p>
+  </div>
+
+  <!-- 模块1：基础检查 -->
+  <div class="card">
+    <div class="card-title"><span class="icon">👁️</span>基础检查：视力和眼位</div>
+    <h2><span class="emoji">📋</span> 视功能检查的起点</h2>
+    
+    
+    
+    <h3>1.1 视力检查</h3>
+    <div class="two-col">
+      <div>
+        <ul>
+          <li><strong>远视力：</strong>5米距离，Snellen视力表或LogMAR表</li>
+          <li><strong>近视力：</strong>40cm，近用视力表（如Jaeger表）</li>
+          <li><strong>矫正视力：</strong>屈光矫正后测量的最佳视力</li>
+          <li><strong>裸眼视力：</strong>未矫正状态下的视力</li>
+        </ul>
+      </div>
+      <div>
+        <div class="exam-card">
+          <h4>⚠️ 记录规范</h4>
+          <p>右眼 OD / 左眼 OS / 双眼 OU</p>
+          <p>如：OD 1.0 / OS 0.8 / OU 1.0</p>
+          <p>或使用小数：0.1-1.5</p>
+          <p>或使用LogMAR：0.0 ~ 1.0</p>
+        </div>
+      </div>
+    </div>
+
+    <h3>1.2 眼位检查</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>检查方法</th><th>目的</th><th>操作要点</th><th>正常值/判断</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>角膜映光法</strong></td><td>初步判断眼位偏斜</td><td>33cm处手电照射，观察角膜反光点位置</td><td>反光点在瞳孔中央</td></tr>
+          <tr><td><strong>遮盖-去遮盖</strong></td><td>定性判断显斜/隐斜</td><td>遮盖一眼，去遮盖观察</td><td>去遮盖眼无移动为正位</td></tr>
+          <tr><td><strong>交替遮盖</strong><td>定量隐斜方向</td><td>快速交替遮盖两眼</td><td>观察眼移动方向判断内/外/上/下隐斜</td></tr>
+          <tr><td><strong>三棱镜+遮盖</strong></td><td>定量测量斜视角度</td><td>棱镜中和眼位偏斜</td><td>单位：Δ（三棱镜度）</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 模块2：Morgan正常值 -->
+  <div class="card">
+    <div class="card-title"><span class="icon">📊</span>Morgan双眼视功能正常值</div>
+    <h2><span class="emoji">🎯</span> 临床诊断的金标准参考</h2>
+    
+    
+    
+    <div class="normal-value">
+      <h4>📌 什么是Morgan正常值？</h4>
+      <p>1949年，Australian Optometrist Joan Morgan 通过大样本研究，建立了正常人群的双眼视功能参数参考范围，至今仍是临床诊断的重要标准。</p>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>检查项目</th><th>正常值范围</th><th>异常提示</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>隐斜（远）</strong></td><td>1Δ外隐斜 ± 2Δ</td><td>≥4Δ内/外隐斜需关注</td></tr>
+          <tr><td><strong>隐斜（近）</strong></td><td>3Δ外隐斜 ± 3Δ</td><td>内隐斜>5Δ提示集合过度</td></tr>
+          <tr><td><strong>集合近点（NPC）</strong></td><td>≤5cm / ≥7cm</td><td>>7cm提示集合不足</td></tr>
+          <tr><td><strong>融像性集合（远）BI/BOs</strong></td><td>X/6±2 / 9±4 Δ</td><td>BI破裂点<4Δ提示发散不足</td></tr>
+          <tr><td><strong>融像性集合（近）BI/BOs</strong></td><td>13±4 / 21±3 Δ</td><td>近距BO不足提示集合过度</td></tr>
+          <tr><td><strong>调节幅度（最小）</strong></td><td>15 - 年龄/4（D）</td><td>低于公式值提示调节不足</td></tr>
+          <tr><td><strong>NRA（负相对调节）</strong></td><td>+2.00 ± 0.50 D</td><td>>+2.50提示过度放松</td></tr>
+          <tr><td><strong>PRA（正相对调节）</strong></td><td>-2.37 ± 1.00 D</td><td>>-3.00提示调节储备充足</td></tr
+          <tr><td><strong>调节灵敏度（单眼）</strong></td><td>≥12cpm</td><td><10cpm提示调节异常</td></tr>
+          <tr><td><strong>调节灵敏度（双眼）</strong></td><td>≥8-10cpm</td><td>双眼低于单眼提示双眼问题</td></tr>
+          <tr><td><strong>AC/A比值</strong></td><td>3:1 ~ 5:1 Δ/D</td><td>高AC/A>6:1提示集合过度</td></tr>
+        </tbody>
+      </table>
+    </div>
+    
+    <div class="case-study">
+      <h4>💡 记忆技巧：Hofstetter调节幅度公式</h4>
+      <p><strong>最小调节幅度 = 15 - 年龄 ÷ 4</strong></p>
+      <p>例如：40岁人群，最小调节幅度 = 15 - 40÷4 = 5D（相当于20cm）</p>
+      <p>如果测量值远低于此，提示调节不足，需要训练。</p>
+    </div>
+  </div>
+
+  <!-- 模块3：调节功能检查 -->
+  <div class="card">
+    <div class="card-title"><span class="icon">⚡</span>调节功能检查</div>
+    <h2><span class="emoji">🔧</span> 调节检查四件套</h2>
+    
+    <div class="flow-box">
+      <div class="flow-row">
+        <span class="flow-step">调节幅度</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-step">NRA/PRA</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-step">调节灵敏度</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-step">BCC/AMP</span>
+      </div>
+    </div>
+
+    <div class="two-col">
+      <div>
+        <h3>1. 调节幅度（AMP）</h3>
+        <ul>
+          <li><strong>移近法：</strong>40cm视标逐渐移近，直到模糊</li>
+          <li><strong>计算：</strong>调节幅度 = 1/模糊距离（m）</li>
+          <li><strong>如：</strong>10cm模糊 → 1/0.1 = 10D</li>
+        </ul>
+        
+        <h3>2. 相对调节（NRA/PRA）</h3>
+        <ul>
+          <li><strong>NRA：</strong>在近视距加正镜，直到持续模糊</li>
+          <li><strong>PRA：</strong>在近视距加负镜，直到持续模糊</li>
+          <li><strong>意义：</strong>评估调节的储备和放松能力</li>
+        </ul>
+      </div>
+      <div>
+        <h3>3. 调节灵敏度（Flipper）</h3>
+        <ul>
+          <li><strong>设备：</strong>反转拍（±2.00D常用）</li>
+          <li><strong>方法：</strong>看40cm视标，+2.00/-2.00交替</li>
+          <li><strong>记录：</strong>每分钟完成多少周期（cpm）</li>
+          <li><strong>单眼：</strong>主要测调节，双眼：测调节+融像</li>
+        </ul>
+        
+        <h3>4. 调节反应（BCC/MEM）</h3>
+        <ul>
+          <li><strong>内容：</strong>评估调节的准确性（超前/滞后）</li>
+          <li><strong>正常：</strong>+0.25D ~ +0.75D（轻微滞后）</li>
+          <li><strong>超前：</strong><0.00D → 调节过度</li>
+          <li><strong>滞后：</strong>>+1.00D → 调节不足</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 模块4：集合功能检查 -->
+  <div class="card">
+    <div class="card-title"><span class="icon">🔗</span>集合功能检查</div>
+    <h2><span class="emoji">👁️</span> 集合检查四件套</h2>
+    
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>检查项目</th><th>检查方法</th><th>正常值</th><th>异常提示</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>集合近点（NPC）</strong></td>
+            <td>将笔灯或调节视标从40cm逐渐移近，直到患者报告出现复视或一眼外偏</td>
+            <td>≤5-7cm</td>
+            <td>>7cm提示集合不足</td></tr>
+          <tr><td><strong>远距融像范围</strong></td>
+            <td>使用综合验光仪或棱镜排，远距水平融像检查</td>
+            <td>BI: X/6±2 Δ<br>BO: 9±4 Δ</td>
+            <td>BI破裂<4Δ提示发散不足<br>BO不足提示集合过度</td></tr>
+          <tr><td><strong>近距融像范围</strong></td>
+            <td>近距40cm水平融像检查，记录模糊点、破裂点、恢复点</td>
+            <td>BI: 13±4 Δ<br>BO: 21±3 Δ</td>
+            <td>近距BO不足提示集合过度</td></tr>
+          <tr><td><strong>AC/A比值</strong></td>
+            <td>梯度法或计算法（远隐斜-近隐斜）/（远调节-近调节）</td>
+            <td>3:1 ~ 5:1 Δ/D</td>
+            <td>>6:1高AC/A：集合过度<br><3:1低AC/A：集合不足</td></tr>
+        </tbody>
+      </table>
+    </div>
+    
+    <div class="exam-card">
+      <h4>🔑 融像检查三个关键点</h4>
+      <p><strong>模糊点（Blur）：</strong>融像储备开始使用（调节性集合参与）</p>
+      <p><strong>破裂点（Break）：</strong>融像崩溃，出现复视或抑制</p>
+      <p><strong>恢复点（Recovery）：</strong>减少棱镜后重新恢复融像</p>
+      <p><em>记录格式：Blur / Break / Recovery，如 X/10/6</em></p>
+    </div>
+  </div>
+
+  <!-- 模块5：眼球运动检查 -->
+  <div class="card">
+    <div class="card-title"><span class="icon">👀</span>眼球运动检查</div>
+    <h2><span class="emoji">🎯</span> 注视、扫视、追随三大功能</h2>
+    
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>类型</th><th>功能</th><th>检查方法</th><th>异常表现</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>注视稳定性</strong></td><td>维持视线稳定</td><td>观察眼静态时的微小运动；使用 visuoscope检查注视类型</td><td>注视微扫视增多、漂移</td></tr>
+          <tr><td><strong>扫视运动</strong></td><td>快速跳跃式移动视线</td><td>观察从一视标到另一视标的准确性；NSUCO扫视测试</td><td>欠冲/过冲、精确度下降</td></tr>
+          <tr><td><strong>追随运动</strong></td><td>平滑跟踪移动目标</td><td>跟随移动视标（如笔灯），观察有无跳动</td><td>出现catch-up saccade（补充扫视）</td></tr>
+        </tbody>
+      </table>
+    </div>
+    
+    <h3>简化临床评估：阅读相关眼动</h3>
+    <ul>
+      <li><strong>阅读跳行测试：</strong>让孩子读一段文字，观察跳行、漏字、重复的情况</li>
+      <li><strong>字母表扫视：</strong>快速阅读随机排列的字母，评估扫视效率和准确性</li>
+      <li><strong>NR眨眼测试：</strong>正常阅读时的眨眼频率（约15-20次/分钟）</li>
+    </ul>
+  </div>
+
+  <!-- 模块6：标准化流程 -->
+  <div class="card">
+    <div class="card-title"><span class="icon">📋</span>视功能检查标准化流程</div>
+    
+    <div class="flow-box">
+      <div class="flow-row" style="justify-content:center;">
+        <span class="flow-step">问诊 + 主诉</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-step">视力检查</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-step">屈光检查</span>
+      </div>
+      <div class="flow-row" style="justify-content:center;">
+        <span class="flow-step">眼位检查</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-step">调节功能</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-step">集合功能</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-step">眼球运动</span>
+      </div>
+      <div class="flow-row" style="justify-content:center;">
+        <span class="flow-step">立体视检查</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-step">数据整理</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-step">诊断分析</span>
+      </div>
+    </div>
+    
+    <div class="case-study">
+      <h4>检查注意事项</h4>
+      <p>① <strong>顺序很重要：</strong>先单眼后双眼，先静止后动态</p>
+      <p>② <strong>全程屈光矫正：</strong>有屈光不正者需配镜后检查</p>
+      <p>③ <strong>远近都要查：</strong>远距和近距的检查结果可能完全不同</p>
+      <p>④ <strong>双眼检查不可缺：</strong>单眼正常≠双眼功能正常</p>
+      <p>⑤ <strong>结合主诉：</strong>检查数据必须与患者症状对照分析</p>
+    </div>
+  </div>
+
+  <!-- 实操任务 -->
+  <div class="card">
+    <div class="practice-box">
+      <h3>🛠️ 实操任务：模拟视功能检查标准化流程</h3>
+      <p><strong>任务一：</strong>按照标准流程，完成以下检查项目的模拟操作练习</p>
+      <ol>
+        <li>角膜映光法 + 遮盖试验（眼位定性）</li>
+        <li>调节幅度测量（移近法）</li>
+        <li>NRA/PRA测量</li>
+        <li>单眼调节灵敏度（±2.00反转拍）</li>
+        <li>集合近点测量</li>
+        <li>近距融像范围（BI/BO）</li>
+      </ol>
+      
+      <p style="margin-top:1rem;"><strong>任务二：</strong>记录以下模拟患者数据并判断是否正常</p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>检查项目</th><th>检查结果</th><th>正常值</th><th>是否正常</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>远视力OD/OS</td><td>0.8 / 1.0</td><td>≥1.0</td><td></td></tr>
+            <tr><td>调节幅度</td><td>8D（年龄35岁）</td><td>≥6.25D</td><td></td></tr>
+            <tr><td>NRA/PRA</td><td>+1.50 / -2.00</td><td>+2.00±0.5 / -2.37±1.0</td><td></td></tr>
+            <tr><td>集合近点</td><td>9cm</td><td>≤7cm</td><td></td></tr>
+            <tr><td>近距融像BO</td><td>14Δ</td><td>21±3Δ</td><td></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- 考核 -->
+  <div class="card">
+    <div class="exam-box">
+      <h3>📝 今日考核</h3>
+      <p><strong>必答题：</strong></p>
+      <ol>
+        <li>默写调节幅度的Hofstetter公式，并计算40岁人群的最小调节幅度。</li>
+        <li>NRA和PRA分别评估的是什么？正常值范围是多少？</li>
+        <li>集合近点（NPC）的正常值是多少？超过多少提示集合不足？</li>
+        <li>简述融像检查中"模糊点、破裂点、恢复点"的含义。</li>
+        <li>眼球运动检查包括哪三大类？各评估什么功能？</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- 知识卡 -->
+  <div class="card">
+    <div class="card-title"><span class="icon">📌</span>今日核心知识卡</div>
+    <div class="two-col">
+      <div>
+        <div class="exam-card">
+          <h4>Morgan正常值速记</h4>
+          <p><strong>远隐斜：</strong>1Δ外 ±2</p>
+          <p><strong>近隐斜：</strong>3Δ外 ±3</p>
+          <p><strong>集合近点：</strong>≤7cm</p>
+          <p><strong>AC/A：</strong>3-5 Δ/D</p>
+          <p><strong>NRA/PRA：</strong>+2.00 / -2.37</p>
+        </div>
+      </div>
+      <div>
+        <div class="exam-card">
+          <h4>调节灵敏度速记</h4>
+          <p><strong>单眼：</strong>≥12cpm</p>
+          <p><strong>双眼：</strong>≥8-10cpm</p>
+          <p><strong>反转拍：</strong>±2.00D</p>
+          <p><strong>距离：</strong>40cm</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <div class="course-title">📚 视觉训练30天专业培训体系｜基于《视觉训练的原理和方法》（刘陇黔主编）</div>
+  <div class="course-info">第5天 共30天｜每天1小时｜资料整理：高级验光技师闫胜君工作室</div>
+  <div class="footer-sep"></div>
+  <div class="footer-nav">
+    <a href="day04.html">← 第4天</a>
+    <a href="index.html">🏠 课程总览</a>
+    <a href="day06.html">第6天 →</a>
+  </div>
+</div>
+</body>
+</html>
