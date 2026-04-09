@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第22天 | 视觉训练核心方法实操</title>
+<style>
+  :root{--primary:#dc2626;--secondary:#b91c1c;--accent:#f59e0b;--success:#10b981;--bg:#fff5f5;--card:#fff;--text:#1e293b;--muted:#64748b;--border:#e2e8f0;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Microsoft YaHei',Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+  .header{background:linear-gradient(135deg,#dc2626,#7f1d1d);color:#fff;padding:2rem;text-align:center;}
+  .header .phase{font-size:.85rem;background:rgba(255,255,255,.2);border-radius:20px;padding:.2rem .8rem;display:inline-block;margin-bottom:.5rem;}
+  .header h1{font-size:1.8rem;margin-bottom:.3rem;}
+  .header p{opacity:.9;font-size:.95rem;}
+  .nav-bar{background:#fff;padding:.8rem 1.5rem;display:flex;align-items:center;justify-content:space-between;border-bottom:2px solid var(--border);flex-wrap:wrap;gap:.5rem;}
+  .nav-bar a{color:var(--primary);text-decoration:none;font-size:.9rem;padding:.3rem .7rem;border-radius:6px;}
+  .container{max-width:960px;margin:0 auto;padding:1.5rem 1.5rem 3rem;}
+  .card{background:var(--card);border-radius:12px;padding:1.5rem;margin-bottom:1.5rem;box-shadow:0 2px 8px rgba(0,0,0,.06);}
+  .card-title{font-size:1.1rem;font-weight:700;color:var(--primary);margin-bottom:1rem;display:flex;align-items:center;gap:.5rem;}
+  .card-title .icon{width:28px;height:28px;background:var(--primary);border-radius:6px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:.85rem;}
+  .target-box{background:linear-gradient(135deg,#fff5f5,#fee2e2);border-radius:8px;padding:1rem 1.2rem;margin-bottom:1.5rem;}
+  .target-box h3{color:var(--primary);font-size:.95rem;margin-bottom:.4rem;}
+  h2{font-size:1.2rem;color:var(--secondary);margin-bottom:1rem;padding-bottom:.4rem;border-bottom:2px solid var(--border);}
+  h3{font-size:1rem;color:var(--text);margin:1rem 0 .5rem;}
+  p{margin-bottom:.7rem;font-size:.95rem;}
+  ul,ol{padding-left:1.4rem;margin-bottom:.7rem;}
+  li{margin-bottom:.35rem;font-size:.95rem;}
+  .highlight{background:#fee2e2;border-radius:4px;padding:.1rem .3rem;color:#7f1d1d;}
+  .table-wrap{overflow-x:auto;}
+  table{width:100%;border-collapse:collapse;font-size:.9rem;}
+  th{background:var(--primary);color:#fff;padding:.6rem .8rem;text-align:left;}
+  td{padding:.55rem .8rem;border-bottom:1px solid var(--border);}
+  tr:nth-child(even) td{background:#f8fafc;}
+  .step-box{background:#f8fafc;border-radius:10px;padding:1rem;margin:.5rem 0;}
+  .step-box h4{color:var(--primary);font-size:.9rem;margin-bottom:.4rem;}
+  .step-box ol{padding-left:1.4rem;}
+  .step-box li{font-size:.9rem;}
+  .practice-box{background:linear-gradient(135deg,#f0fdf4,#dcfce7);border-radius:8px;padding:1.2rem;}
+  .practice-box h3{color:var(--success);margin:0 0 .6rem;}
+  .exam-box{background:linear-gradient(135deg,#fff7ed,#ffedd5);border-radius:8px;padding:1.2rem;}
+  .exam-box h3{color:#d97706;margin:0 0 .6rem;}
+  .answer-area{background:#f8fafc;border:2px dashed var(--border);border-radius:8px;padding:1rem;min-height:60px;margin:.5rem 0;color:var(--muted);font-size:.9rem;}
+  .footer{text-align:center;padding:2rem;color:#fff;font-size:.85rem;margin-top:2rem;background:linear-gradient(135deg,#1e3a5f,#0f172a);border-radius:16px 16px 0 0;}
+  .footer .course-title{font-size:1rem;font-weight:600;margin-bottom:.3rem;}
+  .footer .course-info{opacity:.85rem;font-size:.85rem;}
+  .footer-sep{border-top:1px solid rgba(255,255,255,.2);margin:1.5rem 0;}
+  .footer-nav{display:flex;justify-content:center;gap:1rem;margin-top:1rem;}
+  .footer-nav a{color:#fff;opacity:.8;text-decoration:none;font-size:.85rem;padding:.4rem 1rem;background:rgba(255,255,255,.1);border-radius:6px;transition:all .2s;}
+  .footer-nav a:hover{opacity:1;background:rgba(255,255,255,.2);}
+  @media(max-width:600px){.header h1{font-size:1.4rem;}}
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="phase">📚 第三阶段｜实操技能期（第19-24天）</div>
+  <h1>第 22 天｜视觉训练核心方法实操</h1>
+  <p>脱抑制 · 融像 · 立体视——三大核心训练技能实操</p>
+</div>
+<div class="nav-bar">
+  <a href="day21.html">← 第21天</a>
+  <a href="index.html">🏠 课程总览</a>
+  <a href="day23.html">第23天 →</a>
+</div>
+<div class="container">
+  <div class="target-box">
+    <h3>🎯 今日学习目标</h3>
+    <p>① 掌握消除抑制的3种核心方法；② 熟练融像训练的标准化操作；③ 掌握立体视检查和训练方法；④ 能独立操作「脱抑制+融像」训练全流程。</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">🔓</span>一、消除抑制训练</div>
+    <h2>抑制——双眼视功能的第一杀手</h2>
+    <p>抑制是大脑主动忽略来自一只眼的信息以避免复视。必须先消除抑制，才能进行融像训练。</p>
+
+    <div class="step-box">
+      <h4>方法1：Worth四点灯</h4>
+      <ol>
+        <li>被检者配红绿眼镜（右红左绿）</li>
+        <li>注视40cm处四点灯仪（2红+2绿）</li>
+        <li>正常：4灯（红绿融合）</li>
+        <li>抑制：仅2灯（健眼）或3灯（差眼）</li>
+        <li>训练时引导患者"主动放松，用双眼同时看"</li>
+      </ol>
+    </div>
+
+    <div class="step-box">
+      <h4>方法2：Bagolini线状镜</h4>
+      <ol>
+        <li>被检者戴Bagolini透镜（条纹方向互相垂直）</li>
+        <li>注视点光源</li>
+        <li>正常双眼视：看到完整交叉线（两对角线）</li>
+        <li>抑制：仅一条线或一条完整+一条断裂</li>
+      </ol>
+    </div>
+
+    <div class="step-box">
+      <h4>方法3：后像训练</h4>
+      <ol>
+        <li>强光照射后产生后像（正后像/负后像）</li>
+        <li>利用后像引导双眼使用</li>
+        <li>适用于旁中心注视抑制</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">🔗</span>二、融像训练</div>
+    <h2>融像——双眼视的核心</h2>
+
+    <div class="step-box">
+      <h4>裂隙尺（Stereo Slit）——最常用融像工具</h4>
+      <ol>
+        <li>将裂隙尺水平放置，被检者透过裂隙观看</li>
+        <li><strong>集合训练（BO方向）：</strong>将裂隙向鼻侧移动，要求双眼融像</li>
+        <li><strong>发散训练（BI方向）：</strong>将裂隙向颞侧移动，要求双眼融像</li>
+        <li>记录破裂点（开始出现模糊/复视）和恢复点</li>
+        <li>训练参数：每次10-15个循环，每天2-3组</li>
+        <li><strong>考核要求：</strong>能独立完成BO和BI方向操作，记录数据</li>
+      </ol>
+    </div>
+
+    <div class="step-box">
+      <h4>偏心圆卡（Eccentric Circles）</h4>
+      <ol>
+        <li>将卡片置于40cm，调整双眼视线</li>
+        <li>注视融合的图像，逐渐移向鼻侧/颞侧</li>
+        <li>目标：周边融像→中心融像</li>
+      </ol>
+    </div>
+
+    <div class="step-box">
+      <h4>矢量图（Vectograms）</h4>
+      <ol>
+        <li>使用偏振分离双眼图像</li>
+        <li>通过滑动控制图像分离程度</li>
+        <li>精确训练融像范围和立体视</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">👁️</span>三、立体视检查与训练</div>
+    <h2>立体视——双眼视的最高形式</h2>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>检查方法</th><th>操作</th><th>正常值</th></tr></thead>
+        <tbody>
+          <tr><td>Titmus立体图</td><td>偏振眼镜下观察立体图，说出图案</td><td>≤40秒弧</td></tr>
+          <tr><td>随机点立体图（RDS）</td><td>随机点中找到凸起/凹陷图形</td><td>≤60秒弧</td></tr>
+          <tr><td>Brewster立体镜</td><td>使用Brewster立体镜融像测量</td><td>≤60秒弧</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="practice-box">
+      <h3>🛠️ 实操考核（课堂分组进行）</h3>
+      <p><strong>考核项目：</strong></p>
+      <ol>
+        <li>独立操作裂隙尺BO（集合）和BI（发散）训练——记录破裂点和恢复点</li>
+        <li>完成Worth四点灯检测——判断有无抑制</li>
+        <li>完成Titmus立体视检测——记录最佳立体视锐度</li>
+        <li>设计一套完整的"脱抑制+融像"训练流程（口头演示）</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="exam-box">
+      <h3>📝 今日考核</h3>
+      <ol>
+        <li>Worth四点灯检查结果的3种情况（4灯/2灯/3灯）各代表什么含义？</li>
+        <li>裂隙尺BO和BI方向分别训练什么融像能力？</li>
+        <li>立体视正常值是多少？ Titmus和RDS各适合什么场景？</li>
+        <li>复述"脱抑制→融像→立体视"三步训练流程。</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- 统一格式：核心知识点总结 -->
+  <div class="card">
+    <div class="card-title"><span class="icon">📌</span>核心知识点总结</div>
+    <div style="background:#fee2e2;border-radius:10px;padding:1rem;border-left:4px solid #dc2626;">
+      <h4 style="font-size:.9rem;color:#7f1d1d;margin-bottom:.4rem;">双眼视核心训练金标准</h4>
+      <ul style="font-size:.88rem;margin:0;padding-left:1.2rem;color:#374151;">
+        <li>训练顺序：先脱抑制（Worth四点灯/Bagolini镜）→ 再融像 → 最后立体视</li>
+        <li>融像工具：裂隙尺（BO集合/BI发散）、偏心圆卡、矢量图为核心工具</li>
+        <li>立体视标准：Titmus≤40秒弧，随机点立体图≤60秒弧为正常</li>
+        <li>实操关键：标准化操作，精准记录破裂点、恢复点、立体视锐度</li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <div class="course-title">📚 视觉训练30天专业培训体系｜基于《视觉训练的原理和方法》（刘陇黔主编）</div>
+  <div class="course-info">第22天 共30天｜每天1小时｜资料整理：高级验光技师闫胜君工作室</div>
+  <div class="footer-sep"></div>
+  <div class="footer-nav">
+    <a href="day21.html">← 第21天</a>
+    <a href="index.html">🏠 课程总览</a>
+    <a href="day23.html">第23天 →</a>
+  </div>
+</div>
+</body>
+</html>
