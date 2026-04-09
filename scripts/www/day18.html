@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第18天 | 眼球运动异常训练</title>
+<style>
+  :root{--primary:#be123c;--secondary:#9f1239;--accent:#f59e0b;--success:#10b981;--bg:#fff1f2;--card:#fff;--text:#1e293b;--muted:#64748b;--border:#e2e8f0;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Microsoft YaHei',Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+  .header{background:linear-gradient(135deg,#be123c,#881337);color:#fff;padding:2rem;text-align:center;}
+  .header .phase{font-size:.85rem;background:rgba(255,255,255,.2);border-radius:20px;padding:.2rem .8rem;display:inline-block;margin-bottom:.5rem;}
+  .header h1{font-size:1.8rem;margin-bottom:.3rem;}
+  .header p{opacity:.9;font-size:.95rem;}
+  .nav-bar{background:#fff;padding:.8rem 1.5rem;display:flex;align-items:center;justify-content:space-between;border-bottom:2px solid var(--border);flex-wrap:wrap;gap:.5rem;}
+  .nav-bar a{color:var(--primary);text-decoration:none;font-size:.9rem;padding:.3rem .7rem;border-radius:6px;}
+  .container{max-width:960px;margin:0 auto;padding:1.5rem 1.5rem 3rem;}
+  .card{background:var(--card);border-radius:12px;padding:1.5rem;margin-bottom:1.5rem;box-shadow:0 2px 8px rgba(0,0,0,.06);}
+  .card-title{font-size:1.1rem;font-weight:700;color:var(--primary);margin-bottom:1rem;display:flex;align-items:center;gap:.5rem;}
+  .card-title .icon{width:28px;height:28px;background:var(--primary);border-radius:6px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:.85rem;}
+  .target-box{background:linear-gradient(135deg,#fff1f2,#ffe4e6);border-radius:8px;padding:1rem 1.2rem;margin-bottom:1.5rem;}
+  .target-box h3{color:var(--primary);font-size:.95rem;margin-bottom:.4rem;}
+  h2{font-size:1.2rem;color:var(--secondary);margin-bottom:1rem;padding-bottom:.4rem;border-bottom:2px solid var(--border);}
+  h3{font-size:1rem;color:var(--text);margin:1rem 0 .5rem;}
+  p{margin-bottom:.7rem;font-size:.95rem;}
+  ul,ol{padding-left:1.4rem;margin-bottom:.7rem;}
+  li{margin-bottom:.35rem;font-size:.95rem;}
+  .highlight{background:#ffe4e6;border-radius:4px;padding:.1rem .3rem;color:#881337;}
+  .table-wrap{overflow-x:auto;}
+  table{width:100%;border-collapse:collapse;font-size:.9rem;}
+  th{background:var(--primary);color:#fff;padding:.6rem .8rem;text-align:left;}
+  td{padding:.55rem .8rem;border-bottom:1px solid var(--border);}
+  tr:nth-child(even) td{background:#f8fafc;}
+  .method-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.8rem;margin:.8rem 0;}
+  .method-item{background:#f8fafc;border-radius:10px;padding:1rem;}
+  .method-item h4{font-size:.9rem;color:var(--primary);margin-bottom:.4rem;}
+  .method-item p{font-size:.88rem;margin:0;}
+  .principle-box{background:#ffe4e6;border-radius:10px;padding:1rem;margin:.5rem 0;border:2px solid #be123c;}
+  .principle-box h4{color:#9f1239;margin-bottom:.5rem;}
+  .practice-box{background:linear-gradient(135deg,#f0fdf4,#dcfce7);border-radius:8px;padding:1.2rem;}
+  .practice-box h3{color:var(--success);margin:0 0 .6rem;}
+  .exam-box{background:linear-gradient(135deg,#fff7ed,#ffedd5);border-radius:8px;padding:1.2rem;}
+  .exam-box h3{color:#d97706;margin:0 0 .6rem;}
+  .answer-area{background:#f8fafc;border:2px dashed var(--border);border-radius:8px;padding:1rem;min-height:60px;margin:.5rem 0;color:var(--muted);font-size:.9rem;}
+  .footer{text-align:center;padding:2rem;color:#fff;font-size:.85rem;margin-top:2rem;background:linear-gradient(135deg,#1e3a5f,#0f172a);border-radius:16px 16px 0 0;}
+  .footer .course-title{font-size:1rem;font-weight:600;margin-bottom:.3rem;}
+  .footer .course-info{opacity:.85;font-size:.85rem;}
+  .footer-sep{border-top:1px solid rgba(255,255,255,.2);margin:1.5rem 0;}
+  .footer-nav{display:flex;justify-content:center;gap:1rem;margin-top:1rem;}
+  .footer-nav a{color:#fff;opacity:.8;text-decoration:none;font-size:.85rem;padding:.4rem 1rem;background:rgba(255,255,255,.1);border-radius:6px;transition:all .2s;}
+  .footer-nav a:hover{opacity:1;background:rgba(255,255,255,.2);}
+  @media(max-width:600px){.header h1{font-size:1.4rem;}}
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="phase">📚 第二阶段｜核心病理与训练原理期（第8-18天）</div>
+  <h1>第 18 天｜眼球运动异常训练</h1>
+  <p>注视训练 · 扫视训练 · 追随训练——阅读相关眼动训练</p>
+</div>
+<div class="nav-bar">
+  <a href="day17.html">← 第17天</a>
+  <a href="index.html">🏠 课程总览</a>
+  <a href="day19.html">第19天 →</a>
+</div>
+<div class="container">
+  <div class="target-box">
+    <h3>🎯 今日学习目标</h3>
+    <p>① 掌握注视、扫视、追随三类眼球运动的异常表现；② 熟练三种眼球运动的训练方法；③ 能指导「扫视异常」患者进行字母表训练；④ 复述眼球运动训练的18大原则。</p>
+    <p>✅ 拓展目标：区分眼动异常症状、掌握训练优先级、完成第二阶段全课程复盘</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">👁️</span>眼球运动3大类型与异常表现</div>
+    <h2>眼球运动——大脑控制眼睛的方式</h2>
+    <div class="method-grid">
+      <div class="method-item">
+        <h4>① 注视（Fixation）</h4>
+        <p>维持眼球对准目标的能力。<br><strong>正常：</strong>中心凹稳定注视目标<br><strong>异常：</strong>注视不稳、旁中心注视、漂移</p>
+      </div>
+      <div class="method-item">
+        <h4>② 扫视（Saccades）</h4>
+        <p>快速跳跃式眼动，从一个目标到另一个目标。<br><strong>正常：</strong>快速、准确到达<br><strong>异常：</strong>欠矫、过矫、注视不稳定</p>
+      </div>
+      <div class="method-item">
+        <h4>③ 追随（Pursuits）</h4>
+        <p>平滑跟踪移动目标的能力。<br><strong>正常：</strong>平滑、连续无跳跃<br><strong>异常：</strong>阶梯式追随、丢目标、头部代偿</p>
+      </div>
+    </div>
+    <h3>眼球运动异常的症状表现</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>异常类型</th><th>主诉/症状</th><th>常见人群</th><th>评估工具</th></tr></thead>
+        <tbody>
+          <tr><td>注视不稳</td><td>视觉模糊、注意力困难</td><td>弱视、学习障碍</td><td>注视稳定性测试</td></tr>
+          <tr><td>扫视迟缓/不准</td><td>阅读跳行、漏字、重读</td><td>儿童学习障碍</td><td>DEM测试、King-Devic</td></tr>
+          <tr><td>追随功能异常</td><td>追踪运动目标困难、晕车</td><td>发育性协调障碍</td><td>NSUCO追随评分</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">🎯</span>眼球运动训练方法</div>
+    <h2>注视·扫视·追随——三大训练系统</h2>
+
+    <h3>注视训练（Fixation Therapy）</h3>
+    <div class="method-grid">
+      <div class="method-item">
+        <h4>① Dotting O's（圈O训练）</h4>
+        <p>用笔尖沿圆圈线追踪一圈不超出线外。从大圆圈到小圆圈，逐渐增加难度。<br><strong>目标：</strong>改善注视稳定性</p>
+      </div>
+      <div class="method-item">
+        <h4>② 吸管训练（Straw Tracing）</h4>
+        <p>用吸管沿曲线模板追踪，尽量不碰到线。从直线到曲线再到复杂形状。<br><strong>目标：</strong>精细注视+手眼协调</p>
+      </div>
+    </div>
+
+    <h3>扫视训练（Saccadic Training）</h3>
+    <div class="method-grid">
+      <div class="method-item">
+        <h4>① Hart字母表扫视</h4>
+        <p>将字母表贴在墙上，患者站2-3m外，依次读出指定字母，尽量减少头部转动只用眼球。<br><strong>要求：</strong>准确、快速、无重读</p>
+      </div>
+      <div class="method-item">
+        <h4>② 数字/字母快速定位</h4>
+        <p>随机排列的字母/数字卡，训练者报一个数字，患者迅速扫视定位。<br><strong>目标：</strong>提升扫视速度和精度</p>
+      </div>
+      <div class="method-item">
+        <h4>③ Dem表测试+训练</h4>
+        <p>Developmental Eye Movement（DEM）表，计时测试后进行针对性训练。</p>
+      </div>
+    </div>
+
+    <h3>追随训练（Pursuit Training）</h3>
+    <div class="method-grid">
+      <div class="method-item">
+        <h4>马氏登球（Mallet）</h4>
+        <p>用绳子拴住小球摆动，患者双眼追随运动轨迹。<br><strong>目标：</strong>平滑追随，训练视觉中枢</p>
+      </div>
+      <div class="method-item">
+        <h4>轨道球追随</h4>
+        <p>平板/设备追踪轨道运动目标，强化平滑追随功能</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="principle-box">
+      <h4>📋 眼球运动训练18大原则</h4>
+      <ol>
+        <li>先单眼训练，再双眼训练（单眼异常时）</li>
+        <li>先静态训练（固定目标），再动态训练（移动目标）</li>
+        <li>从大目标→小目标（从易到难）</li>
+        <li>从慢速→快速（逐步提速）</li>
+        <li>先准确→再提速（准确第一，速度第二）</li>
+        <li>每次训练时间不宜过长（10-15分钟/次）</li>
+        <li>每天规律训练比偶尔长时间训练更有效</li>
+        <li>与阅读/书写任务结合（功能泛化）</li>
+        <li>记录每次训练的准确率和速度</li>
+        <li>每周评估进展，及时调整难度</li>
+        <li>集合不足合并扫视异常→先治集合</li>
+        <li>调节异常合并追随异常→先治调节</li>
+        <li>训练中如有复视/头晕，立即停止并检查</li>
+        <li>家长监督对儿童训练依从性至关重要</li>
+        <li>游戏化的训练形式能提升儿童配合度</li>
+        <li>家庭训练和诊室训练同等重要</li>
+        <li>眼球运动改善后，仍需持续练习以巩固</li>
+        <li>训练效果个体差异大，需耐心坚持</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="practice-box">
+      <h3>🛠️ 实操任务</h3>
+      <p><strong>任务：</strong>设计一份「扫视异常」的字母表训练方案，包含：</p>
+      <ol>
+        <li>训练工具：Hart字母表（大中小三张）</li>
+        <li>训练步骤（从易到难列出3个阶段）</li>
+        <li>每阶段的训练参数（距离/时间/重复次数）</li>
+        <li>评估指标（如何判断改善？）</li>
+      </ol>
+      <div class="answer-area">参考：阶段1（大字母表3m，3min）；阶段2（中字母表5m，3min）；阶段3（小字母表+计时挑战）；评估：正确率>95%，时间缩短20%</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="exam-box">
+      <h3>📝 今日考核</h3>
+      <ol>
+        <li>眼球运动分为哪3大类？各用一句话定义，并说明正常表现。</li>
+        <li>扫视训练和追随训练的核心工具是什么？各适合什么人群？</li>
+        <li>眼球运动训练的18大原则中，挑选你认为最重要的5条并解释原因。</li>
+        <li>为什么扫视训练应"先准确再提速"？</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- 核心知识点总结（统一前几天格式） -->
+  <div class="card">
+    <div class="card-title"><span class="icon">📌</span>核心知识点总结</div>
+    <div style="background:#ffe4e6;border-radius:10px;padding:1rem;border-left:4px solid #be123c;">
+      <h4 style="font-size:.9rem;color:#be123c;margin-bottom:.4rem;">眼动训练金标准</h4>
+      <ul style="font-size:.88rem;margin:0;padding-left:1.2rem;color:#881337;">
+        <li>三大眼动：注视（稳定）、扫视（快速定位）、追随（平滑跟踪）</li>
+        <li>核心症状：阅读跳行漏字=扫视异常；追踪困难=追随异常</li>
+        <li>训练优先级：先单眼后双眼，先准确后速度，先基础后泛化</li>
+        <li>合并问题：先治调节/聚散，再训练眼球运动</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 第二阶段总结 -->
+  <div class="card" style="background:linear-gradient(135deg,#f5f3ff,#ede9fe);border:2px solid #7c3aed;">
+    <h2 style="color:#5b21b6;border:none;margin-bottom:1rem;">🎓 第二阶段复盘：核心病理与训练原理期（第8-18天）</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:.6rem;">
+      <div style="background:#fff;border-radius:8px;padding:.6rem;font-size:.85rem;"><strong>第8天</strong> 弱视病理与诊断</div>
+      <div style="background:#fff;border-radius:8px;padding:.6rem;font-size:.85rem;"><strong>第9天</strong> 弱视基础治疗</div>
+      <div style="background:#fff;border-radius:8px;padding:.6rem;font-size:.85rem;"><strong>第10天</strong> 弱视专项训练</div>
+      <div style="background:#fff;border-radius:8px;padding:.6rem;font-size:.85rem;"><strong>第11天</strong> 斜视病理与双眼视异常</div>
+      <div style="background:#fff;border-radius:8px;padding:.6rem;font-size:.85rem;"><strong>第12天</strong> 内斜视训练（6阶段）</div>
+      <div style="background:#fff;border-radius:8px;padding:.6rem;font-size:.85rem;"><strong>第13天</strong> 外斜视训练（9步骤）</div>
+      <div style="background:#fff;border-radius:8px;padding:.6rem;font-size:.85rem;"><strong>第14天</strong> 调节功能异常分类</div>
+      <div style="background:#fff;border-radius:8px;padding:.6rem;font-size:.85rem;"><strong>第15天</strong> 调节功能训练方法</div>
+      <div style="background:#fff;border-radius:8px;padding:.6rem;font-size:.85rem;"><strong>第16天</strong> 集合不足/发散不足</div>
+      <div style="background:#fff;border-radius:8px;padding:.6rem;font-size:.85rem;"><strong>第17天</strong> 集合过度/基本型隐斜</div>
+      <div style="background:#fff;border-radius:8px;padding:.6rem;font-size:.85rem;"><strong>第18天</strong> 眼球运动异常训练</div>
+    </div>
+    <p style="margin-top:1rem;color:#6d28d9;font-size:.9rem;">✅ 第二阶段完成！下一步：第三阶段「实操技能期」（第19-24天）</p>
+  </div>
+</div>
+
+<div class="footer">
+  <div class="course-title">📚 视觉训练30天专业培训体系｜基于《视觉训练的原理和方法》（刘陇黔主编）</div>
+  <div class="course-info">第18天 共30天｜每天1小时｜资料整理：高级验光技师闫胜君工作室</div>
+  <div class="footer-sep"></div>
+  <div class="footer-nav">
+    <a href="day17.html">← 第17天</a>
+    <a href="index.html">🏠 课程总览</a>
+    <a href="day19.html">第19天 →</a>
+  </div>
+</div>
+</body>
+</html>
