@@ -1,0 +1,1228 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第1天 | 视觉训练核心定义与行业定位</title>
+<style>
+  :root{
+    --primary:#2563eb;
+    --primary-light:#3b82f6;
+    --primary-dark:#1e40af;
+    --secondary:#1e40af;
+    --accent:#f59e0b;
+    --accent-light:#fbbf24;
+    --success:#10b981;
+    --success-light:#34d399;
+    --danger:#ef4444;
+    --bg:#f8fafc;
+    --card:#fff;
+    --text:#1e293b;
+    --muted:#64748b;
+    --border:#e2e8f0;
+    --hover:#eff6ff;
+    --shadow-sm:0 2px 8px rgba(0,0,0,.06);
+    --shadow-md:0 4px 12px rgba(0,0,0,.08);
+    --shadow-lg:0 6px 16px rgba(0,0,0,.1);
+    --radius-sm:6px;
+    --radius-md:12px;
+    --radius-lg:16px;
+    --transition:all .25s ease;
+  }
+  *{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    scroll-behavior: smooth;
+  }
+  body{
+    font-family:'Microsoft YaHei',-apple-system,BlinkMacSystemFont,sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    line-height:1.8;
+    font-size:16px;
+  }
+  /* 头部样式优化 */
+  .header{
+    background:linear-gradient(135deg,var(--primary-dark),var(--primary-light));
+    color:#fff;
+    padding:3rem 2rem;
+    text-align:center;
+    position:relative;
+    overflow:hidden;
+  }
+  .header::before{
+    content:'';
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+    opacity:0.5;
+  }
+  .header .phase{
+    font-size:.85rem;
+    background:rgba(255,255,255,.2);
+    border-radius:20px;
+    padding:.3rem 1rem;
+    display:inline-block;
+    margin-bottom:.8rem;
+    backdrop-filter: blur(4px);
+  }
+  .header h1{
+    font-size:2.2rem;
+    margin-bottom:.5rem;
+    position:relative;
+    z-index:1;
+  }
+  .header p{
+    opacity:.9;
+    font-size:1rem;
+    max-width:800px;
+    margin:0 auto;
+    position:relative;
+    z-index:1;
+  }
+  /* 导航栏优化 */
+  .nav-bar{
+    background:var(--card);
+    padding:1rem 1.5rem;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    border-bottom:1px solid var(--border);
+    flex-wrap:wrap;
+    gap:1rem;
+    box-shadow:var(--shadow-sm);
+    position:sticky;
+    top:0;
+    z-index:100;
+  }
+  .nav-bar a{
+    color:var(--primary);
+    text-decoration:none;
+    font-size:.95rem;
+    padding:.5rem 1rem;
+    border-radius:var(--radius-sm);
+    transition:var(--transition);
+    font-weight:500;
+  }
+  .nav-bar a:hover{
+    background:var(--hover);
+    transform:translateY(-1px);
+  }
+  .nav-bar .progress{
+    color:var(--muted);
+    font-size:.9rem;
+    font-weight:500;
+  }
+  /* 容器优化 */
+  .container{
+    max-width:1100px;
+    margin:0 auto;
+    padding:2.5rem 1.5rem;
+  }
+  /* 卡片样式优化 */
+  .card{
+    background:var(--card);
+    border-radius:var(--radius-lg);
+    padding:2rem;
+    margin-bottom:2rem;
+    box-shadow:var(--shadow-md);
+    transition:var(--transition);
+    border:1px solid rgba(255,255,255,0.8);
+  }
+  .card:hover{
+    box-shadow:var(--shadow-lg);
+    transform:translateY(-2px);
+  }
+  .card-title{
+    font-size:1.25rem;
+    font-weight:700;
+    color:var(--primary);
+    margin-bottom:1.5rem;
+    display:flex;
+    align-items:center;
+    gap:.8rem;
+    padding-bottom:.8rem;
+    border-bottom:1px solid var(--border);
+  }
+  .card-title .icon{
+    width:36px;
+    height:36px;
+    background:linear-gradient(135deg,var(--primary),var(--primary-dark));
+    border-radius:10px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#fff;
+    font-size:1.1rem;
+    font-weight:600;
+    box-shadow:0 2px 6px rgba(37,99,235,0.2);
+  }
+  /* 目标框优化 */
+  .target-box{
+    background:linear-gradient(135deg,#eff6ff,#dbeafe);
+    border-radius:var(--radius-md);
+    padding:1.5rem 1.8rem;
+    margin-bottom:2rem;
+    border-left:4px solid var(--primary);
+    box-shadow:var(--shadow-sm);
+  }
+  .target-box h3{
+    color:var(--primary);
+    font-size:1.1rem;
+    margin-bottom:.8rem;
+    display:flex;
+    align-items:center;
+    gap:.5rem;
+  }
+  .target-box h3::before{
+    content:"🎯";
+    font-size:1.2rem;
+  }
+  .target-box p{
+    font-size:.98rem;
+    line-height:1.7;
+  }
+  /* 通用文本样式 */
+  .section-label{
+    font-size:.75rem;
+    font-weight:700;
+    letter-spacing:.05em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin-bottom:1rem;
+    display:block;
+  }
+  h2{
+    font-size:1.45rem;
+    color:var(--primary-dark);
+    margin-bottom:1.5rem;
+    padding-bottom:.8rem;
+    border-bottom:1px solid var(--border);
+    display:flex;
+    align-items:center;
+    gap:.7rem;
+    font-weight:700;
+  }
+  h2 .emoji{
+    font-size:1.6rem;
+  }
+  h3{
+    font-size:1.15rem;
+    color:var(--text);
+    margin:1.5rem 0 .8rem;
+    font-weight:600;
+    display:flex;
+    align-items:center;
+    gap:.5rem;
+  }
+  h3::before{
+    content:"";
+    width:4px;
+    height:18px;
+    background:var(--accent);
+    border-radius:2px;
+    display:inline-block;
+  }
+  p{
+    margin-bottom:1rem;
+    font-size:1rem;
+    color:var(--text);
+    line-height:1.8;
+  }
+  ul,ol{
+    padding-left:2rem;
+    margin-bottom:1rem;
+  }
+  li{
+    margin-bottom:.6rem;
+    font-size:.98rem;
+    position:relative;
+  }
+  li::marker{
+    color:var(--primary);
+    font-weight:600;
+  }
+  /* 高亮文本优化 */
+  .highlight{
+    background:linear-gradient(120deg,#fef3c7 0%,#fde68a 100%);
+    border-radius:6px;
+    padding:.2rem .5rem;
+    font-weight:600;
+    color:#92400e;
+    box-shadow:0 1px 3px rgba(245,158,11,0.15);
+  }
+  /* 图片容器优化 */
+  .img-container{
+    margin:1.5rem 0;
+    border-radius:var(--radius-md);
+    overflow:hidden;
+    box-shadow:var(--shadow-md);
+  }
+  .img-container img{
+    width:100%;
+    display:block;
+    transition:var(--transition);
+  }
+  .img-container:hover img{
+    transform:scale(1.02);
+  }
+  .img-caption{
+    background:#f1f5f9;
+    padding:.8rem 1rem;
+    font-size:.85rem;
+    color:var(--muted);
+    text-align:center;
+    border-top:1px solid var(--border);
+  }
+  /* 表格样式优化 */
+  .table-wrap{
+    overflow-x:auto;
+    margin:1.5rem 0;
+    border-radius:var(--radius-sm);
+    box-shadow:var(--shadow-sm);
+  }
+  table{
+    width:100%;
+    border-collapse:collapse;
+    font-size:.95rem;
+    background:var(--card);
+  }
+  thead{
+    position:sticky;
+    top:0;
+    z-index:10;
+  }
+  th{
+    background:linear-gradient(135deg,var(--primary),var(--primary-dark));
+    color:#fff;
+    padding:.8rem 1.2rem;
+    text-align:left;
+    font-weight:600;
+    white-space:nowrap;
+  }
+  td{
+    padding:.8rem 1.2rem;
+    border-bottom:1px solid var(--border);
+    vertical-align:top;
+  }
+  tr:nth-child(even) td{
+    background:#f8fafc;
+  }
+  tr:hover td{
+    background:var(--hover);
+    transition:var(--transition);
+  }
+  /* 对比网格优化 */
+  .compare-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:1.2rem;
+    margin:1.5rem 0;
+  }
+  .compare-item{
+    background:#f8fafc;
+    border-radius:var(--radius-md);
+    padding:1.5rem;
+    border:1px solid var(--border);
+    transition:var(--transition);
+  }
+  .compare-item:hover{
+    transform:translateY(-3px);
+    box-shadow:var(--shadow-md);
+  }
+  .compare-item.amber{
+    background:linear-gradient(135deg,#fff7ed,#ffedd5);
+    border-color:#fbbf24;
+  }
+  .compare-item.green{
+    background:linear-gradient(135deg,#f0fdf4,#dcfce7);
+    border-color:#34d399;
+  }
+  .compare-item.purple{
+    background:linear-gradient(135deg,#faf5ff,#f3e8ff);
+    border-color:#a78bfa;
+  }
+  .compare-item h4{
+    font-size:1rem;
+    color:var(--primary-dark);
+    margin-bottom:.8rem;
+    font-weight:600;
+    display:flex;
+    align-items:center;
+    gap:.5rem;
+  }
+  .compare-item p{
+    font-size:.95rem;
+    margin:0;
+    line-height:1.7;
+  }
+  /* 实操/考核框优化 */
+  .practice-box{
+    background:linear-gradient(135deg,#f0fdf4,#dcfce7);
+    border-radius:var(--radius-md);
+    padding:1.8rem;
+    border-left:4px solid var(--success);
+    box-shadow:var(--shadow-sm);
+  }
+  .practice-box h3{
+    color:#15803d;
+    margin:0 0 1rem;
+    font-size:1.1rem;
+    border:none;
+    padding:0;
+  }
+  .practice-box h3::before{
+    background:var(--success);
+  }
+  .exam-box{
+    background:linear-gradient(135deg,#fff7ed,#ffedd5);
+    border-radius:var(--radius-md);
+    padding:1.8rem;
+    border-left:4px solid var(--accent);
+    box-shadow:var(--shadow-sm);
+  }
+  .exam-box h3{
+    color:#c2410c;
+    margin:0 0 1rem;
+    font-size:1.1rem;
+    border:none;
+    padding:0;
+  }
+  .exam-box h3::before{
+    background:var(--accent);
+  }
+  /* 关键点样式优化 */
+  .key-points{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:1.2rem;
+    margin:1.5rem 0;
+  }
+  .key-point{
+    background:linear-gradient(135deg,#eff6ff,#dbeafe);
+    border-radius:var(--radius-md);
+    padding:1.5rem;
+    text-align:center;
+    border:1px solid rgba(59,130,246,0.2);
+    transition:var(--transition);
+  }
+  .key-point:hover{
+    transform:translateY(-3px);
+    box-shadow:0 4px 12px rgba(37,99,235,0.15);
+  }
+  .key-point .num{
+    font-size:2rem;
+    font-weight:700;
+    color:var(--primary);
+    margin-bottom:.5rem;
+    display:block;
+  }
+  .key-point p{
+    font-size:.95rem;
+    color:var(--text);
+    margin:0;
+    line-height:1.6;
+  }
+  /* 时间线优化 */
+  .timeline{
+    position:relative;
+    padding-left:2.5rem;
+    margin:1.5rem 0;
+  }
+  .timeline::before{
+    content:'';
+    position:absolute;
+    left:10px;
+    top:0;
+    bottom:0;
+    width:3px;
+    background:linear-gradient(to bottom,var(--primary-light),var(--accent));
+    border-radius:3px;
+  }
+  .timeline-item{
+    position:relative;
+    margin-bottom:2rem;
+    padding-left:1rem;
+    background:var(--card);
+    padding:1rem 1.2rem;
+    border-radius:var(--radius-sm);
+    box-shadow:var(--shadow-sm);
+  }
+  .timeline-item::before{
+    content:'';
+    position:absolute;
+    left:-2.1rem;
+    top:1.2rem;
+    width:18px;
+    height:18px;
+    border-radius:50%;
+    background:var(--primary);
+    border:4px solid var(--card);
+    box-shadow:0 0 0 2px var(--primary-light);
+    z-index:1;
+  }
+  .timeline-item h4{
+    font-size:1.05rem;
+    font-weight:700;
+    color:var(--primary-dark);
+    margin-bottom:.6rem;
+  }
+  .timeline-item p{
+    font-size:.95rem;
+    color:var(--text);
+    line-height:1.7;
+  }
+  /* 案例研究优化 */
+  .case-study{
+    background:#faf5ff;
+    border-radius:var(--radius-md);
+    padding:1.2rem;
+    margin:1rem 0;
+    border:1px solid #e9d5ff;
+    box-shadow:var(--shadow-sm);
+  }
+  .case-study h4{
+    color:#7c3aed;
+    font-size:1rem;
+    margin-bottom:.8rem;
+    font-weight:600;
+    display:flex;
+    align-items:center;
+    gap:.5rem;
+  }
+  .case-study h4::before{
+    content:"📖";
+    font-size:1.1rem;
+  }
+  .case-study p{
+    font-size:.95rem;
+    margin-bottom:.6rem;
+    line-height:1.7;
+  }
+  /* 徽章样式优化 */
+  .badge{
+    display:inline-block;
+    padding:.3rem .8rem;
+    border-radius:20px;
+    font-size:.8rem;
+    font-weight:600;
+    margin:.2rem .3rem .2rem 0;
+  }
+  .badge-blue{
+    background:#dbeafe;
+    color:#1d4ed8;
+  }
+  .badge-green{
+    background:#dcfce7;
+    color:#15803d;
+  }
+  .badge-amber{
+    background:#fef3c7;
+    color:#92400e;
+  }
+  .badge-purple{
+    background:#f3e8ff;
+    color:#7c3aed;
+  }
+  /* 答题区域优化 */
+  .answer-area{
+    background:var(--card);
+    border:2px dashed var(--border);
+    border-radius:var(--radius-sm);
+    padding:1.2rem;
+    min-height:120px;
+    margin:1rem 0;
+    color:var(--text);
+    font-size:.95rem;
+    line-height:1.7;
+    transition:var(--transition);
+  }
+  .answer-area:hover{
+    border-color:var(--primary-light);
+    background:var(--hover);
+  }
+  /* 提示框优化 */
+  .tip-box{
+    background:linear-gradient(135deg,#fffbeb,#fef3c7);
+    border-radius:var(--radius-md);
+    padding:1.2rem 1.5rem;
+    margin:1.5rem 0;
+    border-left:4px solid var(--accent);
+    box-shadow:var(--shadow-sm);
+  }
+  .tip-box h4{
+    color:#b45309;
+    font-size:1rem;
+    margin-bottom:.6rem;
+    display:flex;
+    align-items:center;
+    gap:.5rem;
+  }
+  .tip-box h4::before{
+    content:"💡";
+    font-size:1.1rem;
+  }
+  /* 两列布局优化 */
+  .two-col{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(350px,1fr));
+    gap:1.5rem;
+    margin:1.5rem 0;
+  }
+  /* 页脚优化 */
+  .footer{
+    text-align:center;
+    padding:3rem 2rem;
+    color:#fff;
+    font-size:.9rem;
+    margin-top:3rem;
+    background:linear-gradient(135deg,#1e3a5f,#0f172a);
+    border-radius:var(--radius-lg) var(--radius-lg) 0 0;
+    position:relative;
+    overflow:hidden;
+  }
+  .footer::before{
+    content:'';
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+    opacity:0.3;
+  }
+  .footer .course-title{
+    font-size:1.1rem;
+    font-weight:600;
+    margin-bottom:.5rem;
+    position:relative;
+    z-index:1;
+  }
+  .footer .course-info{
+    opacity:.85;
+    font-size:.9rem;
+    margin-bottom:1.5rem;
+    position:relative;
+    z-index:1;
+  }
+  .footer-sep{
+    border-top:1px solid rgba(255,255,255,.2);
+    margin:1.8rem 0;
+    position:relative;
+    z-index:1;
+  }
+  .footer-nav{
+    display:flex;
+    justify-content:center;
+    gap:1.2rem;
+    margin-top:1rem;
+    flex-wrap:wrap;
+    position:relative;
+    z-index:1;
+  }
+  .footer-nav a{
+    color:#fff;
+    opacity:.8;
+    text-decoration:none;
+    font-size:.9rem;
+    padding:.6rem 1.2rem;
+    background:rgba(255,255,255,.1);
+    border-radius:var(--radius-sm);
+    transition:var(--transition);
+  }
+  .footer-nav a:hover{
+    opacity:1;
+    background:rgba(255,255,255,.2);
+    transform:translateY(-2px);
+  }
+  /* FAQ折叠面板 */
+  .faq-item{
+    margin:1rem 0;
+    border-radius:var(--radius-sm);
+    overflow:hidden;
+    box-shadow:var(--shadow-sm);
+  }
+  .faq-question{
+    background:linear-gradient(135deg,var(--primary-light),var(--primary));
+    color:#fff;
+    padding:1rem 1.5rem;
+    font-size:1rem;
+    font-weight:600;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    transition:var(--transition);
+  }
+  .faq-question:hover{
+    background:var(--primary-dark);
+  }
+  .faq-question::after{
+    content:"+";
+    font-size:1.2rem;
+    transition:var(--transition);
+  }
+  .faq-answer{
+    background:var(--card);
+    padding:0;
+    max-height:0;
+    overflow:hidden;
+    transition:max-height .5s ease, padding .5s ease;
+  }
+  .faq-answer-content{
+    padding:1.2rem 1.5rem;
+    font-size:.95rem;
+    line-height:1.8;
+  }
+  .faq-item.active .faq-question::after{
+    content:"-";
+    transform:rotate(180deg);
+  }
+  .faq-item.active .faq-answer{
+    max-height:500px;
+    padding:0;
+  }
+  /* 返回顶部按钮 */
+  .back-to-top{
+    position:fixed;
+    bottom:2rem;
+    right:2rem;
+    width:48px;
+    height:48px;
+    background:linear-gradient(135deg,var(--primary),var(--primary-dark));
+    color:#fff;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:1.2rem;
+    box-shadow:0 4px 12px rgba(37,99,235,0.3);
+    cursor:pointer;
+    opacity:0;
+    visibility:hidden;
+    transition:var(--transition);
+    z-index:999;
+  }
+  .back-to-top.show{
+    opacity:1;
+    visibility:visible;
+  }
+  .back-to-top:hover{
+    transform:translateY(-3px);
+    box-shadow:0 6px 16px rgba(37,99,235,0.4);
+  }
+  /* 响应式优化 */
+  @media(max-width:768px){
+    .header{
+      padding:2rem 1.5rem;
+    }
+    .header h1{
+      font-size:1.8rem;
+    }
+    .container{
+      padding:1.5rem 1rem;
+    }
+    .card{
+      padding:1.5rem;
+    }
+    .two-col{
+      grid-template-columns:1fr;
+    }
+    .compare-grid{
+      grid-template-columns:1fr;
+    }
+    .key-points{
+      grid-template-columns:1fr;
+    }
+    h2{
+      font-size:1.3rem;
+    }
+    h3{
+      font-size:1.1rem;
+    }
+    .back-to-top{
+      bottom:1.5rem;
+      right:1.5rem;
+      width:42px;
+      height:42px;
+    }
+  }
+  @media(max-width:480px){
+    .nav-bar{
+      padding:.8rem 1rem;
+    }
+    .nav-bar a{
+      padding:.4rem .8rem;
+      font-size:.9rem;
+    }
+    .target-box, .practice-box, .exam-box{
+      padding:1.2rem 1rem;
+    }
+    td, th{
+      padding:.6rem .8rem;
+      font-size:.9rem;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- 返回顶部按钮 -->
+<div class="back-to-top" id="backToTop">↑</div>
+
+<div class="header">
+  <div class="phase">📚 第一阶段｜基础筑基期（第1-7天）</div>
+  <h1>第 1 天｜视觉训练核心定义与行业定位</h1>
+  <p>厘清视觉训练本质，区分「眼保健操 / 视力训练 / 视觉训练」，建立专业认知框架</p>
+</div>
+
+<div class="nav-bar">
+  <a href="index.html">🏠 课程总览</a>
+  <div class="progress">第 1 天 / 共 30 天</div>
+  <a href="day02.html">第2天 →</a>
+</div>
+
+<div class="container">
+
+  <!-- 学习目标 -->
+  <div class="target-box">
+    <h3>今日学习目标</h3>
+    <p>学完本课后，学员能够：① 用自己的语言准确定义视觉训练；② 区分视觉训练与眼保健操、视力训练的本质差异；③ 说出视觉训练3大临床价值；④ 明确视觉训练的行业权威认证与临床地位；⑤ 掌握视觉训练与配镜、手术的临床分工边界；⑥ 识别视觉训练的适应症与禁忌症；⑦ 解答患者关于视觉训练的常见疑问。</p>
+  </div>
+
+  <!-- 模块1：核心定义 -->
+  <div class="card">
+    <div class="card-title"><span class="icon">1</span>视觉训练核心定义</div>
+    
+    <h2><span class="emoji">🔬</span> 什么是视觉训练？</h2>
+    
+    <p>视觉训练（Vision Therapy，VT）是由视光师（Optometrist）指导实施的<span class="highlight">非手术、个性化、系统性视觉康复程序</span>，通过设计一系列治疗性活动，激活大脑视觉皮层的神经可塑性，改善或消除视觉功能障碍及相关症状，最终提升视觉效率和生活质量。</p>
+    
+    <h3>定义四大核心词拆解</h3>
+    <div class="compare-grid">
+      <div class="compare-item">
+        <h4>🔬 非手术</h4>
+        <p>不依赖手术刀，通过训练激活神经可塑性，安全无创，可逆性好。与斜视手术的力学矫正不同，视觉训练从神经功能层面实现康复，无手术风险和并发症。</p>
+      </div>
+      <div class="compare-item amber">
+        <h4>🎯 个性化</h4>
+        <p>每位患者有独立的训练方案，基于详细视功能检查数据（调节幅度、集合近点、眼动参数等）定制。拒绝"一刀切"，根据年龄、症状、检查结果动态调整训练内容和强度。</p>
+      </div>
+      <div class="compare-item green">
+        <h4>📋 系统性</h4>
+        <p>按阶段递进：先基础后高阶，先单眼后双眼，先幅度后灵敏度。有明确疗程（通常12-24次）与评估节点，每次训练30-60分钟，确保效果可追踪、可量化。</p>
+      </div>
+      <div class="compare-item purple">
+        <h4>🧠 神经可塑性</h4>
+        <p>基于大脑视觉皮层的可塑性原理，通过反复刺激建立新的神经连接，不仅改善眼部功能，更优化大脑对视觉信息的处理能力，效果持久。</p>
+      </div>
+    </div>
+
+    <h3>视觉训练与相关概念的边界</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>概念</th><th>本质</th><th>目标</th><th>科学依据</th><th>典型形式</th><th>效果评估</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>视觉训练（VT）</strong></td><td>神经功能康复</td><td>改善双眼视、调节、眼动功能</td><td>✅ 循证医学支持（I级证据）</td><td>融像、调节灵敏度、脱抑制训练</td><td>可量化的视功能参数改善</td></tr>
+          <tr><td>眼保健操</td><td>穴位按摩</td><td>缓解眼疲劳（无明确功能改善）</td><td>⚠️ 证据有限，仅缓解表层疲劳</td><td>按摩睛明、承泣等穴位</td><td>主观疲劳感减轻，无客观指标</td></tr>
+          <tr><td>视力训练（商业）</td><td>商业噱头为主</td><td>声称"恢复视力"</td><td>❌ 缺乏科学依据，可能延误治疗</td><td>远眺、转眼球、护眼仪</td><td>无标准化评估体系</td></tr>
+          <tr><td>配镜</td><td>光学矫正</td><td>补偿屈光不正</td><td>✅ 成熟标准，全球通用</td><td>框架镜、接触镜</td><td>矫正视力达1.0为目标</td></tr>
+          <tr><td>斜视手术</td><td>肌肉力学矫正</td><td>改善眼位外观</td><td>✅ 成熟标准，改善解剖结构</td><td>直肌缩短/后退术</td><td>眼位正位为主要目标</td></tr>
+        </tbody>
+      </table>
+    </div>
+    
+    <div class="tip-box">
+      <h4>临床鉴别要点</h4>
+      <p>当患者问"视觉训练能恢复视力吗？"时，正确回答是：视觉训练改善的是视觉功能（调节、集合、眼动），而非屈光度。近视本身无法通过训练消除，但如果同时存在功能异常（如调节滞后、集合不足），训练可以显著改善视疲劳、阅读困难等症状，提升用眼效率和视觉舒适度。</p>
+    </div>
+
+    <h3>视觉训练的适应症与禁忌症</h3>
+    <div class="two-col">
+      <div>
+        <h4 style="color:var(--success);margin-bottom:.8rem;">✅ 适应症</h4>
+        <ul>
+          <li>双眼视功能异常：集合不足/过度、散开不足/过度、融像障碍、隐斜</li>
+          <li>调节功能异常：调节不足、调节过度、调节灵敏度下降、调节滞后</li>
+          <li>眼球运动异常：扫视、追随、固视功能障碍</li>
+          <li>弱视：屈光不正性、屈光参差性、斜视性弱视（辅助治疗）</li>
+          <li>斜视：术后双眼视功能重建、小角度斜视保守治疗</li>
+          <li>视疲劳：计算机视觉综合征、阅读相关视疲劳</li>
+          <li>学习相关视觉问题：阅读困难、注意力不集中（视觉因素导致）</li>
+        </ul>
+      </div>
+      <div>
+        <h4 style="color:var(--danger);margin-bottom:.8rem;">❌ 禁忌症</h4>
+        <ul>
+          <li>器质性眼病：视网膜病变、青光眼、视神经病变等</li>
+          <li>严重认知障碍：无法配合训练的智力障碍、自闭症（重度）</li>
+          <li>进展性眼部疾病：未控制的糖尿病视网膜病变、急性眼内炎症</li>
+          <li>严重全身性疾病：未控制的癫痫、帕金森病等影响运动功能的疾病</li>
+          <li>期望值异常：追求"治愈近视"等不切实际目标的患者（需先沟通）</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 模块2：历史发展 -->
+  <div class="card">
+    <div class="card-title"><span class="icon">2</span>视觉训练历史发展脉络</div>
+    
+    <h2><span class="emoji">📜</span> 从眼位矫正到神经可塑性训练</h2>
+    
+    <div class="timeline">
+      <div class="timeline-item">
+        <h4>19世纪中叶｜眼位矫正期</h4>
+        <p>以Javal（1863）为代表，用棱镜和运动矫正斜视眼位，为现代双眼视训练奠定基础。这一时期的特点是纯机械性矫正，缺乏神经科学理论支撑，训练方法简单且标准化程度低。</p>
+      </div>
+      <div class="timeline-item">
+        <h4>20世纪初｜正位视觉期（Orthoptics）</h4>
+        <p>融合训练成为主流，同视机被广泛用于临床，英国出现首批正位视觉师认证。这一时期建立了系统的双眼视检查和训练方法，开始关注双眼协同功能的重建。</p>
+      </div>
+      <div class="timeline-item">
+        <h4>1950-1980s｜行为视光学兴起</h4>
+        <p>Skeffington、Getman等人提出视觉发展理论，将训练扩展到学习障碍、视觉感知领域，视觉训练从眼位扩展至全视觉功能。这一时期开始关注视觉与学习、认知的关联，训练场景更贴近日常生活。</p>
+      </div>
+      <div class="timeline-item">
+        <h4>1990-2010s｜循证时代</h4>
+        <p><strong>CITT（集合不足治疗试验）</strong>大型RCT研究确立集合不足训练疗效，AOA发表视觉训练临床实践指南。这一时期是视觉训练从经验医学向循证医学转变的关键节点，训练方法开始强调标准化和可验证性。</p>
+      </div>
+      <div class="timeline-item">
+        <h4>2020s至今｜神经可塑性+数字化训练</h4>
+        <p>fMRI研究证实成人视皮层可塑性，AR/VR训练设备进入临床，人工智能辅助训练方案成为趋势。2025年《中国斜弱视诊治指南》更新，视觉训练地位进一步强化，数字化、远程化训练成为新方向。</p>
+      </div>
+    </div>
+    
+    <div class="case-study">
+      <h4>CITT研究里程碑（扩展版）</h4>
+      <p><strong>研究背景：</strong>2008年，美国国家眼科研究所（NEI）资助的CITT研究是一项多中心、随机对照试验，纳入221名9-17岁集合不足儿童，是视觉训练领域规模最大、设计最严谨的RCT研究。</p>
+      <p><strong>研究设计：</strong>将受试者分为三组：① 诊室视觉训练+家庭练习组 ② 仅家庭练习组 ③ 阅读定位练习对照组</p>
+      <p><strong>核心结论：</strong>视觉训练组（每周1次诊室训练+家庭练习）与阅读定位练习组相比，集合近点从9.2cm改善至5.3cm（正常<6cm），症状评分下降68%，远优于其他两组，循证医学证据等级达到I级。</p>
+      <p><strong>临床影响：</strong>该研究使美国验光协会（AOA）和美国斜视与眼科学会（AAPOS）正式将视觉训练列为集合不足的一线治疗方案，改变了此前以棱镜矫正为主的治疗模式。</p>
+    </div>
+
+    <h3>中国视觉训练发展现状</h3>
+    <p>中国视觉训练起步较晚，但发展迅速：</p>
+    <ul>
+      <li>2011年《弱视诊断专家共识》首次明确视觉训练的辅助治疗地位</li>
+      <li>2018年中华医学会眼科学分会斜视与小儿眼科学组发布《儿童屈光矫正专家共识》，强调视功能评估的重要性</li>
+      <li>2020年后，数字化视觉训练系统（如VR训练、AI辅助评估）开始普及</li>
+      <li>目前现状：一线城市三甲医院已常规开展，二三线城市逐步普及，但仍存在专业人才不足、训练不规范等问题</li>
+    </ul>
+  </div>
+
+  <!-- 模块3：行业地位与认证 -->
+  <div class="card">
+    <div class="card-title"><span class="icon">3</span>行业地位与权威认证</div>
+    
+    <h2><span class="emoji">🏆</span> 国际权威机构认可与临床价值</h2>
+    
+    <h3>国际权威机构认可</h3>
+    <div class="compare-grid">
+      <div class="compare-item">
+        <h4>🇺🇸 AOA（美国验光协会）</h4>
+        <p>发布视觉训练临床实践指南（2019版），认证视觉训练为循证医学支持的临床干预手段，覆盖斜视、弱视、双眼视异常等核心适应症。每年举办视觉训练专项继续教育课程，要求认证验光师必须完成相关学分。</p>
+      </div>
+      <div class="compare-item amber">
+        <h4>🌐 COVD（视觉发展学院）</h4>
+        <p>专门的视觉训练专科认证机构，FCOVD（Fellow of COVD）认证为全球视觉训练最高级别临床认证，需完成500小时专项训练+严格考核。目前全球仅有约800名FCOVD持有者，中国不足10人。</p>
+      </div>
+      <div class="compare-item green">
+        <h4>🇨🇳 中国专家共识</h4>
+        <p>《弱视诊断专家共识（2011）》《斜视分类专家共识》及各省级眼科学会均将视觉训练列为斜弱视规范治疗的重要组成部分。中华医学会眼科学分会斜视与小儿眼科学组2023年发布《儿童视功能检查与训练专家共识》，进一步规范训练流程。</p>
+      </div>
+    </div>
+
+    <h3>视觉训练4大核心临床价值</h3>
+    <div class="key-points">
+      <div class="key-point">
+        <div class="num">①</div>
+        <p><strong>功能性治疗</strong><br>针对调节、集合、眼球运动等功能异常，配镜无法解决的问题，训练是唯一有效手段。</p>
+      </div>
+      <div class="key-point">
+        <div class="num">②</div>
+        <p><strong>弱视斜视辅助</strong><br>作为配镜/手术的重要补充，提升弱视视力，改善斜视术后双眼视功能，降低复发率。</p>
+      </div>
+      <div class="key-point">
+        <div class="num">③</div>
+        <p><strong>症状根本改善</strong><br>解决视疲劳、头痛、阅读困难等症状的根本原因，而非仅缓解表面症状。</p>
+      </div>
+      <div class="key-point">
+        <div class="num">④</div>
+        <p><strong>提升视觉效率</strong><br>改善视觉信息处理速度和准确性，对学生、办公人群的视觉表现提升显著。</p>
+      </div>
+    </div>
+
+    <h3>视觉训练的评估指标</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>评估维度</th><th>核心指标</th><th>正常参考值</th><th>训练目标</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>调节功能</td><td>调节幅度</td><td>18-年龄/3（D）</td><td>达到年龄对应正常值</td></tr>
+          <tr><td>调节功能</td><td>调节灵敏度</td><td>单眼≥12cpm，双眼≥8cpm</td><td>达到正常范围，无明显滞后</td></tr>
+          <tr><td>集合功能</td><td>集合近点</td><td>≤6cm</td><td>≤6cm，无复视/疲劳</td></tr>
+          <tr><td>双眼视</td><td>融像范围</td><td>集合：15-25Δ，散开：4-8Δ</td><td>达到正常范围，对称</td></tr
+          <tr><td>症状评估</td><td>视疲劳评分</td><td>≤5分（10分制）</td><td>症状评分下降≥50%</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>视觉训练与配镜、手术的临床分工边界</h3>
+    <div class="two-col">
+      <div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>干预手段</th><th>解决的问题</th><th>局限性</th><th>核心优势</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>配镜</td><td>屈光不正、矫正视力</td><td>不能改善功能异常，无法解决视疲劳根源</td><td>快速、无创、成本低</td></tr>
+              <tr><td>视觉训练</td><td>功能异常、症状改善</td><td>对器质性病变无效，需患者配合，周期长</td><td>从根源改善功能，效果持久</td></tr>
+              <tr><td>斜视手术</td><td>眼位力学矫正、改善外观</td><td>不能恢复双眼视功能，有手术风险</td><td>快速矫正眼位，适合大角度斜视</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div>
+        <div class="case-study">
+          <h4>临床联合应用案例（扩展版）</h4>
+          <p><strong>6岁内斜视+中度远视+弱视儿童：</strong></p>
+          <p>① 睫状肌麻痹验光→足矫配镜（解决屈光不正）</p>
+          <p>② 遮盖疗法（6:1）+精细训练→提升弱视眼视力至0.8</p>
+          <p>③ 基础双眼视训练→建立同时视、融像功能</p>
+          <p>④ 进阶训练→提升融像范围至正常水平</p>
+          <p>⑤ 残留15Δ内斜视→评估手术时机（或继续棱镜训练）</p>
+          <p>⑥ 术后1个月→恢复双眼视训练，巩固效果</p>
+          <p><strong>关键原则：</strong>配镜解决基础屈光问题，训练解决功能问题，手术解决解剖问题，三者互补而非替代。</p>
+        </div>
+      </div>
+    </div>
+
+    <h3>家庭训练vs诊室训练</h3>
+    <div class="compare-grid">
+      <div class="compare-item">
+        <h4>🏥 诊室训练</h4>
+        <p><strong>优势：</strong>专业设备支持、视光师实时指导、动作标准化、效果可监控</p>
+        <p><strong>频率：</strong>每周1-2次，每次30-60分钟</p>
+        <p><strong>适用：</strong>基础期训练、复杂功能异常、低龄儿童</p>
+      </div>
+      <div class="compare-item amber">
+        <h4>🏡 家庭训练</h4>
+        <p><strong>优势：</strong>时间灵活、场景贴近生活、成本较低、巩固诊室效果</p>
+        <p><strong>频率：</strong>每天15-20分钟，每周5-6天</p>
+        <p><strong>适用：</strong>巩固期训练、简单功能异常、配合度高的患者</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 模块4：常见临床问答(FAQ) ✅ 已添加完整参考答案 -->
+  <div class="card">
+    <div class="card-title"><span class="icon">4</span>常见临床问答（FAQ）</div>
+    
+    <h2><span class="emoji">❓</span> 患者高频问题解答</h2>
+    
+    <div class="faq-item" id="faq1">
+      <div class="faq-question">视觉训练需要做多久才能看到效果？</div>
+      <div class="faq-answer">
+        <div class="faq-answer-content">
+          <strong>【参考答案】</strong><br>
+          视觉训练见效时间分类型：<br>
+          1. 轻度调节/视疲劳问题：坚持2-4周规范训练，即可明显缓解症状；<br>
+          2. 中度集合不足/融像问题：标准疗程6-8周（12次训练），视功能指标可恢复正常；<br>
+          3. 弱视/复杂双眼视异常：儿童需3-6个月，成人周期更长（6-12个月）；<br>
+          核心规律：年龄越小、配合度越高、基础问题越简单，见效越快，临床每4周复查一次调整方案。
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item" id="faq2">
+      <div class="faq-question">成人做视觉训练还有效果吗？</div>
+      <div class="faq-answer">
+        <div class="faq-answer-content">
+          <strong>【参考答案】</strong><br>
+          成人做视觉训练<b>有明确效果</b>，但和儿童有区别：<br>
+          1. 有效场景：成人视疲劳、计算机视觉综合征、集合不足、斜视术后双眼视重建，效果非常显著；<br>
+          2. 效果限制：成人神经可塑性弱于儿童，弱视训练仅能改善舒适度，无法大幅提升裸眼视力；<br>
+          3. 临床数据：成人集合不足患者经过16-24次训练，集合近点、症状评分改善率超70%；<br>
+          总结：成人训练主打「缓解疲劳、改善功能、提升用眼舒适度」，而非治愈近视/弱视。
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item" id="faq3">
+      <div class="faq-question">视觉训练后会反弹吗？如何维持效果？</div>
+      <div class="faq-answer">
+        <div class="faq-answer-content">
+          <strong>【参考答案】</strong><br>
+          规范完成疗程后，反弹率仅15%左右，可通过科学方法完全避免：<br>
+          1. 反弹核心原因：疗程未完成、跳过巩固期、用眼习惯极差、屈光未矫正；<br>
+          2. 防反弹方案：<br>
+          ✔ 必须完成「基础期+巩固期」全套24次训练；<br>
+          ✔ 结束后保持每周2-3次家庭训练，持续3个月；<br>
+          ✔ 纠正近距离用眼姿势、控制时长；<br>
+          ✔ 每6个月复查视功能，提前干预；<br>
+          3. 关键：训练效果是神经重塑，坚持巩固后可长期稳定。
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item" id="faq4">
+      <div class="faq-question">视觉训练的费用大概是多少？</div>
+      <div class="faq-answer">
+        <div class="faq-answer-content">
+          <strong>【参考答案】</strong><br>
+          费用按训练模式区分，全国均价参考：<br>
+          1. 诊室专业训练：单次100-200元，12次疗程1200-1800元，适合低龄儿童/复杂问题；<br>
+          2. 家庭训练：一次性设备500-2000元，无后续服务费，适合巩固期/简单问题；<br>
+          3. 数字化AI训练：月费300-800元，按周期付费，灵活便捷；<br>
+          4. 医保政策：儿童斜弱视相关训练，部分地区医保可报销，成人视疲劳训练多为自费；<br>
+          建议：优先选择有完整评估、随访体系的机构，不盲目追求低价。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 模块5：专业术语速查 -->
+  <div class="card">
+    <div class="card-title"><span class="icon">📖</span>专业术语速查表（扩展版）</div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>英文缩写</th><th>英文全称</th><th>中文含义</th><th>临床应用</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>VT</td><td>Vision Therapy</td><td>视觉训练</td><td>泛指所有视觉康复训练方法</td></tr>
+          <tr><td>COVD</td><td>College of Optometrists in Vision Development</td><td>视觉发展学院</td><td>视觉训练专业认证机构</td></tr>
+          <tr><td>FCOVD</td><td>Fellow of COVD</td><td>视觉发展学院Fellow</td><td>高级视觉训练专家认证</td></tr>
+          <tr><td>AOA</td><td>American Optometric Association</td><td>美国验光协会</td><td>发布临床实践指南，行业标准制定</td></tr>
+          <tr><td>CITT</td><td>Convergence Insufficiency Treatment Trial</td><td>集合不足治疗试验</td><td>集合不足RCT研究里程碑</td></tr>
+          <tr><td>Orthoptics</td><td>Orthoptics</td><td>正位视觉训练</td><td>传统双眼视训练，侧重眼位矫正</td></tr>
+          <tr><td>AMP</td><td>Amplitude of Accommodation</td><td>调节幅度</td><td>评估调节功能的核心指标</td></tr>
+          <tr><td>NPA</td><td>Near Point of Convergence</td><td>集合近点</td><td>评估集合功能的核心指标</td></tr>
+          <tr><td>BAF</td><td>Binocular Accommodative Facility</td><td>双眼调节灵敏度</td><td>评估双眼调节协同能力</td></tr>
+          <tr><td>RCT</td><td>Randomized Controlled Trial</td><td>随机对照试验</td><td>循证医学最高等级研究设计</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 实操任务 -->
+  <div class="card">
+    <div class="practice-box">
+      <h3>🛠️ 实操任务（课堂完成）</h3>
+      <p><strong>任务一：梳理临床分工边界</strong></p>
+      <p>独立梳理「视觉训练与配镜、手术的临床分工边界」，填写下表，并向同伴口头讲解一遍（需包含适应症、局限性、联合应用场景）。</p>
+      
+      <p style="margin-top:1.2rem;"><strong>任务二：场景练习（扩展版）</strong></p>
+      <p>以下患者应优先推荐哪种干预方式？并说明理由（至少2点）</p>
+      <ul>
+        <li><strong>案例A：</strong>8岁儿童，近视300度，调节灵敏度6cpm，视疲劳明显 → <span class="badge badge-blue">答：配镜+调节灵敏度训练</span></li>
+        <li><strong>案例B：</strong>10岁儿童，无近视，集合近点12cm，阅读时头痛 → <span class="badge badge-green">答：视觉训练（集合不足专项）</span></li>
+        <li><strong>案例C：</strong>6岁内斜视，矫正视力右眼0.4，左眼1.0，25Δ内斜 → <span class="badge badge-amber">答：配镜+弱视训练+评估手术时机</span></li>
+        <li><strong>案例D：</strong>15岁青少年，恒定性外斜视40Δ，视疲劳严重 → <span class="badge badge-purple">答：手术优先，术后视觉训练重建双眼视</span></li>
+        <li><strong>案例E：</strong>25岁成人，视疲劳，调节滞后2.00D，无屈光不正 → <span class="badge badge-purple">答：调节功能训练（家庭+诊室结合）</span></li>
+      </ul>
+      
+      <p style="margin-top:1.2rem;"><strong>任务三：定义书写</strong></p>
+      <p>用不超过60字写出"视觉训练"的定义，要求包含5个核心词：非手术、个性化、系统性、神经可塑性、视光师指导。</p>
+      <div class="answer-area">在此写下您的定义……</div>
+
+      <p style="margin-top:1.2rem;"><strong>任务四：评估指标解读</strong></p>
+      <p>分析以下患者的视功能报告，指出异常指标并制定初步训练方案：<br>
+      患者：12岁，集合近点10cm，调节灵敏度8cpm，融像范围集合8Δ/散开2Δ<br>
+      </p>
+      <div class="answer-area">在此写下您的分析……</div>
+    </div>
+  </div>
+
+  <!-- 考核 -->
+  <div class="card">
+    <div class="exam-box">
+      <h3>📝 今日考核（课后完成）</h3>
+      <p><strong>必答题（默写形式）：</strong></p>
+      <ol>
+        <li>视觉训练的核心定义（不超过60字，包含5个关键词）。</li>
+        <li>写出视觉训练4大临床价值（每条一句话，说明具体作用）。</li>
+        <li>填写对比表：区分视觉训练、眼保健操、商业视力训练的本质差异（至少5个维度）。</li>
+        <li>详述AOA和COVD在视觉训练领域的角色定位，以及FCOVD认证的价值。</li>
+        <li>完整简述CITT研究的背景、设计、核心结论，以及它对临床实践的影响。</li>
+        <li>列出视觉训练的主要适应症和禁忌症（各至少5项）。</li>
+      </ol>
+      
+      <p style="margin-top:1.2rem;"><strong>加分题（思考题）：</strong></p>
+      <p>患者问：「我孩子近视300度，做视觉训练能恢复视力吗？」请用3-4句话准确回答，既不夸大也不否定视觉训练的价值，同时给出具体建议。</p>
+      <div class="answer-area">
+        <strong>参考答案：</strong><br>
+        ① 视觉训练针对的是视觉功能异常（如调节、集合、眼球运动问题），不能消除已有的近视屈光度，无法使近视度数消失。<br>
+        ② 但如果孩子同时存在调节灵敏度不足、集合近点远等功能问题，视觉训练可以显著改善视疲劳、阅读困难等症状，提升用眼效率。<br>
+        ③ 建议先带孩子做完整的视功能检查（包括调节、集合、眼动等），根据检查数据判断是否需要训练。<br>
+        ④ 近视管理的核心是配镜矫正+用眼习惯养成+定期复查，视觉训练可作为功能异常时的补充干预手段。
+      </div>
+    </div>
+  </div>
+
+  <!-- 知识卡片 -->
+  <div class="card">
+    <div class="card-title"><span class="icon">📌</span>今日核心知识卡（随身携带）</div>
+    <div class="compare-grid">
+      <div class="compare-item">
+        <h4>定义记忆口诀</h4>
+        <p>非手术 · 个性化 · 系统性<br>神经可塑 · 功能康复<br>视光师主导 · 循证支撑<br>分阶段训练 · 效果持久</p>
+      </div>
+      <div class="compare-item amber">
+        <h4>核心边界</h4>
+        <p>配镜矫屈光<br>训练修功能<br>手术正眼位<br>三者互补，缺一不可</p>
+      </div>
+      <div class="compare-item green">
+        <h4>临床金句</h4>
+        <p>训练不改度数<br>只改善视觉功能<br>缓解疲劳，提升效率<br>科学训练，拒绝噱头</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- 页脚 -->
+<div class="footer">
+  <div class="course-title">30天视觉训练师精品实战课程</div>
+  <div class="course-info">第一阶段｜基础筑基期 | 专业·规范·循证</div>
+  <div class="footer-sep"></div>
+  <div class="footer-nav">
+    <a href="index.html">课程首页</a>
+    <a href="day02.html">下一课</a>
+  </div>
+</div>
+
+<script>
+  // FAQ折叠功能
+  const faqItems = document.querySelectorAll('.faq-question');
+  faqItems.forEach(item => {
+    item.addEventListener('click', () => {
+      const parent = item.parentElement;
+      parent.classList.toggle('active');
+    });
+  });
+
+  // 返回顶部功能
+  const backToTop = document.getElementById('backToTop');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 300) {
+      backToTop.classList.add('show');
+    } else {
+      backToTop.classList.remove('show');
+    }
+  });
+  backToTop.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+</script>
+</body>
+</html>
