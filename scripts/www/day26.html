@@ -1,0 +1,433 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第26天 | 训练效果复查与方案调整</title>
+<style>
+  :root{--primary:#d97706;--secondary:#b45309;--accent:#2563eb;--success:#10b981;--bg:#fffbeb;--card:#fff;--text:#1e293b;--muted:#64748b;--border:#e2e8f0;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Microsoft YaHei',Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+  .header{background:linear-gradient(135deg,#d97706,#92400e);color:#fff;padding:2rem;text-align:center;}
+  .header .phase{font-size:.85rem;background:rgba(255,255,255,.2);border-radius:20px;padding:.2rem .8rem;display:inline-block;margin-bottom:.5rem;}
+  .header h1{font-size:1.8rem;margin-bottom:.3rem;}
+  .header p{opacity:.9;font-size:.95rem;}
+  .nav-bar{background:#fff;padding:.8rem 1.5rem;display:flex;align-items:center;justify-content:space-between;border-bottom:2px solid var(--border);flex-wrap:wrap;gap:.5rem;}
+  .nav-bar a{color:var(--primary);text-decoration:none;font-size:.9rem;padding:.3rem .7rem;border-radius:6px;}
+  .container{max-width:960px;margin:0 auto;padding:1.5rem 1.5rem 3rem;}
+  .card{background:var(--card);border-radius:12px;padding:1.5rem;margin-bottom:1.5rem;box-shadow:0 2px 8px rgba(0,0,0,.06);}
+  .card-title{font-size:1.1rem;font-weight:700;color:var(--primary);margin-bottom:1rem;display:flex;align-items:center;gap:.5rem;}
+  .card-title .icon{width:28px;height:28px;background:var(--primary);border-radius:6px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:.85rem;}
+  .target-box{background:linear-gradient(135deg,#fffbeb,#fef3c7);border-radius:8px;padding:1rem 1.2rem;margin-bottom:1.5rem;}
+  .target-box h3{color:var(--primary);font-size:.95rem;margin-bottom:.4rem;}
+  h2{font-size:1.2rem;color:var(--secondary);margin-bottom:1rem;padding-bottom:.4rem;border-bottom:2px solid var(--border);}
+  h3{font-size:1rem;color:var(--text);margin:1rem 0 .5rem;}
+  h4{font-size:.95rem;color:var(--text);margin:.5rem 0 .3rem;}
+  p{margin-bottom:.7rem;font-size:.95rem;}
+  ul,ol{padding-left:1.4rem;margin-bottom:.7rem;}
+  li{margin-bottom:.35rem;font-size:.95rem;}
+  .highlight{background:#fef3c7;border-radius:4px;padding:.1rem .3rem;color:#92400e;}
+  .table-wrap{overflow-x:auto;}
+  table{width:100%;border-collapse:collapse;font-size:.9rem;}
+  th{background:var(--primary);color:#fff;padding:.6rem .8rem;text-align:left;}
+  td{padding:.55rem .8rem;border-bottom:1px solid var(--border);}
+  tr:nth-child(even) td{background:#f8fafc;}
+  .adjust-flow{background:#fef3c7;border-radius:10px;padding:1.2rem;margin:.8rem 0;border:2px solid #d97706;}
+  .adjust-step{display:flex;gap:.7rem;margin-bottom:.8rem;align-items:flex-start;}
+  .adj-num{min-width:24px;height:24px;background:#d97706;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:700;flex-shrink:0;}
+  .adj-content h4{font-size:.9rem;margin-bottom:.2rem;}
+  .adj-content p{font-size:.88rem;margin:0;color:var(--muted);}
+  .practice-box{background:linear-gradient(135deg,#f0fdf4,#dcfce7);border-radius:8px;padding:1.2rem;}
+  .practice-box h3{color:var(--success);margin:0 0 .6rem;}
+  .exam-box{background:linear-gradient(135deg,#eff6ff,#dbeafe);border-radius:8px;padding:1.2rem;}
+  .exam-box h3{color:var(--accent);margin:0 0 .6rem;}
+  .answer-area{background:#f8fafc;border:2px dashed var(--border);border-radius:8px;padding:1rem;min-height:60px;margin:.5rem 0;color:var(--muted);font-size:.9rem;}
+  .footer{text-align:center;padding:2rem;color:#fff;font-size:.85rem;margin-top:2rem;background:linear-gradient(135deg,#1e3a5f,#0f172a);border-radius:16px 16px 0 0;}
+  .footer .course-title{font-size:1rem;font-weight:600;margin-bottom:.3rem;}
+  .footer .course-info{opacity:.85;font-size:.85rem;}
+  .footer-sep{border-top:1px solid rgba(255,255,255,.2);margin:1.5rem 0;}
+  .footer-nav{display:flex;justify-content:center;gap:1rem;margin-top:1rem;}
+  .footer-nav a{color:#fff;opacity:.8;text-decoration:none;font-size:.85rem;padding:.4rem 1rem;background:rgba(255,255,255,.1);border-radius:6px;transition:all .2s;}
+  .footer-nav a:hover{opacity:1;background:rgba(255,255,255,.2);}
+  .info-box{background:linear-gradient(135deg,#e0f2fe,#bae6fd);border-radius:8px;padding:1rem;margin:.8rem 0;}
+  .info-box h4{color:var(--accent);margin:0 0 .5rem;}
+  .warning-box{background:linear-gradient(135deg,#fef3c7,#fcd34d);border-radius:8px;padding:1rem;margin:.8rem 0;}
+  .warning-box h4{color:#d97706;margin:0 0 .5rem;}
+  .progress-indicator{display:flex;justify-content:space-between;align-items:center;margin:1rem 0 2rem;position:relative;}
+  .progress-line{position:absolute;left:0;top:50%;width:100%;height:4px;background:#e2e8f0;z-index:1;}
+  .progress-fill{position:absolute;left:0;top:50%;height:4px;background:var(--primary);z-index:2;transform:translateY(-50%);}
+  .progress-step{position:relative;z-index:3;background:white;border:2px solid #e2e8f0;border-radius:50%;width:32px;height:32px;display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:bold;color:#64748b;}
+  .active-step{border-color:var(--primary);color:var(--primary);font-weight:bold;}
+  .active-step::after{content:'';position:absolute;width:12px;height:12px;background:var(--primary);border-radius:50%;top:50%;left:50%;transform:translate(-50%,-50%);}
+  .chart-container{display:flex;gap:1rem;flex-wrap:wrap;margin:.8rem 0;}
+  .chart-item{flex:1;min-width:200px;background:#f8fafc;border-radius:8px;padding:1rem;text-align:center;}
+  .chart-item h4{margin:0 0 .5rem;color:var(--secondary);}
+  .chart-value{font-size:1.5rem;font-weight:bold;color:var(--primary);margin:0.5rem 0;}
+  .chart-desc{font-size:.8rem;color:var(--muted);}
+  .toggle-section{cursor:pointer;padding:.5rem 0;margin:.5rem 0;border-top:1px dashed var(--border);border-bottom:1px dashed var(--border);font-weight:600;color:var(--secondary);display:flex;justify-content:space-between;align-items:center;}
+  .toggle-content{display:none;margin-top:1rem;}
+  .expandable{border:1px solid var(--border);border-radius:8px;overflow:hidden;margin:.8rem 0;}
+  @media(max-width:600px){
+    .header h1{font-size:1.4rem;}
+    .chart-container{flex-direction:column;}
+    .nav-bar{flex-direction:column;gap:1rem;}
+  }
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="phase">📚 第四阶段｜方案定制与评估期（第25-28天）</div>
+  <h1>第 26 天｜训练效果复查与方案调整</h1>
+  <p>疗效评估 · 动态调整 · 复查节点——让训练不走弯路</p>
+</div>
+
+
+<div class="nav-bar">
+  <a href="day25.html">← 第25天</a>
+  <a href="index.html">🏠 课程总览</a>
+  <a href="day27.html">第27天 →</a>
+</div>
+
+<div class="container">
+  <div class="target-box">
+    <h3>🎯 今日学习目标</h3>
+    <p>① 掌握复查周期和评估指标；② 熟练解读训练效果数据；③ 掌握"效果不佳"和"过度疲劳"两种情况的调整逻辑；④ 熟记视觉训练疗效评估8大指标。</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">📅</span>复查周期与评估节点</div>
+    <h2>训练不是"一劳永逸"——定期复查是关键</h2>
+    <p>视觉训练是一个动态过程，定期复查能够及时发现问题并调整方案，确保训练效果最大化。以下是推荐的复查时间点：</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>复查时机</th><th>评估内容</th><th>目的</th></tr></thead>
+        <tbody>
+          <tr><td><strong>每2-4周</strong></td><td>训练症状改善、检查指标变化</td><td>监测进展，及时调整</td></tr>
+          <tr><td><strong>每4-8次诊室训练</strong></td><td>全面视功能复查</td><td>阶段性评估，决定进阶或调整</td></tr>
+          <tr><td><strong>训练结束后</strong></td><td>综合效果评估+维持方案</td><td>确认疗效，制定后续计划</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="info-box">
+      <h4>💡 临床提示</h4>
+      <p>初次训练者可能需要更频繁的复查（如每周一次），以便及时发现适应性问题。对于有经验的训练者，可适当延长复查间隔。</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">📊</span>8大疗效评估指标</div>
+    <h2>训练效果如何量化？——8大核心指标</h2>
+    <p>科学的评估体系是衡量训练效果的基础，以下8项指标构成了视觉训练疗效评估的核心框架：</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>#</th><th>评估指标</th><th>训练前</th><th>训练后</th><th>改善标准</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>视力（远/近）</td><td>记录</td><td>记录</td><td>提升≥2行</td></tr>
+          <tr><td>2</td><td>调节幅度（AMP）</td><td>记录D值</td><td>记录D值</td><td>接近Hofstetter最小值</td></tr>
+          <tr><td>3</td><td>调节灵敏度（AF）</td><td>记录cpm</td><td>记录cpm</td><td>单眼≥11cpm，双眼≥8cpm</td></tr>
+          <tr><td>4</td><td>NRA/PRA</td><td>记录D值</td><td>记录D值</td><td>NRA≥+2.00D，PRA≤-2.00D</td></tr>
+          <tr><td>5</td><td>集合近点（NPC）</td><td>记录cm</td><td>记录cm</td><td>≤5cm</td></tr>
+          <tr><td>6</td><td>融像范围（PFV/NFV）</td><td>记录Δ</td><td>记录Δ</td><td>接近Morgan正常值</td></tr>
+          <tr><td>7</td><td>立体视</td><td>记录秒弧</td><td>记录秒弧</td><td>≤40秒弧或改善≥1级别</td></tr>
+          <tr><td>8</td><td>症状评分（CISS/症状问卷）</td><td>记录分数</td><td>记录分数</td><td>CISS降低≥5分</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h3>指标详解</h3>
+    <div class="expandable">
+      <div class="toggle-section" onclick="toggleSection('amp-details')">
+        调节幅度（AMP）详解 <span id="amp-toggle">▼</span>
+      </div>
+      <div class="toggle-content" id="amp-details">
+        <p><strong>Hofstetter公式计算：</strong></p>
+        <ul>
+          <li>最小调节幅度 = 15 - 0.25 × 年龄</li>
+          <li>平均调节幅度 = 18.5 - 0.3 × 年龄</li>
+          <li>最大调节幅度 = 25 - 0.4 × 年龄</li>
+        </ul>
+        <p>训练目标是达到年龄对应的最小调节幅度值。</p>
+      </div>
+    </div>
+    <div class="expandable">
+      <div class="toggle-section" onclick="toggleSection('ciass-details')">
+        CISS症状评分详解 <span id="ciass-toggle">▼</span>
+      </div>
+      <div class="toggle-content" id="ciass-details">
+        <p><strong>儿童CISS量表包含16个项目，分为4个维度：</strong></p>
+        <ul>
+          <li><strong>近距离工作相关症状：</strong>头痛、眼痛、视力模糊等</li>
+          <li><strong>疲劳相关症状：</strong>眼疲劳、全身疲劳、注意力不集中等</li>
+          <li><strong>眼部不适：</strong>畏光、流泪、眼睛干涩等</li>
+          <li><strong>全身症状：</strong>头晕、恶心、肩颈酸痛等</li>
+        </ul>
+        <p>正常值&lt;16分，&gt;21分为异常。</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">🔄</span>方案调整逻辑</div>
+    <h2>效果不好怎么办？——动态调整三步法</h2>
+    <div class="adjust-flow">
+      <div class="adjust-step">
+        <div class="adj-num">1</div>
+        <div class="adj-content">
+          <h4>分析原因</h4>
+          <p>效果不佳/过度疲劳？先分析原因：是训练本身问题、依从性不足，还是存在未排除的器质性问题？</p>
+        </div>
+      </div>
+      <div class="adjust-step">
+        <div class="adj-num">2</div>
+        <div class="adj-content">
+          <h4>针对性调整</h4>
+          <p>强化基础训练（效果不佳）→降低难度（过度疲劳）→强化依从性（依从性不足）→重新检查（器质性问题）</p>
+        </div>
+      </div>
+      <div class="adjust-step">
+        <div class="adj-num">3</div>
+        <div class="adj-content">
+          <h4>实施并追踪</h4>
+          <p>调整后继续训练，2-4周后再次评估，形成"评估-调整-再评估"的闭环</p>
+        </div>
+      </div>
+    </div>
+    <h3>两种常见情况的调整策略</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>情况</th><th>表现</th><th>调整策略</th></tr></thead>
+        <tbody>
+          <tr><td><strong>效果不佳</strong></td>
+            <td>4周后检查指标无改善或改善<10%</td>
+            <td>强化基础训练；增加诊室训练频次；重新评估诊断是否准确；检查依从性</td></tr>
+          <tr><td><strong>过度疲劳</strong></td>
+            <td>训练后持续不适≥30分钟；次日仍有疲劳</td>
+            <td>降低训练难度；缩短单次时长；减少训练频次；延长休息间隔</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="info-box">
+      <h4>📊 数据驱动决策</h4>
+      <p>建立训练日志系统，记录每日训练完成度、症状变化、主观感受等信息，为方案调整提供数据支持。</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">📈</span>训练效果可视化</div>
+    <h2>数据看板：训练前后对比</h2>
+    <div class="chart-container">
+      <div class="chart-item">
+        <h4>调节幅度</h4>
+        <div class="chart-value">6.5D → 8.2D</div>
+        <div class="chart-desc">提升26.2%</div>
+      </div>
+      <div class="chart-item">
+        <h4>调节灵敏度</h4>
+        <div class="chart-value">6cpm → 12cpm</div>
+        <div class="chart-desc">提升100%</div>
+      </div>
+      <div class="chart-item">
+        <h4>集合近点</h4>
+        <div class="chart-value">12cm → 5cm</div>
+        <div class="chart-desc">改善58.3%</div>
+      </div>
+      <div class="chart-item">
+        <h4>CISS评分</h4>
+        <div class="chart-value">22分 → 14分</div>
+        <div class="chart-desc">下降36.4%</div>
+      </div>
+    </div>
+    <div class="info-box">
+      <h4>🔍 关键指标解读</h4>
+      <p>调节幅度和调节灵敏度是反映调节功能的重要指标，集合近点和融像范围体现集合功能，CISS评分反映症状改善程度。</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">🔧</span>个性化调整策略</div>
+    <h2>不同年龄段的调整要点</h2>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>年龄段</th><th>生理特点</th><th>调整重点</th><th>注意事项</th></tr></thead>
+        <tbody>
+          <tr><td><strong>6-10岁</strong></td>
+            <td>调节能力强，配合度低</td>
+            <td>趣味性训练，简化流程</td>
+            <td>避免长时间训练，注重激励</td></tr>
+          <tr><td><strong>11-18岁</strong></td>
+            <td>学习压力大，症状明显</td>
+            <td>强化症状改善，提高依从性</td>
+            <td>关注心理因素，家校配合</td></tr>
+          <tr><td><strong>19-35岁</strong></td>
+            <td>用眼强度大，调节开始下降</td>
+            <td>预防性训练，缓解视疲劳</td>
+            <td>工作生活平衡，长期维护</td></tr>
+          <tr><td><strong>35岁以上</strong></td>
+            <td>调节能力下降，老视前期</td>
+            <td>保持现有功能，延缓衰退</td>
+            <td>结合老视矫正，综合管理</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h3>训练强度调整原则</h3>
+    <ul>
+      <li><strong>渐进式递增：</strong>训练初期从低强度开始，逐步提高难度</li>
+      <li><strong>个体化差异：</strong>根据患者基础能力和反应调整训练参数</li>
+      <li><strong>动态监控：</strong>定期评估并调整训练方案</li>
+      <li><strong>平衡原则：</strong>在有效性和舒适性之间找到平衡点</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">⚠️</span>风险预警与处理</div>
+    <h2>不良反应的识别与应对</h2>
+    <div class="warning-box">
+      <h4>🚨 常见不良反应</h4>
+      <ul>
+        <li><strong>轻度反应：</strong>短暂眼疲劳、头痛（<30分钟）</li>
+        <li><strong>中度反应：</strong>持续头痛、眼痛（30分钟-2小时）</li>
+        <li><strong>重度反应：</strong>恶心呕吐、严重头痛（>2小时）</li>
+      </ul>
+    </div>
+    <h3>应急处理流程</h3>
+    <ol>
+      <li>立即停止训练，让患者休息</li>
+      <li>评估症状严重程度和持续时间</li>
+      <li>根据反应类型调整治疗方案</li>
+      <li>必要时暂停训练，重新评估</li>
+    </ol>
+    <div class="info-box">
+      <h4>💡 预防措施</h4>
+      <p>训练前充分了解患者病史，循序渐进增加训练强度，密切观察训练反应，建立完善的随访机制。</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="practice-box">
+      <h3>🛠️ 实操任务：模拟「训练4周效果不佳」案例调整</h3>
+      <p><strong>场景：</strong>12岁集合不足患者，按方案训练4周后，NPC从11cm→10cm（仅改善1cm），CISS从20分→18分（改善轻微）。</p>
+      <p><strong>请分析原因并给出调整方案：</strong></p>
+      <div class="answer-area">可能原因：训练强度不足/依从性差/方案不对症。调整：强化正融像训练，增加诊室训练次数（2次→3次/周），重新评估家庭训练执行情况，考虑提升训练难度（裂隙尺高难度）。</div>
+    </div>
+    <div class="practice-box">
+      <h3>🛠️ 进阶任务：「过度疲劳」案例处理</h3>
+      <p><strong>场景：</strong>患者训练后出现持续性头痛2小时以上，伴有恶心症状。</p>
+      <p><strong>处理方案：</strong></p>
+      <div class="answer-area">立即暂停训练；降低训练强度至原方案的50%；缩短单次训练时间；延长休息间隔；2周后重新评估耐受性；必要时调整训练类型。</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">📋</span>训练日志模板</div>
+    <h2>标准化记录表格</h2>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>日期</th><th>训练项目</th><th>训练时长</th><th>完成度</th><th>症状评分</th><th>备注</th></tr></thead>
+        <tbody>
+          <tr><td>2023-10-01</td><td>调节训练</td><td>20min</td><td>85%</td><td>3/10</td><td>轻微眼疲劳</td></tr>
+          <tr><td>2023-10-02</td><td>集合训练</td><td>15min</td><td>90%</td><td>2/10</td><td>良好</td></tr>
+          <tr><td>2023-10-03</td><td>融像训练</td><td>25min</td><td>70%</td><td>5/10</td><td>训练后头痛</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p><strong>日志分析要点：</strong></p>
+    <ul>
+      <li>连续性：记录每日训练情况，便于趋势分析</li>
+      <li>客观性：使用量化指标，减少主观判断误差</li>
+      <li>关联性：将症状与训练项目关联，找出影响因素</li>
+      <li>实用性：为下次复诊提供决策依据</li>
+    </ul>
+  </div>
+
+
+
+  <div class="card">
+    <div class="card-title"><span class="icon">📌</span>脱抑制训练</div>
+    <div style="background:#f0fdf4;border-radius:10px;padding:1rem;margin-bottom:1rem;">
+      <h4 style="font-size:.9rem;color:#059669;margin-bottom:.4rem;">原则</h4>
+      <p style="font-size:.88rem;color:#166534;margin:0;"><strong>1. 解除抑制是第一步</strong></p>
+      <p style="font-size:.88rem;color:#166534;margin:.2rem 0 0;"><strong>2. 使用闪烁/变化刺激</strong></p>
+      <p style="font-size:.88rem;color:#166534;margin:.2rem 0 0;"><strong>3. 成功后立即巩固</strong></p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">📋</span>脱抑制工具</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1rem;">
+      <div style="background:#eff6ff;border-radius:10px;padding:1rem;">
+        <h4 style="font-size:.85rem;color:#1d4ed8;">红绿扑克牌</h4>
+        <p style="font-size:.8rem;color:#1e40af;margin:.2rem 0 0;">交替注视红绿牌</p>
+      </div>
+      <div style="background:#f0fdf4;border-radius:10px;padding:1rem;">
+        <h4 style="font-size:.85rem;color:#059669;">红绿阅读单位</h4>
+        <p style="font-size:.8rem;color:#166534;margin:.2rem 0 0;">强迫双眼同时使用</p>
+      </div>
+      <div style="background:#fff7ed;border-radius:10px;padding:1rem;">
+        <h4 style="font-size:.85rem;color:#c2410c;">MFBF</h4>
+        <p style="font-size:.8rem;color:#92400e;margin:.2rem 0 0;">双眼视野下的单眼训练</p>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="exam-box">
+      <h3>📝 今日考核</h3>
+      <ol>
+        <li>熟记视觉训练疗效评估8大指标（按顺序默写）。</li>
+        <li>训练效果不佳时，调整的三步法是什么？</li>
+        <li>患者训练后持续头痛2小时，应如何调整方案？</li>
+        <li>复查周期建议是多久？阶段性评估应包括哪些检查？</li>
+        <li>不同年龄段患者的训练调整重点有何不同？</li>
+        <li>如何通过训练日志优化治疗方案？</li>
+      </ol>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <div class="course-title">📚 视觉训练30天专业培训体系｜基于《视觉训练的原理和方法》（刘陇黔主编）</div>
+  <div class="course-info">第26天 共30天｜每天1小时｜资料整理：高级验光技师闫胜君工作室</div>
+  <div class="footer-sep"></div>
+  <div class="footer-nav">
+    <a href="day25.html">← 第25天</a>
+    <a href="index.html">🏠 课程总览</a>
+    <a href="day27.html">第27天 →</a>
+  </div>
+</div>
+
+<script>
+function toggleSection(sectionId) {
+  const content = document.getElementById(sectionId);
+  const toggleBtn = document.getElementById(sectionId.replace('-details', '-toggle'));
+  
+  if (content.style.display === 'block') {
+    content.style.display = 'none';
+    toggleBtn.textContent = '▼';
+  } else {
+    content.style.display = 'block';
+    toggleBtn.textContent = '▲';
+  }
+}
+
+// 添加交互功能：点击答案区域可编辑
+document.querySelectorAll('.answer-area').forEach(area => {
+  area.addEventListener('click', function() {
+    if (!this.hasAttribute('contenteditable')) {
+      this.setAttribute('contenteditable', 'true');
+      this.focus();
+      
+      // 移动光标到末尾
+      const range = document.createRange();
+      range.selectNodeContents(this);
+      range.collapse(false);
+      const selection = window.getSelection();
+      selection.removeAllRanges();
+      selection.addRange(range);
+    }
+  });
+});
+</script>
+</body>
+</html>
+
+
+
