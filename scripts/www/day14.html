@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第14天 | 调节功能异常分类与诊断</title>
+<style>
+  :root{--primary:#9333ea;--secondary:#7e22ce;--accent:#f59e0b;--success:#10b981;--bg:#faf5ff;--card:#fff;--text:#1e293b;--muted:#64748b;--border:#e2e8f0;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Microsoft YaHei',Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+  .header{background:linear-gradient(135deg,#9333ea,#581c87);color:#fff;padding:2rem;text-align:center;}
+  .header .phase{font-size:.85rem;background:rgba(255,255,255,.2);border-radius:20px;padding:.2rem .8rem;display:inline-block;margin-bottom:.5rem;}
+  .header h1{font-size:1.8rem;margin-bottom:.3rem;}
+  .header p{opacity:.9;font-size:.95rem;}
+  .nav-bar{background:#fff;padding:.8rem 1.5rem;display:flex;align-items:center;justify-content:space-between;border-bottom:2px solid var(--border);flex-wrap:wrap;gap:.5rem;}
+  .nav-bar a{color:var(--primary);text-decoration:none;font-size:.9rem;padding:.3rem .7rem;border-radius:6px;}
+  .container{max-width:960px;margin:0 auto;padding:1.5rem 1.5rem 3rem;}
+  .card{background:var(--card);border-radius:12px;padding:1.5rem;margin-bottom:1.5rem;box-shadow:0 2px 8px rgba(0,0,0,.06);}
+  .card-title{font-size:1.1rem;font-weight:700;color:var(--primary);margin-bottom:1rem;display:flex;align-items:center;gap:.5rem;}
+  .card-title .icon{width:28px;height:28px;background:var(--primary);border-radius:6px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:.85rem;}
+  .target-box{background:linear-gradient(135deg,#faf5ff,#ede9fe);border-radius:8px;padding:1rem 1.2rem;margin-bottom:1.5rem;}
+  .target-box h3{color:var(--primary);font-size:.95rem;margin-bottom:.4rem;}
+  h2{font-size:1.2rem;color:var(--secondary);margin-bottom:1rem;padding-bottom:.4rem;border-bottom:2px solid var(--border);}
+  h3{font-size:1rem;color:var(--text);margin:1rem 0 .5rem;}
+  p{margin-bottom:.7rem;font-size:.95rem;}
+  ul,ol{padding-left:1.4rem;margin-bottom:.7rem;}
+  li{margin-bottom:.35rem;font-size:.95rem;}
+  .highlight{background:#ede9fe;border-radius:4px;padding:.1rem .3rem;color:#581c87;}
+  .table-wrap{overflow-x:auto;}
+  table{width:100%;border-collapse:collapse;font-size:.9rem;}
+  th{background:var(--primary);color:#fff;padding:.6rem .8rem;text-align:left;}
+  td{padding:.55rem .8rem;border-bottom:1px solid var(--border);}
+  tr:nth-child(even) td{background:#f8fafc;}
+  .formula-box{background:#faf5ff;border:2px solid #9333ea;border-radius:10px;padding:1.2rem;text-align:center;margin:1rem 0;}
+  .formula-box p{font-size:1.1rem;font-weight:700;color:#581c87;margin:0;}
+  .case-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:.8rem 0;}
+  .case-item{background:#f8fafc;border-radius:10px;padding:1rem;}
+  .case-item h4{font-size:.9rem;color:var(--muted);margin-bottom:.4rem;}
+  .practice-box{background:linear-gradient(135deg,#f0fdf4,#dcfce7);border-radius:8px;padding:1.2rem;}
+  .practice-box h3{color:var(--success);margin:0 0 .6rem;}
+  .exam-box{background:linear-gradient(135deg,#fff7ed,#ffedd5);border-radius:8px;padding:1.2rem;}
+  .exam-box h3{color:#d97706;margin:0 0 .6rem;}
+  .answer-area{background:#f8fafc;border:2px dashed var(--border);border-radius:8px;padding:1rem;min-height:60px;margin:.5rem 0;color:var(--muted);font-size:.9rem;}
+  .footer{text-align:center;padding:2rem;color:#fff;font-size:.85rem;margin-top:2rem;background:linear-gradient(135deg,#1e3a5f,#0f172a);border-radius:16px 16px 0 0;}
+  .footer .course-title{font-size:1rem;font-weight:600;margin-bottom:.3rem;}
+  .footer .course-info{opacity:.85;font-size:.85rem;}
+  .footer-sep{border-top:1px solid rgba(255,255,255,.2);margin:1.5rem 0;}
+  .footer-nav{display:flex;justify-content:center;gap:1rem;margin-top:1rem;}
+  .footer-nav a{color:#fff;opacity:.8;text-decoration:none;font-size:.85rem;padding:.4rem 1rem;background:rgba(255,255,255,.1);border-radius:6px;transition:all .2s;}
+  .footer-nav a:hover{opacity:1;background:rgba(255,255,255,.2);}
+  @media(max-width:600px){.case-grid{grid-template-columns:1fr;}.header h1{font-size:1.4rem;}}
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="phase">📚 第二阶段｜核心病理与训练原理期（第8-18天）</div>
+  <h1>第 14 天｜调节功能异常分类与诊断</h1>
+  <p>5类调节异常 · Hofstetter公式 · 诊断指标解读</p>
+</div>
+<div class="nav-bar">
+  <a href="day13.html">← 第13天</a>
+  <a href="index.html">🏠 课程总览</a>
+  <a href="day15.html">第15天 →</a>
+</div>
+<div class="container">
+  <div class="target-box">
+    <h3>🎯 今日学习目标</h3>
+    <p>① 掌握5类调节异常的分类与诊断；② 熟记Hofstetter公式并能计算各年龄最低调节幅度；③ 能解读NRA/PRA/调节灵敏度/动态检影数据；④ 能通过检查数据判断「调节不足/过度」。</p>
+    <p>✅ 拓展目标：掌握调节异常临床诊断流程、调节滞后/超前鉴别、视疲劳关联分析</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">📊</span>5类调节异常分类</div>
+    <h2>调节系统——眼睛的"调焦镜头"</h2>
+    <p>调节（Accommodation）是晶状体通过睫状肌收缩改变屈光力，使眼睛能够<span class="highlight">看清不同距离物体</span>的能力。调节异常是青少年、办公人群视疲劳的首要原因，也是双眼视功能检查的核心项目。</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>类型</th><th>定义</th><th>典型症状</th><th>核心检查指标</th></tr></thead>
+        <tbody>
+          <tr><td><strong>调节不足</strong></td><td>调节幅度低于同年龄正常值</td><td>视近模糊、视疲劳、阅读距离变远</td><td>AMP低于Hofstetter最小值</td></tr>
+          <tr><td><strong>调节过度</strong></td><td>调节反应超出调节刺激量</td><td>视远模糊、头痛、近距调节痉挛</td><td>MEM>+2.50D，NRA低，PRA正常或高</td></tr>
+          <tr><td><strong>调节不持久</strong></td><td>调节能发动但不能维持</td><td>近距阅读初期清晰，后期模糊</td><td>反复调节灵敏度测试后视力下降</td></tr>
+          <tr><td><strong>调节麻痹</strong></td><td>调节完全或部分不能发动</td><td>远近视物均模糊（远视为主）</td><td>AMP极低或为零，瞳孔散大</td></tr>
+          <tr><td><strong>调节灵敏度异常</strong></td><td>调节转换速度下降</td><td>远近切换困难、视疲劳</td><td>单眼/双眼AF＜11/8cpm</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">📐</span>调节幅度（AMP）与Hofstetter公式</div>
+    <h2>判断调节不足的黄金公式</h2>
+    <div class="formula-box">
+      <p>Hofstetter调节幅度公式</p>
+      <p style="font-size:1.5rem;">最小值 = 15 - 0.25 × 年龄</p>
+      <p style="font-size:.9rem;color:var(--muted);margin-top:.3rem;">期望值 = 18.5 - 0.30 × 年龄</p>
+      <p style="font-size:.9rem;color:var(--muted);">最大值 = 25 - 0.40 × 年龄</p>
+    </div>
+    <h3>Hofstetter公式速查表</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>年龄</th><th>最小值</th><th>期望值</th><th>最大值</th></tr></thead>
+        <tbody>
+          <tr><td>10岁</td><td class="highlight">12.5D</td><td>15.5D</td><td>21D</td></tr>
+          <tr><td>15岁</td><td class="highlight">11.25D</td><td>14D</td><td>19D</td></tr>
+          <tr><td>20岁</td><td class="highlight">10D</td><td>12.5D</td><td>17D</td></tr>
+          <tr><td>30岁</td><td class="highlight">7.5D</td><td>9.5D</td><td>13D</td></tr>
+          <tr><td>40岁</td><td class="highlight">5D</td><td>6.5D</td><td>9D</td></tr>
+          <tr><td>50岁</td><td class="highlight">2.5D</td><td>3.5D</td><td>5D</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p><strong>临床应用：</strong>测得患者调节幅度后，与同年龄最小值比较。<span class="highlight">低于最小值→调节不足</span>，是视觉训练的核心适应症。</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">🔬</span>调节功能检查指标解读</div>
+    <h2>从数字到诊断——调节数据速读</h2>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>检查项目</th><th>正常值</th><th>异常提示</th><th>对应问题</th></tr></thead>
+        <tbody>
+          <tr><td>调节幅度（推进法）</td><td>≥Hofstetter最小值</td><td>低于最小值</td><td>调节不足</td></tr>
+          <tr><td>调节灵敏度（±2.00D）</td><td>单眼≥11cpm，双眼≥8cpm</td><td>单眼低：调节问题<br>双眼均低：调节/双眼协调</td><td>灵敏度异常</td></tr>
+          <tr><td>NRA（负相对调节）</td><td>+2.00D～+2.50D</td><td>低（<+1.50D）：调节不足<br>高（>+2.75D）：放松能力差</td><td>NRA低→调节不足</td></tr>
+          <tr><td>PRA（正相对调节）</td><td>≤-2.00D</td><td>低（>-1.75D）：集合过度/调节不足</td><td>PRA低→调节/集合协调问题</td></tr>
+          <tr><td>MEM（动态检影）</td><td>+0.25～+0.75D</td><td>高（>+1.00D）：调节滞后<br>低/负：调节超前</td><td>调节反应异常</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">💡</span>诊断案例分析</div>
+    <h2>临床实战：数据→诊断</h2>
+    <div class="case-grid">
+      <div class="case-item">
+        <h4>案例A：调节不足</h4>
+        <p><strong>数据：</strong>20岁，AMP=6D（正常最小值10D），NRA=+1.00D，MEM=+1.25D，AF=6cpm</p>
+        <p><strong>分析：</strong>AMP=6D＜10D（低于最小值）；NRA=+1.00D（低于+2.00D）；MEM=+1.25D（滞后）</p>
+        <p><strong>诊断：</strong>调节不足</p>
+      </div>
+      <div class="case-item">
+        <h4>案例B：调节过度</h4>
+        <p><strong>数据：</strong>15岁，AMP=16D（正常），NRA=+1.25D，MEM=-0.25D，AF=20cpm（偏快）</p>
+        <p><strong>分析：</strong>MEM=-0.25D（负值→调节超前）；NRA=+1.25D（低→放松困难）；AF偏快</p>
+        <p><strong>诊断：</strong>调节过度（睫状肌痉挛）</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="practice-box">
+      <h3>🛠️ 实操任务</h3>
+      <p>使用Hofstetter公式计算并判断：</p>
+      <ol>
+        <li>30岁患者，测得AMP=6D → 正常吗？（最小值=15-0.25×30=7.5D → 6D<7.5D → <strong>异常：调节不足</strong>）</li>
+        <li>40岁患者，测得AMP=8D → 正常吗？（最小值=5D → 8D>5D → <strong>正常</strong>）</li>
+        <li>15岁患者，调节灵敏度双眼3cpm → 判断（正常8cpm → 3cpm<8cpm → <strong>异常：调节灵敏度严重不足</strong>）</li>
+      </ol>
+      <p>附加任务：计算10岁儿童的最小调节幅度：__________</p>
+      <div class="answer-area">请填写答案</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="exam-box">
+      <h3>📝 今日考核</h3>
+      <ol>
+        <li>5类调节异常各是什么？各列举1个典型症状。</li>
+        <li>默写Hofstetter公式，并计算10岁、30岁、50岁的最小调节幅度。</li>
+        <li>NRA、PRA、MEM三项指标分别在什么情况下提示异常？</li>
+        <li>如何区分「调节不足」和「调节过度」？各需要做哪些关键检查？</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">📌</span>调节功能核心总结</div>
+    <div style="background:#ede9fe;border-radius:10px;padding:1rem;margin-bottom:1rem;border-left:4px solid #9333ea;">
+      <h4 style="font-size:.9rem;color:#9333ea;margin-bottom:.4rem;">临床诊断黄金流程</h4>
+      <ul style="font-size:.88rem;margin:0;padding-left:1.2rem;color:#581c87;">
+        <li>第一步：测调节幅度 → 对照Hofstetter公式</li>
+        <li>第二步：测NRA/PRA → 判断调节放松/刺激能力</li>
+        <li>第三步：MEM动态检影 → 判断调节滞后/超前</li>
+        <li>第四步：调节灵敏度 → 判断调节转换能力</li>
+      </ul>
+    </div>
+    <div style="background:#faf5ff;border-radius:10px;padding:1rem;border-left:4px solid #7e22ce;">
+      <h4 style="font-size:.9rem;color:#7e22ce;margin-bottom:.4rem;">核心鉴别要点</h4>
+      <ul style="font-size:.88rem;margin:0;padding-left:1.2rem;color:#4a148c;">
+        <li>调节不足：AMP低、NRA低、调节滞后</li>
+        <li>调节过度：AMP正常、MEM超前、调节痉挛</li>
+        <li>调节灵敏度：远近切换速度是核心判断标准</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <div class="course-title">📚 视觉训练30天专业培训体系｜基于《视觉训练的原理和方法》（刘陇黔主编）</div>
+  <div class="course-info">第14天 共30天｜每天1小时｜资料整理：高级验光技师闫胜君工作室</div>
+  <div class="footer-sep"></div>
+  <div class="footer-nav">
+    <a href="day13.html">← 第13天</a>
+    <a href="index.html">🏠 课程总览</a>
+    <a href="day15.html">第15天 →</a>
+  </div>
+</div>
+</body>
+</html>
