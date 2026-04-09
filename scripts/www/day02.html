@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第2天 | 视觉训练生理/神经基础</title>
+<style>
+  :root{--primary:#7c3aed;--secondary:#4f46e5;--accent:#f59e0b;--success:#10b981;--danger:#ef4444;--bg:#faf5ff;--card:#fff;--text:#1e293b;--muted:#64748b;--border:#e2e8f0;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Microsoft YaHei',-apple-system,BlinkMacSystemFont,sans-serif;background:var(--bg);color:var(--text);line-height:1.8;}
+  .header{background:linear-gradient(135deg,#7c3aed,#4f46e5);color:#fff;padding:2.5rem 2rem;text-align:center;}
+  .header .phase{font-size:.85rem;background:rgba(255,255,255,.2);border-radius:20px;padding:.2rem .8rem;display:inline-block;margin-bottom:.5rem;}
+  .header h1{font-size:2rem;margin-bottom:.3rem;}
+  .header p{opacity:.9;font-size:.95rem;}
+  .nav-bar{background:#fff;padding:.8rem 1.5rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);flex-wrap:wrap;gap:.5rem;}
+  .nav-bar a{color:var(--primary);text-decoration:none;font-size:.9rem;padding:.3rem .7rem;border-radius:6px;transition:background .2s;}
+  .nav-bar a:hover{background:#faf5ff;}
+  .container{max-width:1000px;margin:0 auto;padding:2rem 1.5rem;}
+  .card{background:var(--card);border-radius:16px;padding:1.8rem;margin-bottom:1.8rem;box-shadow:0 2px 12px rgba(0,0,0,.04);}
+  .card-title{font-size:1.15rem;font-weight:700;color:var(--primary);margin-bottom:1.2rem;display:flex;align-items:center;gap:.6rem;}
+  .card-title .icon{width:32px;height:32px;background:var(--primary);border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:1rem;}
+  .target-box{background:linear-gradient(135deg,#f5f3ff,#ede9fe);border-radius:12px;padding:1.2rem 1.5rem;margin-bottom:1.8rem;}
+  .target-box h3{color:var(--primary);font-size:1rem;margin-bottom:.5rem;}
+  h2{font-size:1.3rem;color:var(--secondary);margin-bottom:1.2rem;padding-bottom:.5rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:.5rem;}
+  h2 .emoji{font-size:1.4rem;}
+  h3{font-size:1.05rem;color:var(--text);margin:1.2rem 0 .6rem;font-weight:600;}
+  p{margin-bottom:.8rem;font-size:.95rem;}
+  ul,ol{padding-left:1.5rem;margin-bottom:.8rem;}
+  li{margin-bottom:.4rem;font-size:.95rem;}
+  .highlight{background:#ede9fe;border-radius:4px;padding:.1rem .3rem;color:#5b21b6;font-weight:500;}
+  .table-wrap{overflow-x:auto;margin:1rem 0;}
+  table{width:100%;border-collapse:collapse;font-size:.9rem;}
+  th{background:var(--primary);color:#fff;padding:.7rem 1rem;text-align:left;font-weight:600;}
+  td{padding:.6rem 1rem;border-bottom:1px solid var(--border);}
+  tr:nth-child(even) td{background:#f8fafc;}
+  .concept-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin:1rem 0;}
+  .concept-card{background:#f8fafc;border-radius:12px;padding:1.2rem;}
+  .concept-card.amber{border-top-color:var(--accent);}
+  .concept-card.green{border-top-color:var(--success);}
+  .concept-card.red{border-top-color:var(--danger);}
+  .concept-card h4{font-size:.95rem;color:var(--muted);margin-bottom:.5rem;font-weight:600;}
+  .concept-card p{font-size:.9rem;margin:0;line-height:1.5;}
+  .flow-box{background:linear-gradient(135deg,#f5f3ff,#ede9fe);border-radius:12px;padding:1.3rem;margin:1rem 0;}
+  .flow-row{display:flex;align-items:center;flex-wrap:wrap;gap:.5rem;margin:.6rem 0;}
+  .flow-step{background:var(--primary);color:#fff;border-radius:6px;padding:.4rem .8rem;font-size:.85rem;font-weight:600;}
+  .flow-step.amber{background:var(--accent);}
+  .flow-step.green{background:var(--success);}
+  .flow-arrow{color:var(--primary);font-size:1.2rem;font-weight:700;}
+  .practice-box{background:linear-gradient(135deg,#f0fdf4,#dcfce7);border-radius:12px;padding:1.3rem;}
+  .practice-box h3{color:#15803d;margin:0 0 .8rem;font-size:1rem;}
+  .exam-box{background:linear-gradient(135deg,#fff7ed,#ffedd5);border-radius:12px;padding:1.3rem;}
+  .exam-box h3{color:#c2410c;margin:0 0 .8rem;font-size:1rem;}
+  .key-box{background:linear-gradient(135deg,#fdf4ff,#fae8ff);border:2px solid #d946ef;border-radius:12px;padding:1.2rem;margin:1rem 0;}
+  .key-box h4{color:#9333ea;margin-bottom:.5rem;}
+  .case-study{background:#f0fdf4;border-radius:12px;padding:1.2rem;margin:1rem 0;border:1px solid #a7f3d0;}
+  .case-study h4{color:#15803d;font-size:.95rem;margin-bottom:.6rem;}
+  .case-study p{font-size:.9rem;margin-bottom:.4rem;}
+  .answer-area{background:#f8fafc;border:2px dashed var(--border);border-radius:10px;padding:1rem;min-height:100px;margin:.8rem 0;color:var(--muted);font-size:.9rem;}
+  .tip-box{background:#fffbeb;border-radius:10px;padding:1rem;margin:1rem 0;}
+  .tip-box h4{color:#b45309;font-size:.9rem;margin-bottom:.4rem;}
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin:1rem 0;}
+  @media(max-width:700px){.two-col{grid-template-columns:1fr;}.header h1{font-size:1.5rem;}}
+  .footer{text-align:center;padding:2rem;color:#fff;font-size:.85rem;margin-top:2rem;background:linear-gradient(135deg,#1e3a5f,#0f172a);border-radius:16px 16px 0 0;}
+  .footer .course-title{font-size:1rem;font-weight:600;margin-bottom:.3rem;}
+  .footer .course-info{opacity:.85;font-size:.85rem;}
+  .footer-sep{border-top:1px solid rgba(255,255,255,.2);margin:1.5rem 0;}
+  .footer-nav{display:flex;justify-content:center;gap:1rem;margin-top:1rem;}
+  .footer-nav a{color:#fff;opacity:.8;text-decoration:none;font-size:.85rem;padding:.4rem 1rem;background:rgba(255,255,255,.1);border-radius:6px;transition:all .2s;}
+  .footer-nav a:hover{opacity:1;background:rgba(255,255,255,.2);}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="phase">📚 第一阶段｜基础筑基期（第1-7天）</div>
+  <h1>第 2 天｜视觉训练生理/神经基础</h1>
+  <p>掌握训练起效核心原理——神经可塑性与突触机制</p>
+</div>
+
+<div class="nav-bar">
+  <a href="day01.html">← 第1天</a>
+  <a href="index.html">🏠 课程总览</a>
+  <a href="day03.html">第3天 →</a>
+</div>
+
+<div class="container">
+
+  <div class="target-box">
+    <h3>🎯 今日学习目标</h3>
+    <p>① 理解大脑视觉可塑性的关键期与成年可塑性；② 掌握突触可塑性的LTP/LTD机制与弱视皮层抑制；③ 能绘制「视觉可塑性→训练起效」逻辑图；④ 能解释"成人弱视为何能通过训练改善"；⑤ 掌握腹侧/背侧通路的临床意义。
+    <br>⑥ 区分视觉结构可塑性与功能可塑性；⑦ 掌握外侧膝状体损伤与弱视的关联；⑧ 理解视通路各环节的临床功能</p>
+  </div>
+
+  <!-- 模块1：大脑视觉可塑性 -->
+  <div class="card">
+    <div class="card-title"><span class="icon">🧠</span>大脑视觉可塑性</div>
+    <h2><span class="emoji">🔬</span> 为什么视觉可以被"训练"？</h2>
+    
+    <p>视觉训练起效的根本原因是<span class="highlight">大脑神经可塑性（Neuroplasticity）</span>——神经系统根据经验和刺激，在结构和功能上发生适应性改变的能力。这种可塑性体现在突触、神经元回路乃至整个脑区层面。</p>
+    
+    <h3>视觉可塑性的两大核心类型</h3>
+    <div class="concept-grid">
+      <div class="concept-card">
+        <h4>🏗️ 结构可塑性</h4>
+        <p>神经元突触数量增减、树突分支生长、脑区体积变化，是视觉功能长期改善的物质基础，训练3个月以上可观测到结构改变。</p>
+      </div>
+      <div class="concept-card green">
+        <h4>⚙️ 功能可塑性</h4>
+        <p>神经元放电频率、反应特性、皮层激活区域改变，训练数天~数周即可出现，是视力快速提升的直接原因。</p>
+      </div>
+    </div>
+
+    <h3>关键期（Critical Period）</h3>
+    <div class="concept-grid">
+      <div class="concept-card">
+        <h4>⏰ 时间窗口</h4>
+        <p>视觉系统发育关键期：出生~6个月启动，2-3岁最敏感，至8-12岁逐渐关闭（不同功能窗口有差异）。这一时期的视觉经历对视觉系统发育至关重要。</p>
+      </div>
+      <div class="concept-card amber">
+        <h4>⚡ 关键期特征</h4>
+        <p>此阶段神经突触密度高，可塑性最强，视觉剥夺或异常视觉经历最易造成永久性损害（如弱视形成）。关键期一旦关闭，功能恢复难度显著增加。</p>
+      </div>
+      <div class="concept-card green">
+        <h4>🎯 临床意义</h4>
+        <p>关键期内的弱视治疗效果最佳；越早干预，视力改善潜力越大。这是早筛早治的生物学依据，也是国家推行儿童视力筛查的意义所在。</p>
+      </div>
+    </div>
+
+    <h3>不同视觉功能的关键期细分</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>视觉功能</th><th>关键期起始</th><th>高峰期</th><th>关闭时间</th></tr></thead>
+        <tbody>
+          <tr><td>形觉视力</td><td>出生</td><td>2-3岁</td><td>6-8岁</td></tr>
+          <tr><td>双眼单视</td><td>3个月</td><td>1-3岁</td><td>5-6岁</td></tr>
+          <tr><td>立体视觉</td><td>6个月</td><td>3-5岁</td><td>8-10岁</td></tr>
+          <tr><td>对比敏感度</td><td>1岁</td><td>4-6岁</td><td>12岁</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>成年视觉可塑性——训练不只属于儿童</h3>
+    <p>传统观念认为视觉系统在青春期后趋于固定，但2010年代以来大量神经影像学研究（fMRI/VBM）颠覆了这一认识：</p>
+    
+    <ul>
+      <li><strong>成人视皮层仍具有可塑性：</strong>通过高强度、重复的知觉学习，成人V1区神经元反应特性可发生显著改变，幅度可达10-20%。</li>
+      <li><strong>弱视成人可从训练获益：</strong>知觉训练（对比度辨别、游标视力）可改善成人弱视眼视力，幅度低于儿童但临床有意义（视力平均提升1-2行）。</li>
+      <li><strong>机制差异：</strong>成人可塑性更依赖<span class="highlight">注意力驱动</span>和<span class="highlight">高强度重复</span>，而非自然发育驱动。这意味着成人训练需要更密集、更专注。</li>
+    </ul>
+
+    <h3>提升成年视觉可塑性的4大核心要素</h3>
+    <div class="tip-box">
+      <h4>✅ 训练增效秘诀</h4>
+      <ul>
+        <li>训练强度：每日30分钟以上，连续8-12周为一个疗程</li>
+        <li>注意力：训练时全程专注，分心会大幅降低可塑性激活效果</li>
+        <li>睡眠：充足睡眠可巩固突触可塑性，提升训练效果</li>
+        <li>双眼协同：双眼训练优于单眼训练，更易激活皮层可塑性</li>
+      </ul>
+    </div>
+
+    <div class="key-box">
+      <h4>🔑 关键对比：关键期 vs 成年可塑性</h4>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>维度</th><th>关键期（儿童）</th><th>成年可塑性</th></tr></thead>
+          <tbody>
+            <tr><td>可塑性强度</td><td>极高</td><td>中等</td></tr>
+            <tr><td>主要驱动力</td><td>正常视觉经验</td><td>高强度重复训练+注意</td></tr>
+            <tr><td>改变速度</td><td>快（周~月）</td><td>慢（月~年）</td></tr>
+            <tr><td>改变幅度</td><td>大</td><td>较小但有意义</td></tr>
+            <tr><td>训练重点</td><td>遮盖+精细训练</td><td>知觉训练+高对比度刺激</td></tr>
+            <tr><td>典型设备</td><td>遮眼罩、精细训练卡</td><td>对比度训练软件、AR/VR</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- 模块2：突触可塑性 -->
+  <div class="card">
+    <div class="card-title"><span class="icon">⚡</span>突触可塑性：训练起效的细胞机制</div>
+    <h2><span class="emoji">🧬</span> LTP与LTD——记住这两个词</h2>
+    
+    <p>突触是神经元之间传递信号的结构，突触可塑性是视觉学习、记忆、功能改善的最小功能单位，核心表现为<span class="highlight">LTP</span>和<span class="highlight">LTD</span>。</p>
+
+    <div class="concept-grid">
+      <div class="concept-card">
+        <h4>📈 长时程增强（LTP）</h4>
+        <p><strong>Long-Term Potentiation</strong><br>反复高频刺激→突触传递效率持续增强→神经连接加强→视觉功能提升。这是学习和记忆的细胞基础。</p>
+        <p style="margin-top:.5rem;"><em>训练时：正确刺激→功能增强</em></p>
+        <p style="margin-top:.5rem; font-size:0.85rem;">分子基础：NMDA受体激活，钙离子内流，突触后膜受体增多</p>
+      </div>
+      <div class="concept-card red">
+        <h4>📉 长时程抑制（LTD）</h4>
+        <p><strong>Long-Term Depression</strong><br>低频或异常刺激→突触传递效率持续降低→弱视眼通路被抑制。这是弱视形成的细胞机制。</p>
+        <p style="margin-top:.5rem;"><em>弱视时：遮盖优势眼→解除LTD</em></p>
+        <p style="margin-top:.5rem; font-size:0.85rem;">分子基础：AMPA受体减少，突触信号传导减弱</p>
+      </div>
+    </div>
+
+    <h3>突触可塑性的宏观表现</h3>
+    <ul>
+      <li><strong>突触发生：</strong>训练刺激生成新的突触连接，增加神经信号传递路径</li>
+      <li><strong>突触修剪：</strong>清除无用/异常突触，优化视觉神经回路效率</li>
+      <li><strong>突触重塑：</strong>调整突触连接强度，重建正常视觉功能</li>
+    </ul>
+
+    <h3>弱视皮层抑制机制（重要！）</h3>
+    <p>弱视的本质是<strong>神经抑制性疾病</strong>，而非眼睛器质性病变，抑制分为皮层内抑制和跨眼抑制两种类型。</p>
+    
+    <div class="flow-box">
+      <p><strong>弱视形成的神经机制链：</strong></p>
+      <div class="flow-row">
+        <span class="flow-step">异常视觉输入</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-step amber">双眼竞争失衡</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-step amber">优势眼抑制弱视眼</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-step red">弱视眼皮层LTD</span>
+      </div>
+      <div class="flow-row">
+        <span class="flow-step red">V1区眼优势柱萎缩</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-step red">外侧膝状体神经元缩小</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-step red">视力永久性下降</span>
+      </div>
+      
+      <p style="margin-top:1rem;"><strong>视觉训练的破解路径：</strong></p>
+      <div class="flow-row">
+        <span class="flow-step green">遮盖/压抑优势眼</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-step">解除弱视眼抑制</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-step">弱视眼反复刺激</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-step green">LTP重建</span>
+      </div>
+      <div class="flow-row">
+        <span class="flow-step green">突触效率恢复</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-step green">皮层功能重组</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-step green">视力提升</span>
+      </div>
+    </div>
+
+    <h3>外侧膝状体异常（弱视的皮层下机制）</h3>
+    <div class="two-col">
+      <div>
+        <ul>
+          <li>弱视眼对应的<strong>外侧膝状体（LGN）神经元细胞体缩小</strong>（约10-20%），树突发育减少。</li>
+          <li>M细胞（大细胞层）和P细胞（小细胞层）均受影响，但程度不同。</li>
+          <li>屈光参差性弱视：P细胞损伤更重；形觉剥夺性弱视：M+P细胞均严重受损</li>
+          <li>LGN异常→V1区输入减少→皮层功能柱发育不足，这是弱视难以完全通过光学矫正逆转的原因。</li>
+        </ul>
+      </div>
+      <div>
+        <div class="case-study">
+          <h4>临床关联</h4>
+          <p><strong>为什么屈光矫正不能"治愈"弱视？</strong></p>
+          <p>屈光矫正解决了光学层面的问题（视网膜成像清晰），但弱视的神经机制（LTD抑制、神经结构萎缩）需要通过训练（LTP强化）来逆转。</p>
+          <p>这解释了为什么"配镜后观察等待"对已形成弱视的儿童是不够的。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 模块3：视觉系统通路 -->
+  <div class="card">
+    <div class="card-title"><span class="icon">👁️</span>视觉系统：眼-脑协同与信息处理通路</div>
+    <h2><span class="emoji">🧠</span> 从光子到感知——视觉信息处理链</h2>
+    
+    <div class="flow-box">
+      <div class="flow-row">
+        <span class="flow-step">视网膜感光细胞</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-step">视神经（CN II）</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-step">视交叉</span>
+      </div>
+      <div class="flow-row">
+        <span class="flow-step">外侧膝状体(LGN)</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-step">初级视皮层(V1)</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-step green">高级视皮层(V2-V5)</span>
+      </div>
+    </div>
+
+    <h3>视通路核心环节功能</h3>
+    <ul>
+      <li><strong>视网膜：</strong>光信号转换为电信号，完成初步信息处理</li>
+      <li><strong>视交叉：</strong>鼻侧视网膜纤维交叉，颞侧不交叉，实现双眼视野整合</li>
+      <li><strong>LGN：</strong>视觉信号中继站，筛选并传递信号至视皮层</li>
+      <li><strong>V1：</strong>初级视觉加工，处理方向、对比度、空间频率</li>
+    </ul>
+
+    <h3>两条并行处理通路</h3>
+    <div class="concept-grid">
+      <div class="concept-card">
+        <h4>🔵 腹侧通路（"What"通路）</h4>
+        <p>V1→V2→V4→颞下回<br><strong>负责：</strong>物体识别、颜色感知、形状辨别、面孔识别<br><strong>训练相关：</strong>知觉视觉训练、弱视精细视力训练、对比敏感度训练</p>
+      </div>
+      <div class="concept-card amber">
+        <h4>🟡 背侧通路（"Where/How"通路）</h4>
+        <p>V1→V2→V5（MT）→顶叶<br><strong>负责：</strong>空间定位、运动感知、手眼协调、眼球运动控制<br><strong>训练相关：</strong>眼球运动训练、追随训练、视觉追踪康复</p>
+      </div>
+    </div>
+
+    <h3>双眼视觉神经基础</h3>
+    <p>视皮层V1区存在大量<strong>双眼驱动细胞</strong>，是双眼单视、立体视觉的神经基础；弱视患者双眼驱动细胞数量显著减少，导致融像障碍。</p>
+
+    <h3>眼-脑协同的临床意义</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>大脑区域</th><th>视觉功能</th><th>异常表现</th><th>对应训练</th></tr></thead>
+        <tbody>
+          <tr><td>V1（初级视皮层）</td><td>基本视力、方向检测</td><td>弱视、视野缺损</td><td>精细视力训练、知觉训练</td></tr>
+          <tr><td>V4（色彩区）</td><td>颜色感知</td><td>颜色辨别障碍</td><td>色彩感知训练</td></tr>
+          <tr><td>V5/MT（运动区）</td><td>运动感知、眼球追随</td><td>追随异常、眼球震颤</td><td>追随训练、稳定注视训练</td></tr>
+          <tr><td>额叶眼动区（FEF）</td><td>主动扫视控制</td><td>阅读扫视异常</td><td>扫视训练</td></tr>
+          <tr><td>顶叶（IPS）</td><td>空间感知、双眼协调</td><td>融像困难、空间忽略</td><td>融像训练、视觉感知训练</td></tr>
+        </tbody>
+      </table>
+    </div>
+    
+    <div class="tip-box">
+      <h4>💡 训练设计启示</h4>
+      <p>不同类型的视觉训练实际上激活的是不同的皮层通路：</p>
+      <ul>
+        <li><strong>精细视力训练</strong>（穿珠子）→ 主要激活腹侧通路（V1→V4）</li>
+        <li><strong>眼球运动训练</strong>（追随球）→ 主要激活背侧通路（V5/MT→顶叶）</li>
+        <li><strong>融像训练</strong>→ 需要两条通路协同，涉及顶叶整合</li>
+      </ul>
+      <p>复合型视觉问题需要设计综合训练方案，同时激活多条通路。</p>
+    </div>
+  </div>
+
+  <!-- 模块4：最新研究进展 -->
+  <div class="card">
+    <div class="card-title"><span class="icon">📰</span>最新研究进展（2023-2025）</div>
+    
+    <div class="case-study">
+      <h4>🔬 成人弱视可塑性研究突破</h4>
+      <p><strong>Hess研究团队（2023）：</strong>通过高强度双眼视训练（Binocular Game），成人弱视患者平均视力提升2行，且fMRI显示V1区活动模式发生显著改变。</p>
+      <p><strong>临床启示：</strong>成人弱视不再是"不可治疗"的，应积极尝试知觉训练和双眼视训练。</p>
+    </div>
+    
+    <div class="case-study">
+      <h4>🎮 VR训练技术进展</h4>
+      <p><strong>研究结论：</strong>2024年多项RCT证实，基于VR的弱视训练系统在依从性和效果方面优于传统训练。VR环境提供更丰富的深度线索和沉浸式反馈。</p>
+      <p><strong>临床应用：</strong>2025年多家国内厂商推出视觉训练VR设备，适用于弱视、斜视、双眼视异常等。</p>
+    </div>
+
+    <div class="case-study">
+      <h4>🧠 神经调控辅助训练</h4>
+      <p><strong>经颅磁刺激（TMS）：</strong>2025年临床研究证实，对V1区进行低频TMS刺激，可解除弱视皮层抑制，联合视觉训练效果提升40%。</p>
+      <p><strong>药物辅助：</strong>左旋多巴可增强NMDA受体活性，提升儿童视觉可塑性，仅用于临床研究，禁止常规使用。</p>
+    </div>
+  </div>
+
+  <!-- 实操任务 -->
+  <div class="card">
+    <div class="practice-box">
+      <h3>🛠️ 实操任务</h3>
+      
+      <p><strong>任务一：绘制「视觉可塑性→训练起效」逻辑图</strong></p>
+      <p>请在下方框内画出以下内容的逻辑关系图，要求包含：</p>
+      <ul>
+        <li>① 神经可塑性（关键期 vs 成年期）</li>
+        <li>② LTP（正向训练路径）和 LTD（弱视抑制路径）</li>
+        <li>③ 弱视形成机制 → 训练干预路径 → 视力改善</li>
+        <li>④ 视觉通路（腹侧/背侧）与训练类型的对应</li>
+        <li>⑤ 外侧膝状体与视皮层的关联</li>
+      </ul>
+      <div class="answer-area" style="min-height:140px;">在此描述您的逻辑图结构……</div>
+      
+      <p style="margin-top:1rem;"><strong>任务二：口头演练</strong></p>
+      <p>用3分钟向同伴讲解"为什么遮盖优势眼能改善弱视眼视力"，要求用到LTP/LTD、皮层抑制、神经可塑性概念。</p>
+      
+      <p style="margin-top:1rem;"><strong>任务三：临床思维</strong></p>
+      <p>一位25岁成人弱视患者咨询："我这个年龄训练还有用吗？"请用神经可塑性理论给出专业回答，并提出训练建议。</p>
+      <div class="answer-area">在此写出您的回答要点……</div>
+    </div>
+  </div>
+
+  <!-- 考核 -->
+  <div class="card">
+    <div class="exam-box">
+      <h3>📝 今日考核</h3>
+      <p><strong>核心问答（口头或书面）：</strong></p>
+      <ol>
+        <li><strong>解释「成人弱视为何能通过训练改善」</strong>（要求引用成年神经可塑性机制，不超过100字）</li>
+        <li>LTP和LTD各在视觉训练的哪个环节发挥作用？各举一个临床例子。</li>
+        <li>弱视皮层抑制的形成机制是什么？遮盖治疗如何破解这一抑制？</li>
+        <li>腹侧通路和背侧通路分别对应什么类型的视觉训练？</li>
+        <li>外侧膝状体（LGN）在弱视形成中扮演什么角色？</li>
+        <li>结构可塑性和功能可塑性的区别是什么？对训练方案设计有何指导意义？</li>
+      </ol>
+      <br>
+      <p><strong>参考答案（第1题）：</strong></p>
+      <div class="answer-area">
+        成人视皮层虽然关键期已过，但仍具有成年神经可塑性。通过高强度、重复的视觉刺激，弱视眼对应的V1皮层可发生LTP（长时程增强），突触传递效率提升，神经元反应特性改善，从而使弱视眼视力得到改善。成人改善幅度小于儿童，但通过知觉训练（对比度训练、游标视力训练）仍有临床意义的提升。
+      </div>
+    </div>
+  </div>
+
+  <!-- 核心知识卡 -->
+  <div class="card">
+    <div class="card-title"><span class="icon">📌</span>今日核心知识卡</div>
+    <div class="concept-grid">
+      <div class="concept-card">
+        <h4>神经可塑性核心</h4>
+        <p>关键期（0-12岁）可塑性最强<br>成年期仍具可塑性（知觉学习）<br>高强度+重复+注意力是关键</p>
+      </div>
+      <div class="concept-card amber">
+        <h4>LTP/LTD记忆口诀</h4>
+        <p>LTP → 增强 → 功能改善<br>LTD → 抑制 → 弱视形成<br>训练 = 激活LTP，解除LTD</p>
+      </div>
+      <div class="concept-card green">
+        <h4>两条通路</h4>
+        <p>腹侧："What" → 识别形状颜色<br>背侧："Where" → 运动空间协调<br>弱视训练→腹侧；眼动训练→背侧</p>
+      </div>
+      <div class="concept-card red">
+        <h4>弱视核心本质</h4>
+        <p>神经抑制性疾病<br>LGN神经元萎缩<br>光学矫正≠治愈，需神经训练</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <div class="course-title">📚 视觉训练30天专业培训体系｜基于《视觉训练的原理和方法》（刘陇黔主编）</div>
+  <div class="course-info">第2天 共30天｜每天1小时｜资料整理：高级验光技师闫胜君工作室</div>
+  <div class="footer-sep"></div>
+  <div class="footer-nav">
+    <a href="day01.html">← 第1天</a>
+    <a href="index.html">🏠 课程总览</a>
+    <a href="day03.html">第3天 →</a>
+  </div>
+</div>
+</body>
+</html>
