@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第29天 | 临床案例会诊与解决方案拆解</title>
+<style>
+  :root{--primary:#dc2626;--secondary:#b91c1c;--accent:#f59e0b;--success:#10b981;--bg:#fff5f5;--card:#fff;--text:#1e293b;--muted:#64748b;--border:#e2e8f0;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Microsoft YaHei',Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+  .header{background:linear-gradient(135deg,#dc2626,#7f1d1d);color:#fff;padding:2rem;text-align:center;}
+  .header .phase{font-size:.85rem;background:rgba(255,255,255,.2);border-radius:20px;padding:.2rem .8rem;display:inline-block;margin-bottom:.5rem;}
+  .header h1{font-size:1.8rem;margin-bottom:.3rem;}
+  .header p{opacity:.9;font-size:.95rem;}
+  .nav-bar{background:#fff;padding:.8rem 1.5rem;display:flex;align-items:center;justify-content:space-between;border-bottom:2px solid var(--border);flex-wrap:wrap;gap:.5rem;}
+  .nav-bar a{color:var(--primary);text-decoration:none;font-size:.9rem;padding:.3rem .7rem;border-radius:6px;}
+  .container{max-width:960px;margin:0 auto;padding:1.5rem 1.5rem 3rem;}
+  .card{background:var(--card);border-radius:12px;padding:1.5rem;margin-bottom:1.5rem;box-shadow:0 2px 8px rgba(0,0,0,.06);}
+  .card-title{font-size:1.1rem;font-weight:700;color:var(--primary);margin-bottom:1rem;display:flex;align-items:center;gap:.5rem;}
+  .card-title .icon{width:28px;height:28px;background:var(--primary);border-radius:6px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:.85rem;}
+  .target-box{background:linear-gradient(135deg,#fff5f5,#fee2e2);border-radius:8px;padding:1rem 1.2rem;margin-bottom:1.5rem;}
+  .target-box h3{color:var(--primary);font-size:.95rem;margin-bottom:.4rem;}
+  h2{font-size:1.2rem;color:var(--secondary);margin-bottom:1rem;padding-bottom:.4rem;border-bottom:2px solid var(--border);}
+  h3{font-size:1rem;color:var(--text);margin:1rem 0 .5rem;}
+  p{margin-bottom:.7rem;font-size:.95rem;}
+  ul,ol{padding-left:1.4rem;margin-bottom:.7rem;}
+  li{margin-bottom:.35rem;font-size:.95rem;}
+  .highlight{background:#fee2e2;border-radius:4px;padding:.1rem .3rem;color:#7f1d1d;}
+  .case-card{background:#fff5f5;border:2px solid #dc2626;border-radius:12px;padding:1.5rem;margin:.8rem 0;}
+  .case-card h3{margin-top:0;color:#b91c1c;}
+  .case-card h4{font-size:.9rem;color:var(--muted);margin-bottom:.4rem;}
+  .case-card table{font-size:.88rem;}
+  .practice-box{background:linear-gradient(135deg,#f0fdf4,#dcfce7);border-radius:8px;padding:1.2rem;}
+  .practice-box h3{color:var(--success);margin:0 0 .6rem;}
+  .exam-box{background:linear-gradient(135deg:#fff7ed,#ffedd5);border-radius:8px;padding:1.2rem;}
+  .exam-box h3{color:#d97706;margin:0 0 .6rem;}
+  .answer-area{background:#f8fafc;border:2px dashed var(--border);border-radius:8px;padding:1rem;min-height:80px;margin:.5rem 0;color:var(--muted);font-size:.9rem;line-height:1.6;}
+  .footer{text-align:center;padding:2rem;color:#fff;font-size:.85rem;margin-top:2rem;background:linear-gradient(135deg,#1e3a5f,#0f172a);border-radius:16px 16px 0 0;}
+  .footer .course-title{font-size:1rem;font-weight:600;margin-bottom:.3rem;}
+  .footer .course-info{opacity:.85rem;font-size:.85rem;}
+  .footer-sep{border-top:1px solid rgba(255,255,255,.2);margin:1.5rem 0;}
+  .footer-nav{display:flex;justify-content:center;gap:1rem;margin-top:1rem;}
+  .footer-nav a{color:#fff;opacity:.8;text-decoration:none;font-size:.85rem;padding:.4rem 1rem;background:rgba(255,255,255,.1);border-radius:6px;transition:all .2s;}
+  .footer-nav a:hover{opacity:1;background:rgba(255,255,255,.2);}
+  @media(max-width:600px){.header h1{font-size:1.4rem;}}
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="phase">📚 第五阶段｜综合应用与结业（第29-30天）</div>
+  <h1>第 29 天｜临床案例会诊与解决方案拆解</h1>
+  <p>弱视+斜视+异常视网膜对应 · 调节过度+集合不足+视疲劳 · 眼球运动+阅读障碍</p>
+</div>
+<div class="nav-bar">
+  <a href="day28.html">← 第28天</a>
+  <a href="index.html">🏠 课程总览</a>
+  <a href="day30.html">第30天 →</a>
+</div>
+<div class="container">
+  <div class="target-box">
+    <h3>🎯 今日学习目标</h3>
+    <p>① 掌握3类典型复杂案例的分析逻辑；② 能独立出具诊断+训练方案+复查计划；③ 融会贯通30天所学知识；④ 完成案例会诊评分（诊断准确率+方案合理性）。</p>
+  </div>
+
+  <div class="case-card">
+    <h3>典型案例1：弱视+斜视+异常视网膜对应</h3>
+    <h4>案例信息：</h4>
+    <p>女，6岁。家长主诉：发现右眼"有点斜"3年余。检查：睫状肌麻痹验光：右眼+4.50D（0.4），左眼+2.00D（1.0）；角膜映光：右眼内斜15Δ；同视机：主客观斜视角均=+15°，无正常视网膜对应（主副角差<5°但有抑制）；遮盖试验：右眼旁中心注视。</p>
+    <p><strong>诊断：</strong></p>
+    <ol>
+      <li>屈光参差性弱视（右眼）+ 斜视性弱视（混合机制）</li>
+      <li>部分调节性内斜视（睫状肌麻痹后仍有残余内斜）</li>
+      <li>旁中心注视 + 异常视网膜对应</li>
+    </ol>
+    <p><strong>训练方案：</strong></p>
+    <ol>
+      <li><strong>阶段一（1-4周）：</strong>屈光全矫配镜+遮盖（左眼遮盖2小时/天）+精细训练（穿珠子、描图，每天15分钟）</li>
+      <li><strong>阶段二（5-8周）：</strong>注视性质纠正——海丁格刷+后像疗法（改善旁中心注视）</li>
+      <li><strong>阶段三（9-16周）：</strong>遮盖维持+精细训练加量+双眼视基础建立</li>
+      <li><strong>阶段四（>4个月）：</strong>评估是否需要斜视手术（残余内斜角度>10Δ→手术指征）；术后进行融像训练</li>
+      <li><strong>复查：</strong>每2周视力，每4周全面复查</li>
+    </ol>
+  </div>
+
+  <div class="case-card">
+    <h3>典型案例2：调节过度+集合不足+视疲劳</h3>
+    <h4>案例信息：</h4>
+    <p>男，22岁，程序员。主诉：每天看电脑8小时后头痛、眼酸胀、视物模糊3个月余。检查：AMP=14D（正常），NRA=+1.25D（↓），PRA=-1.50D（↓），MEM=-0.50D（超前），AF=单眼15cpm/双眼7cpm（↓）；近距隐斜8Δ外（↑），NPC=9cm（↓），AC/A=2.5/1（低）；CISS=22分（异常）。</p>
+    <p><strong>诊断：</strong></p>
+    <ol>
+      <li>调节过度（睫状肌痉挛）——MEM超前，NRA低</li>
+      <li>集合不足（低AC/A型）——近距外斜、NPC远移</li>
+      <li>视疲劳综合征（视频终端综合征）</li>
+    </ol>
+    <p><strong>训练方案：</strong></p>
+    <ol>
+      <li><strong>优先级：</strong>先放松调节（改善过度）→再加强集合</li>
+      <li><strong>第1-4次（调节放松阶段）：</strong>远距字母表训练（每天15分钟）+负镜片快速阅读（每次10分钟）；减少近距用眼强度</li>
+      <li><strong>第5-8次（集合提升阶段）：</strong>聚散球10min/天+裂隙尺BO训练+反转拍（±1.50D，较低难度）</li>
+      <li><strong>第9-12次（综合整合）：</strong>Hart字母表+近距工作任务模拟训练</li>
+      <li><strong>近附加：</strong>考虑+0.75D近附加减少电脑使用时的调节负担</li>
+    </ol>
+  </div>
+
+  <div class="case-card">
+    <h3>典型案例3：眼球运动异常+阅读障碍</h3>
+    <h4>案例信息：</h4>
+    <p>男，9岁，三年级。家长主诉：阅读速度慢、跳行漏字、语文成绩差，老师反映注意力不集中。检查：视力正常（1.0/1.0）；眼位正常；DEM测试：水平时间120秒（异常，正常<47秒），错误率20次（异常）；NSUCO追随评分偏低；集合/调节检查正常。</p>
+    <p><strong>诊断：</strong></p>
+    <ol>
+      <li>扫视功能异常（发育性扫视迟缓）</li>
+      <li>学习相关视觉效率低下（眼球运动相关）</li>
+      <li>（需排除：注意缺陷多动障碍、学习障碍等其他原因——建议转心理评估）</li>
+    </ol>
+    <p><strong>训练方案：</strong></p>
+    <ol>
+      <li><strong>第1-4次：</strong>Dotting O's（圈O训练）+吸管追踪训练——注视稳定性</li>
+      <li><strong>第5-8次：</strong>Hart字母表扫视训练（从大字→小字，距离从3m→5m）+数字快速定位</li>
+      <li><strong>第9-12次：</strong>马氏登球追随训练+近距阅读任务模拟</li>
+      <li><strong>家庭配合：</strong>每天字母表训练5分钟；家长监督</li>
+      <li><strong>复查：</strong>每4周复查DEM测试数据</li>
+    </ol>
+  </div>
+
+  <div class="card">
+    <div class="practice-box">
+      <h3>🛠️ 实操任务：独立完成3例复杂案例解决方案</h3>
+      <p><strong>要求（分组进行，每组完成以下内容）：</strong></p>
+      <ol>
+        <li>完整诊断（含主次诊断）</li>
+        <li>训练方案（含阶段划分、工具选择、频次时长）</li>
+        <li>复查计划（含评估指标）</li>
+        <li>预估疗程和预后</li>
+      </ol>
+      <p style="margin-top:.7rem;"><strong>评估标准：</strong>诊断准确率60%+，方案合理性40%。</p>
+    </div>
+  </div>
+
+
+
+  <div class="card">
+    <div class="card-title"><span class="icon">📌</span>训练终止标准</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem;">
+      <div style="background:#f0fdf4;border-radius:10px;padding:1rem;">
+        <h4 style="font-size:.85rem;color:#059669;">目标达成</h4>
+        <p style="font-size:.8rem;color:#166534;margin:.2rem 0 0;">症状消失</p>
+        <p style="font-size:.8rem;color:#166534;margin:.1rem 0 0;">指标正常</p>
+        <p style="font-size:.8rem;color:#166534;margin:.1rem 0 0;">功能稳定</p>
+      </div>
+      <div style="background:#fff7ed;border-radius:10px;padding:1rem;">
+        <h4 style="font-size:.85rem;color:#c2410c;">训练无效</h4>
+        <p style="font-size:.8rem;color:#92400e;margin:.2rem 0 0;">12-24次后无改善</p>
+        <p style="font-size:.8rem;color:#92400e;margin:.1rem 0 0;">需重新评估</p>
+        <p style="font-size:.8rem;color:#92400e;margin:.1rem 0 0;">调整方案</p>
+      </div>
+    </div>
+    <p style="font-size:.85rem;color:#1e40af;margin-top:1rem;">维持期：每周1-2次家庭练习，持续3-6个月巩固效果</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">📋</span>训练终止时机</div>
+    <div style="background:#fef2f2;border-radius:10px;padding:1rem;margin-bottom:1rem;border-left:4px solid #dc2626;">
+      <h4 style="font-size:.9rem;color:#dc2626;margin-bottom:.4rem;">必须终止训练的情况</h4>
+      <ul style="font-size:.85rem;margin:0;padding-left:1.2rem;color:#7f1d1d;">
+        <li>出现新的眼部器质性疾病</li>
+        <li>患者依从性极差，无法配合</li>
+        <li>原诊断有误，需重新全面评估</li>
+        <li>患者主动要求终止训练</li>
+        <li>训练中出现明显不适、眼痛、头痛</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">🎯</span>临床结业标准</div>
+    <p><strong>✅ 功能达标：</strong>所有目标视功能指标达到正常范围</p>
+    <p><strong>✅ 症状消失：</strong>视疲劳、重影、阅读困难等主诉完全缓解</p>
+    <p><strong>✅ 稳定维持：</strong>功能指标稳定保持2周以上无反弹</p>
+    <p><strong>✅ 掌握方法：</strong>患者可独立完成家庭维持训练</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">📌</span>长期随访规范</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;">
+      <div style="background:#f0fdf4;border-radius:10px;padding:1rem;">
+        <h4 style="font-size:.9rem;color:#059669;margin-bottom:.4rem;">随访必查项目</h4>
+        <p style="font-size:.85rem;color:#166534;margin:0;">远/近视力（戴镜+裸眼）</p>
+        <p style="font-size:.85rem;color:#166534;margin:.2rem 0 0;">眼位与遮盖试验</p>
+        <p style="font-size:.85rem;color:#166534;margin:.2rem 0 0;">Worth四点灯 + 立体视</p>
+        <p style="font-size:.85rem;color:#166534;margin:.2rem 0 0;">调节/聚散功能复核</p>
+      </div>
+      <div style="background:#eff6ff;border-radius:10px;padding:1rem;">
+        <h4 style="font-size:.9rem;color:#1d4ed8;margin-bottom:.4rem;">标准随访频率</h4>
+        <p style="font-size:.85rem;color:#1e40af;margin:0;">停止训练后 1 个月</p>
+        <p style="font-size:.85rem;color:#1e40af;margin:.2rem 0 0;">停止训练后 3 个月</p>
+        <p style="font-size:.85rem;color:#1e40af;margin:.2rem 0 0;">停止训练后 6 个月</p>
+        <p style="font-size:.85rem;color:#1e40af;margin:.2rem 0 0;">满 1 年全面复查</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="exam-box">
+      <h3>📝 今日考核</h3>
+      <ol>
+        <li>案例1中，该6岁内斜视合并弱视患者，为何先做弱视治疗再做斜视手术？</li>
+        <li>案例2中，为什么要先"放松调节"再"加强集合"？</li>
+        <li>案例3中，如果集合和调节检查正常，是否就不需要做视觉训练？为什么？</li>
+        <li>复杂案例分析：你认为以上3个案例中，哪个预后最好？哪个最难？为什么？</li>
+      </ol>
+      <div class="answer-area">
+        <strong>参考答案：</strong><br>
+        1. 儿童发育期先提升弱视眼视力、纠正注视性质，术后才能建立双眼视，否则易复发；<br>
+        2. 调节痉挛未放松时，集合训练会加重疲劳，必须先解除调节紧张；<br>
+        3. 仍需训练，因为阅读障碍核心是眼球运动功能异常，与调节集合无关；<br>
+        4. 预后最好：案例3（眼球运动）；最难：案例1（弱视+斜视+旁中心注视）。
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <div class="course-title">📚 视觉训练30天专业培训体系｜基于《视觉训练的原理和方法》（刘陇黔主编）</div>
+  <div class="course-info">第29天 共30天｜每天1小时｜资料整理：高级验光技师闫胜君工作室</div>
+  <div class="footer-sep"></div>
+  <div class="footer-nav">
+    <a href="day28.html">← 第28天</a>
+    <a href="index.html">🏠 课程总览</a>
+    <a href="day30.html">第30天 →</a>
+  </div>
+</div>
+</body>
+</html>
