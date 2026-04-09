@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第11天 | 斜视病理与双眼视异常</title>
+<style>
+  :root{--primary:#0891b2;--secondary:#0e7490;--accent:#f59e0b;--success:#10b981;--bg:#ecfeff;--card:#fff;--text:#1e293b;--muted:#64748b;--border:#e2e8f0;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Microsoft YaHei',Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+  .header{background:linear-gradient(135deg,#0891b2,#164e63);color:#fff;padding:2rem;text-align:center;}
+  .header .phase{font-size:.85rem;background:rgba(255,255,255,.2);border-radius:20px;padding:.2rem .8rem;display:inline-block;margin-bottom:.5rem;}
+  .header h1{font-size:1.8rem;margin-bottom:.3rem;}
+  .header p{opacity:.9;font-size:.95rem;}
+  .nav-bar{background:#fff;padding:.8rem 1.5rem;display:flex;align-items:center;justify-content:space-between;border-bottom:2px solid var(--border);flex-wrap:wrap;gap:.5rem;}
+  .nav-bar a{color:var(--primary);text-decoration:none;font-size:.9rem;padding:.3rem .7rem;border-radius:6px;}
+  .container{max-width:960px;margin:0 auto;padding:1.5rem 1.5rem 3rem;}
+  .card{background:var(--card);border-radius:12px;padding:1.5rem;margin-bottom:1.5rem;box-shadow:0 2px 8px rgba(0,0,0,.06);}
+  .card-title{font-size:1.1rem;font-weight:700;color:var(--primary);margin-bottom:1rem;display:flex;align-items:center;gap:.5rem;}
+  .card-title .icon{width:28px;height:28px;background:var(--primary);border-radius:6px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:.85rem;}
+  .target-box{background:linear-gradient(135deg,#ecfeff,#cffafe);border-radius:8px;padding:1rem 1.2rem;margin-bottom:1.5rem;}
+  .target-box h3{color:var(--primary);font-size:.95rem;margin-bottom:.4rem;}
+  h2{font-size:1.2rem;color:var(--secondary);margin-bottom:1rem;padding-bottom:.4rem;border-bottom:2px solid var(--border);}
+  h3{font-size:1rem;color:var(--text);margin:1rem 0 .5rem;}
+  p{margin-bottom:.7rem;font-size:.95rem;}
+  ul,ol{padding-left:1.4rem;margin-bottom:.7rem;}
+  li{margin-bottom:.35rem;font-size:.95rem;}
+  .highlight{background:#cffafe;border-radius:4px;padding:.1rem .3rem;color:#164e63;}
+  .table-wrap{overflow-x:auto;}
+  table{width:100%;border-collapse:collapse;font-size:.9rem;}
+  th{background:var(--primary);color:#fff;padding:.6rem .8rem;text-align:left;}
+  td{padding:.55rem .8rem;border-bottom:1px solid var(--border);}
+  tr:nth-child(even) td{background:#f8fafc;}
+  .abnormal-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.8rem;margin:.8rem 0;}
+  .abnormal-item{background:#f8fafc;border-radius:10px;padding:1rem;}
+  .abnormal-item h4{font-size:.9rem;color:var(--muted);margin-bottom:.4rem;}
+  .abnormal-item p{font-size:.88rem;margin:0;}
+  .strab-table th{background:#164e63;}
+  .practice-box{background:linear-gradient(135deg,#f0fdf4,#dcfce7);border-radius:8px;padding:1.2rem;}
+  .practice-box h3{color:var(--success);margin:0 0 .6rem;}
+  .exam-box{background:linear-gradient(135deg,#fff7ed,#ffedd5);border-radius:8px;padding:1.2rem;}
+  .exam-box h3{color:#d97706;margin:0 0 .6rem;}
+  .answer-area{background:#f8fafc;border:2px dashed var(--border);border-radius:8px;padding:1rem;min-height:60px;margin:.5rem 0;color:var(--muted);font-size:.9rem;}
+  .footer{text-align:center;padding:2rem;color:#fff;font-size:.85rem;margin-top:2rem;background:linear-gradient(135deg,#1e3a5f,#0f172a);border-radius:16px 16px 0 0;}
+  .footer .course-title{font-size:1rem;font-weight:600;margin-bottom:.3rem;}
+  .footer .course-info{opacity:.85rem;font-size:.85rem;}
+  .footer-sep{border-top:1px solid rgba(255,255,255,.2);margin:1.5rem 0;}
+  .footer-nav{display:flex;justify-content:center;gap:1rem;margin-top:1rem;}
+  .footer-nav a{color:#fff;opacity:.8;text-decoration:none;font-size:.85rem;padding:.4rem 1rem;background:rgba(255,255,255,.1);border-radius:6px;transition:all .2s;}
+  .footer-nav a:hover{opacity:1;background:rgba(255,255,255,.2);}
+  @media(max-width:600px){.header h1{font-size:1.4rem;}}
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="phase">📚 第二阶段｜核心病理与训练原理期（第8-18天）</div>
+  <h1>第 11 天｜斜视病理与双眼视异常</h1>
+  <p>斜视分类 · 双眼视异常 · 检查方法——斜视训练的理论基础</p>
+</div>
+<div class="nav-bar">
+  <a href="day10.html">← 第10天</a>
+  <a href="index.html">🏠 课程总览</a>
+  <a href="day12.html">第12天 →</a>
+</div>
+<div class="container">
+  <div class="target-box">
+    <h3>🎯 今日学习目标</h3>
+    <p>① 掌握斜视分类（内/外斜视、显斜/隐斜、A-V型）；② 理解视觉抑制、异常视网膜对应、三级视功能缺失的机制；③ 掌握斜视相关检查方法；④ 默写斜视导致的4大双眼视异常。</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">📐</span>斜视分类</div>
+    <h2>斜视分型系统——多维度分类</h2>
+    <div class="table-wrap">
+      <table class="strab-table">
+        <thead><tr><th>分类维度</th><th>类型</th><th>定义</th><th>临床特点</th></tr></thead>
+        <tbody>
+          <tr><td rowspan="2"><strong>按方向</strong></td><td>内斜视（Esotropia）</td><td>眼位向鼻侧偏斜</td><td>俗称"斗鸡眼"，最常见类型</td></tr>
+          <tr><td>外斜视（Exotropia）</td><td>眼位向颞侧偏斜</td><td>俗称"瞟眼"，间歇性外斜最常见</td></tr>
+          <tr><td rowspan="2"><strong>按显现程度</strong></td><td>显斜（Manifest Strabismus）</td><td>眼位持续偏斜，双眼不能同时注视</td><td>一眼恒定性偏斜</td></tr>
+          <tr><td>隐斜（Heterophoria）</td><td>遮盖后出现偏斜，融合控制下正位</td><td>日常无症状，融合打破时出现偏斜</td></tr>
+          <tr><td rowspan="2"><strong>按发病时间</strong></td><td>先天性（婴儿型）</td><td>出生后6个月内出现</td><td>常伴DVD，需手术干预</td></tr>
+          <tr><td>后天性</td><td>6个月后逐渐出现</td><td>常与调节/屈光参差相关</td></tr>
+          <tr><td><strong>按A-V型</strong></td><td>A型/V型斜视</td><td>向上/下注视时斜视角变化≥10Δ</td><td>需特殊手术设计</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h3>特殊类型说明</h3>
+    <ul>
+      <li><strong>间歇性外斜视：</strong>融合控制好时正位，控制差时出现偏斜——视觉训练的最佳适应症之一</li>
+      <li><strong>完全调节性内斜视：</strong>睫状肌麻痹后内斜消失，全矫配镜后正位——不需要手术</li>
+      <li><strong>部分调节性内斜视：</strong>睫状肌麻痹后仍有残余内斜角度——需要手术+训练联合</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">👁️</span>斜视导致的4大双眼视异常</div>
+    <h2>为什么斜视患者会有这些症状？</h2>
+    <p>斜视的本质是<span class="highlight">双眼不能同时注视同一目标</span>，大脑接收到两个不同的图像，产生一系列适应性改变：</p>
+    <div class="abnormal-list">
+      <div class="abnormal-item">
+        <h4>1️⃣ 视觉抑制</h4>
+        <p>大脑主动忽略偏斜眼的视觉信息，避免复视和混淆。抑制可恒定/间歇性。<br><strong>意义：</strong>长期抑制→斜视性弱视</p>
+      </div>
+      <div class="abnormal-item">
+        <h4>2️⃣ 异常视网膜对应（ARC）</h4>
+        <p>大脑重新建立视网膜对应关系，消除复视。<br><strong>意义：</strong>训练难度大，术后易出现复视</p>
+      </div>
+      <div class="abnormal-item">
+        <h4>3️⃣ 三级视功能缺失</h4>
+        <p>正常双眼视：同时视→融合视→立体视。斜视患者逐级受损，立体视常完全丧失</p>
+      </div>
+      <div class="abnormal-item">
+        <h4>4️⃣ 复视（Diplopia）</h4>
+        <p>双眼感知两个独立图像。<br><strong>意义：</strong>成人新发斜视最常见主诉</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">🔬</span>斜视相关检查方法</div>
+    <h2>诊断斜视与双眼视异常的必备检查</h2>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>检查方法</th><th>检查内容</th><th>正常/异常标准</th></tr></thead>
+        <tbody>
+          <tr><td>角膜映光法（Hirschberg）</td><td>估测斜视角度</td><td>反光点偏1mm≈7Δ</td></tr>
+          <tr><td>遮盖-去遮盖试验</td><td>检测显斜及方向</td><td>眼球移动→存在显斜</td></tr>
+          <tr><td>交替遮盖试验</td><td>测量最大斜视角（含隐斜）</td><td>揭示全部融合性偏斜</td></tr>
+          <tr><td>马氏杆法</td><td>精确测量隐斜棱镜度</td><td>棱镜中和点=隐斜量</td></tr>
+          <tr><td>同视机检查</td><td>三级视功能</td><td>同时视、融合范围、立体视正常存在</td></tr>
+          <tr><td>Worth四点灯</td><td>抑制/融像/复视</td><td>4灯=正常；2/3灯=抑制；5灯=复视</td></tr>
+          <tr><td>Titmus/RDS立体视</td><td>立体视锐度</td><td>正常≤40秒弧，斜视多缺失</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="practice-box">
+      <h3>🛠️ 实操任务：判断眼位与抑制状态</h3>
+      <p>判断以下场景属于哪种情况：</p>
+      <ol>
+        <li>遮盖右眼时，左眼向内移动 → <strong>右眼内斜视</strong></li>
+        <li>Worth四点灯检查时只看到2个绿灯 → <strong>右眼抑制</strong></li>
+        <li>角膜映光法：右眼反光点在瞳孔中心鼻侧2mm → <strong>右眼内斜约14Δ</strong></li>
+        <li>同视机检查：主观斜视角=客观斜视角=+15° → <strong>正常视网膜对应（内斜视）</strong></li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="exam-box">
+      <h3>📝 今日考核</h3>
+      <ol>
+        <li>默写斜视导致的4大双眼视异常，并解释各异常的形成机制。</li>
+        <li>内斜视和外斜视的鉴别要点是什么？各举一个典型案例。</li>
+        <li>显斜和隐斜的核心区别是什么？如何在临床中鉴别？</li>
+        <li>Worth四点灯检查结果的3种常见情况（4灯/2灯/5灯）各代表什么含义？</li>
+      </ol>
+      <h4 style="color:#d97706;margin-top:1rem;">✅ 标准答案</h4>
+      <p><strong>1.</strong> 视觉抑制（大脑忽略偏斜眼图像）、异常视网膜对应（重建对应关系）、三级视功能缺失（逐级受损）、复视（双眼感知双像）。</p>
+      <p><strong>2.</strong> 内斜：眼位向鼻侧偏（斗鸡眼，调节性内斜）；外斜：眼位向颞侧偏（瞟眼，间歇性外斜）。</p>
+      <p><strong>3.</strong> 核心区别：自然状态下是否偏斜；鉴别：遮盖-去遮盖查显斜，交替遮盖查隐斜。</p>
+      <p><strong>4.</strong> 4灯=正常融合；2/3灯=单眼抑制；5灯=复视。</p>
+      <div class="answer-area">写下你的答案……</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">📌</span>临床要点速记</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;">
+      <div style="background:#fef2f2;border-radius:10px;padding:1rem;border-left:4px solid #dc2626;">
+        <h4 style="font-size:.9rem;color:#dc2626;margin-bottom:.4rem;">警示信号</h4>
+        <ul style="font-size:.85rem;margin:0;padding-left:1rem;color:#7f1d1d;">
+          <li>急性斜视发作（警惕颅内病变）</li>
+          <li>伴复视的突发内斜</li>
+          <li>眼球运动受限</li>
+        </ul>
+      </div>
+      <div style="background:#f0fdf4;border-radius:10px;padding:1rem;border-left:4px solid #059669;">
+        <h4 style="font-size:.9rem;color:#059669;margin-bottom:.4rem;">训练适应症</h4>
+        <ul style="font-size:.85rem;margin:0;padding-left:1rem;color:#166534;">
+          <li>间歇性外斜视（融像控制良好）</li>
+          <li>集合不足型外斜视</li>
+          <li>部分调节性内斜视</li>
+        </ul>
+      </div>
+    </div>
+    <div style="background:#eff6ff;border-radius:10px;padding:1rem;margin-top:1rem;">
+      <h4 style="font-size:.9rem;color:#1d4ed8;margin-bottom:.4rem;">记忆口诀</h4>
+      <p style="font-size:.95rem;font-weight:600;color:#1e40af;margin:0;">"内斜外斜看方向，显斜隐斜看力量"</p>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <div class="course-title">📚 视觉训练30天专业培训体系｜基于《视觉训练的原理和方法》（刘陇黔主编）</div>
+  <div class="course-info">第11天 共30天｜每天1小时｜资料整理：高级验光技师闫胜君工作室</div>
+  <div class="footer-sep"></div>
+  <div class="footer-nav">
+    <a href="day10.html">← 第10天</a>
+    <a href="index.html">🏠 课程总览</a>
+    <a href="day12.html">第12天 →</a>
+  </div>
+</div>
+</body>
+</html>
