@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第10天 | 弱视专项训练</title>
+<style>
+  :root{--primary:#7c3aed;--secondary:#6d28d9;--accent:#f59e0b;--success:#10b981;--bg:#faf5ff;--card:#fff;--text:#1e293b;--muted:#64748b;--border:#e2e8f0;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Microsoft YaHei',Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+  .header{background:linear-gradient(135deg,#7c3aed,#5b21b6);color:#fff;padding:2rem;text-align:center;}
+  .header .phase{font-size:.85rem;background:rgba(255,255,255,.2);border-radius:20px;padding:.2rem .8rem;display:inline-block;margin-bottom:.5rem;}
+  .header h1{font-size:1.8rem;margin-bottom:.3rem;}
+  .header p{opacity:.9;font-size:.95rem;}
+  .nav-bar{background:#fff;padding:.8rem 1.5rem;display:flex;align-items:center;justify-content:space-between;border-bottom:2px solid var(--border);flex-wrap:wrap;gap:.5rem;}
+  .nav-bar a{color:var(--primary);text-decoration:none;font-size:.9rem;padding:.3rem .7rem;border-radius:6px;}
+  .container{max-width:960px;margin:0 auto;padding:1.5rem 1.5rem 3rem;}
+  .card{background:var(--card);border-radius:12px;padding:1.5rem;margin-bottom:1.5rem;box-shadow:0 2px 8px rgba(0,0,0,.06);}
+  .card-title{font-size:1.1rem;font-weight:700;color:var(--primary);margin-bottom:1rem;display:flex;align-items:center;gap:.5rem;}
+  .card-title .icon{width:28px;height:28px;background:var(--primary);border-radius:6px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:.85rem;}
+  .target-box{background:linear-gradient(135deg,#faf5ff,#ede9fe);border-radius:8px;padding:1rem 1.2rem;margin-bottom:1.5rem;}
+  .target-box h3{color:var(--primary);font-size:.95rem;margin-bottom:.4rem;}
+  h2{font-size:1.2rem;color:var(--secondary);margin-bottom:1rem;padding-bottom:.4rem;border-bottom:2px solid var(--border);}
+  h3{font-size:1rem;color:var(--text);margin:1rem 0 .5rem;}
+  p{margin-bottom:.7rem;font-size:.95rem;}
+  ul,ol{padding-left:1.4rem;margin-bottom:.7rem;}
+  li{margin-bottom:.35rem;font-size:.95rem;}
+  .highlight{background:#ede9fe;border-radius:4px;padding:.1rem .3rem;color:#5b21b6;}
+  .table-wrap{overflow-x:auto;}
+  table{width:100%;border-collapse:collapse;font-size:.9rem;}
+  th{background:var(--primary);color:#fff;padding:.6rem .8rem;text-align:left;}
+  td{padding:.55rem .8rem;border-bottom:1px solid var(--border);}
+  tr:nth-child(even)td{background:#f8fafc;}
+  .method-card{background:#f8fafc;border-radius:10px;padding:1rem;margin:.5rem 0;}
+  .method-card h4{color:var(--primary);font-size:.9rem;margin-bottom:.4rem;}
+  .step-list{counter-reset:step;padding-left:0;}
+  .step-list li{list-style:none;position:relative;padding-left:2rem;margin-bottom:.7rem;}
+  .step-list li::before{content:counter(step);counter-increment:step;position:absolute;left:0;top:.05rem;width:1.5rem;height:1.5rem;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:700;}
+  .compare-box{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:.8rem 0;}
+  .compare-item{background:#f8fafc;border-radius:10px;padding:1rem;}
+  .compare-item h4{font-size:.9rem;color:var(--muted);margin-bottom:.4rem;}
+  .practice-box{background:linear-gradient(135deg,#f0fdf4,#dcfce7);border-radius:8px;padding:1.2rem;}
+  .practice-box h3{color:var(--success);margin:0 0 .6rem;}
+  .exam-box{background:linear-gradient(135deg,#fff7ed,#ffedd5);border-radius:8px;padding:1.2rem;}
+  .exam-box h3{color:#d97706;margin:0 0 .6rem;}
+  .answer-area{background:#f8fafc;border:2px dashed var(--border);border-radius:8px;padding:1rem;min-height:60px;margin:.5rem 0;color:var(--muted);font-size:.9rem;}
+  .footer{text-align:center;padding:2rem;color:#fff;font-size:.85rem;margin-top:2rem;background:linear-gradient(135deg,#1e3a5f,#0f172a);border-radius:16px 16px 0 0;}
+  .footer .course-title{font-size:1rem;font-weight:600;margin-bottom:.3rem;}
+  .footer .course-info{opacity:.85;font-size:.85rem;}
+  .footer-sep{border-top:1px solid rgba(255,255,255,.2);margin:1.5rem 0;}
+  .footer-nav{display:flex;justify-content:center;gap:1rem;margin-top:1rem;}
+  .footer-nav a{color:#fff;opacity:.8;text-decoration:none;font-size:.85rem;padding:.4rem 1rem;background:rgba(255,255,255,.1);border-radius:6px;transition:all .2s;}
+  .footer-nav a:hover{opacity:1;background:rgba(255,255,255,.2);}
+  @media(max-width:600px){.compare-box{grid-template-columns:1fr;}.header h1{font-size:1.4rem;}}
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="phase">📚 第二阶段｜核心病理与训练原理期（第8-18天）</div>
+  <h1>第 10 天｜弱视专项训练</h1>
+  <p>旁中心注视训练 · 精细训练 · 知觉训练——弱视训练全攻略</p>
+</div>
+<div class="nav-bar">
+  <a href="day09.html">← 第9天</a>
+  <a href="index.html">🏠 课程总览</a>
+  <a href="day11.html">第11天 →</a>
+</div>
+<div class="container">
+  <div class="target-box">
+    <h3>🎯 今日学习目标</h3>
+    <p>① 掌握旁中心注视训练方法（后像疗法/红光/海丁格刷）；② 熟练精细训练操作（穿针/描图/刺绣）；③ 了解成人弱视知觉训练方法（对比度察觉/游标视力）；④ 能拆解「旁中心注视弱视」的训练步骤。</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">🎯</span>一、旁中心注视训练</div>
+    <h2>为什么需要旁中心注视训练？</h2>
+    <p>约30%的弱视患者存在<span class="highlight">旁中心注视</span>（偏心注视）——弱视眼的黄斑中心凹被抑制，大脑使用偏离中心凹的区域作为"替代注视点"，这严重阻碍了中心视力的正常发育。</p>
+    
+    <div class="compare-box">
+      <div class="compare-item">
+        <h4>✅ 正常注视性质</h4>
+        <p>使用黄斑中心凹注视，视力发育正常。检查时遮盖试验可见眼位稳定。</p>
+      </div>
+      <div class="compare-item">
+        <h4>⚠️ 旁中心注视</h4>
+        <p>使用中心凹旁区域注视，视力发育受阻。需先转变为中心凹注视，视力才可能提升。</p>
+      </div>
+    </div>
+
+    <h3>✅ 旁中心注视检查方法（临床必备）</h3>
+    <ul>
+      <li>遮盖-去遮盖试验：观察弱视眼注视是否稳定</li>
+      <li>眼底镜/同视机检查：直接观察黄斑注视位置</li>
+      <li>海丁格刷：能感知刷状影=中心注视，无法感知=旁中心注视</li>
+    </ul>
+
+    <div class="method-card">
+      <h4>1️⃣ 后像疗法</h4>
+      <ul>
+        <li><strong>原理：</strong>强光照射视网膜后产生"正后像"（亮斑），随后暗点（负后像）出现于中心；利用负后像将"替代注视点"移回中心凹</li>
+        <li><strong>操作：</strong>后像镜照射30秒→等待负后像出现→用中心亮点对准被照亮的"暗点"区域→反复训练</li>
+        <li><strong>频率：</strong>每天1次，每次10-15分钟，10-15次为一个疗程</li>
+        <li><strong>适用：</strong>旁中心注视弱视，特别是大龄儿童</li>
+      </ul>
+    </div>
+
+    <div class="method-card">
+      <h4>2️⃣ 红色滤光片疗法</h4>
+      <ul>
+        <li><strong>原理：</strong>红光（640nm以上）只能激活黄斑中心凹视锥细胞，偏心注视区无法感知，强迫使用中心凹</li>
+        <li><strong>操作：</strong>健眼遮盖，弱视眼戴红色滤光片进行日常活动或训练</li>
+        <li><strong>注意：</strong>红片密度需在0.5-1.0之间，透光率适当</li>
+        <li><strong>适用：</strong>旁中心注视、黄斑功能异常弱视</li>
+      </ul>
+    </div>
+
+    <div class="method-card">
+      <h4>3️⃣ 海丁格刷训练（Haidinger Brush）</h4>
+      <ul>
+        <li><strong>原理：</strong>利用光的偏振特性，在视野中产生蓝色刷状影像，只有中心凹才能感知；患者用此"刷子"追踪视标，训练中心注视</li>
+        <li><strong>操作：</strong>使用海丁格刷仪器，引导患者将"刷子"影像对准视标中心</li>
+        <li><strong>频率：</strong>每天2-3次，每次5-10分钟</li>
+        <li><strong>优势：</strong>趣味性强，儿童接受度高，可作为家庭训练工具</li>
+        <li><strong>核心：</strong>既是训练工具，也是注视性质检查工具</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">✂️</span>二、精细训练（增视训练）</div>
+    <h2>精细训练——提升弱视眼视力的核心</h2>
+    <p>精细训练（Vergence/Resolution Activities）通过<span class="highlight">强制使用弱视眼完成近距离精细任务</span>，刺激黄斑中心凹的视觉发育。</p>
+    <div class="method-card">
+      <h4>精细训练工具与方法</h4>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>训练方式</th><th>具体操作</th><th>年龄适配</th><th>时长/次</th></tr></thead>
+          <tbody>
+            <tr><td>穿珠子</td><td>细绳穿木珠/塑料珠（从小到大）</td><td>3-6岁</td><td>10-15分钟</td></tr>
+            <tr><td>描图/连线</td><td>在家长指导下描图（从粗线到细线）</td><td>3-8岁</td><td>10-20分钟</td></tr>
+            <tr><td>刺绣/编织</td><td>儿童刺绣（针孔更大）</td><td>5岁以上</td><td>15-20分钟</td></tr>
+            <tr><td>拼图</td><td>从大块到小块（20块→100块）</td><td>4岁以上</td><td>10-15分钟</td></tr>
+            <tr><td>积木搭建</td><td>小积木精确堆叠</td><td>3岁以上</td><td>10分钟</td></tr>
+            <tr><td>电子训练软件</td><td>弱视训练游戏（配合VR/平板）</td><td>3岁以上</td><td>15-20分钟</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="method-card">
+      <h4>精细训练5大核心原则</h4>
+      <ul>
+        <li><strong>遮盖优势眼后进行</strong>——确保弱视眼独立工作</li>
+        <li><strong>佩戴全矫眼镜</strong>——保证视网膜清晰成像</li>
+        <li><strong>近距离精细任务</strong>——黄斑中心凹接受最强刺激</li>
+        <li><strong>循序渐进</strong>——从大目标到小目标（视力提升后换更精细的训练）</li>
+        <li><strong>每天坚持</strong>——弱视治疗是"用进废退"，需持续刺激</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">🧠</span>三、成人弱视知觉训练</div>
+    <h2>成人弱视也能改善——知觉学习的证据</h2>
+    <p>传统观点认为成人弱视无法改善，但2010年代以来大量研究证实：通过<span class="highlight">高强度、重复的知觉学习训练</span>，成人弱视也能获得有临床意义的视力提升。</p>
+    <div class="method-card">
+      <h4>成人弱视知觉训练方法</h4>
+      <ul>
+        <li><strong>对比度察觉训练：</strong>在低对比度环境下反复识别目标（Gabor元素），提升对比敏感度</li>
+        <li><strong>游标视力训练（Vernier Acuity）：</strong>训练精确的空间分辨能力，激活V1区精细检测神经元</li>
+        <li><strong>视觉拥挤缓解训练：</strong>改善视觉拥挤效应（弱视眼周围字母干扰中心识别）</li>
+        <li><strong>双眼分视训练（Dichoptic）：</strong>双眼分别接收不同信息，重建双眼视觉——最新主流方案</li>
+      </ul>
+    </div>
+    <div class="compare-box">
+      <div class="compare-item">
+        <h4>儿童 vs 成人 弱视训练差异</h4>
+        <ul>
+          <li>儿童：遮盖+精细训练（视觉可塑性强）</li>
+          <li>成人：知觉学习+双眼分视（可塑性弱）</li>
+          <li>儿童见效快，成人见效慢、效果有限</li>
+        </ul>
+      </div>
+      <div class="compare-item">
+        <h4>注视性质与训练选择</h4>
+        <ul>
+          <li>中心注视：直接做精细增视训练</li>
+          <li>旁中心注视：先纠正注视性质</li>
+          <li>纠正完成后，再进入视力提升阶段</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="practice-box">
+      <h3>🛠️ 实操任务：旁中心注视弱视训练步骤拆解</h3>
+      <p>接诊一名6岁旁中心注视弱视患者（右眼0.3，旁中心注视），完整训练计划：</p>
+      <ol class="step-list">
+        <li>睫状肌麻痹验光，全矫配镜（基础前提）</li>
+        <li>遮盖健眼，每日4-6小时（6岁标准时长）</li>
+        <li>注视纠正训练：海丁格刷+后像疗法，每日1次</li>
+        <li>转为中心注视后，开始精细目力训练</li>
+        <li>每月复查，监测视力与注视性质变化</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="exam-box">
+      <h3>📝 今日考核</h3>
+      <ol>
+        <li>后像疗法、海丁格刷、红色滤光片各在什么情况下使用？简述各方法的核心原理。</li>
+        <li>精细训练（增视训练）的3大核心原则是什么？</li>
+        <li>成人弱视和儿童弱视的训练方法有何本质差异？为什么？</li>
+        <li>如何判断一名弱视患者是否存在旁中心注视？发现后应该如何处理？</li>
+      </ol>
+      <h4 style="color:#d97706;margin-top:1rem;">✅ 标准答案</h4>
+      <p><strong>1.</strong> 后像疗法：大龄旁中心注视，原理：后像效应复位注视点；海丁格刷：儿童旁中心注视/检查，原理：偏振光感知中心凹；红光疗法：旁中心注视，原理：激活中心凹视锥细胞。</p>
+      <p><strong>2.</strong> 遮盖健眼、佩戴全矫眼镜、循序渐进、近距离训练（核心3条：遮盖优先、全矫配镜、循序渐进）。</p>
+      <p><strong>3.</strong> 儿童以遮盖+精细训练为主（视觉可塑性强）；成人以知觉学习+双眼训练为主（可塑性弱）。</p>
+      <p><strong>4.</strong> 检查：遮盖试验、眼底镜、海丁格刷；处理：先做注视纠正训练，转为中心注视后再做增视训练。</p>
+      <div class="answer-area">写下你的答案……</div>
+    </div>
+  </div>
+</div>
+<div class="footer">
+  <div class="course-title">📚 视觉训练30天专业培训体系｜基于《视觉训练的原理和方法》（刘陇黔主编）</div>
+  <div class="course-info">第10天 共30天｜每天1小时｜资料整理：高级验光技师闫胜君工作室</div>
+  <div class="footer-sep"></div>
+  <div class="footer-nav">
+    <a href="day09.html">← 第9天</a>
+    <a href="index.html">🏠 课程总览</a>
+    <a href="day11.html">第11天 →</a>
+  </div>
+</div>
+</body>
+</html>
