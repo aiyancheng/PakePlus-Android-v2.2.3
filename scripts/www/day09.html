@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第9天 | 弱视基础治疗</title>
+<style>
+  :root{--primary:#059669;--secondary:#047857;--accent:#f59e0b;--success:#10b981;--bg:#f0fdf4;--card:#fff;--text:#1e293b;--muted:#64748b;--border:#e2e8f0;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Microsoft YaHei',Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+  .header{background:linear-gradient(135deg,#059669,#064e3b);color:#fff;padding:2rem;text-align:center;}
+  .header .phase{font-size:.85rem;background:rgba(255,255,255,.2);border-radius:20px;padding:.2rem .8rem;display:inline-block;margin-bottom:.5rem;}
+  .header h1{font-size:1.8rem;margin-bottom:.3rem;}
+  .header p{opacity:.9;font-size:.95rem;}
+  .nav-bar{background:#fff;padding:.8rem 1.5rem;display:flex;align-items:center;justify-content:space-between;border-bottom:2px solid var(--border);flex-wrap:wrap;gap:.5rem;}
+  .nav-bar a{color:var(--primary);text-decoration:none;font-size:.9rem;padding:.3rem .7rem;border-radius:6px;}
+  .container{max-width:960px;margin:0 auto;padding:1.5rem 1.5rem 3rem;}
+  .card{background:var(--card);border-radius:12px;padding:1.5rem;margin-bottom:1.5rem;box-shadow:0 2px 8px rgba(0,0,0,.06);}
+  .card-title{font-size:1.1rem;font-weight:700;color:var(--primary);margin-bottom:1rem;display:flex;align-items:center;gap:.5rem;}
+  .card-title .icon{width:28px;height:28px;background:var(--primary);border-radius:6px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:.85rem;}
+  .target-box{background:linear-gradient(135deg,#f0fdf4,#d1fae5);border-radius:8px;padding:1rem 1.2rem;margin-bottom:1.5rem;}
+  .target-box h3{color:var(--primary);font-size:.95rem;margin-bottom:.4rem;}
+  h2{font-size:1.2rem;color:var(--secondary);margin-bottom:1rem;padding-bottom:.4rem;border-bottom:2px solid var(--border);}
+  h3{font-size:1rem;color:var(--text);margin:1rem 0 .5rem;}
+  p{margin-bottom:.7rem;font-size:.95rem;}
+  ul,ol{padding-left:1.4rem;margin-bottom:.7rem;}
+  li{margin-bottom:.35rem;font-size:.95rem;}
+  .highlight{background:#d1fae5;border-radius:4px;padding:.1rem .3rem;color:#065f46;}
+  .table-wrap{overflow-x:auto;}
+  table{width:100%;border-collapse:collapse;font-size:.9rem;}
+  th{background:var(--primary);color:#fff;padding:.6rem .8rem;text-align:left;}
+  td{padding:.55rem .8rem;border-bottom:1px solid var(--border);}
+  tr:nth-child(even) td{background:#f8fafc;}
+  .principle-box{background:#f0fdf4;border-radius:8px;padding:1rem;margin:.8rem 0;}
+  .principle-box h4{color:#059669;margin-bottom:.4rem;}
+  .method-card{background:#f8fafc;border-radius:10px;padding:1rem;margin:.5rem 0;}
+  .method-card h4{color:var(--primary);font-size:.9rem;margin-bottom:.4rem;}
+  .case-box{background:#d1fae5;border-radius:10px;padding:1.2rem;margin:.8rem 0;border:2px solid #059669;}
+  .case-box h4{color:#047857;margin-bottom:.5rem;}
+  .badge{display:inline-block;padding:.15rem .55rem;border-radius:20px;font-size:.78rem;font-weight:600;margin:.2rem;}
+  .badge-green{background:#dcfce7;color:#15803d;}
+  .badge-amber{background:#fef3c7;color:#92400e;}
+  .practice-box{background:linear-gradient(135deg,#f0fdf4,#dcfce7);border-radius:8px;padding:1.2rem;}
+  .practice-box h3{color:var(--success);margin:0 0 .6rem;}
+  .exam-box{background:linear-gradient(135deg,#fff7ed,#ffedd5);border-radius:8px;padding:1.2rem;}
+  .exam-box h3{color:#d97706;margin:0 0 .6rem;}
+  .answer-area{background:#f8fafc;border:2px dashed var(--border);border-radius:8px;padding:1rem;min-height:60px;margin:.5rem 0;color:var(--muted);font-size:.9rem;}
+  .footer{text-align:center;padding:2rem;color:#fff;font-size:.85rem;margin-top:2rem;background:linear-gradient(135deg,#1e3a5f,#0f172a);border-radius:16px 16px 0 0;}
+  .footer .course-title{font-size:1rem;font-weight:600;margin-bottom:.3rem;}
+  .footer .course-info{opacity:.85;font-size:.85rem;}
+  .footer-sep{border-top:1px solid rgba(255,255,255,.2);margin:1.5rem 0;}
+  .footer-nav{display:flex;justify-content:center;gap:1rem;margin-top:1rem;}
+  .footer-nav a{color:#fff;opacity:.8;text-decoration:none;font-size:.85rem;padding:.4rem 1rem;background:rgba(255,255,255,.1);border-radius:6px;transition:all .2s;}
+  .footer-nav a:hover{opacity:1;background:rgba(255,255,255,.2);}
+  @media(max-width:600px){.header h1{font-size:1.4rem;}}
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="phase">📚 第二阶段｜核心病理与训练原理期（第8-18天）</div>
+  <h1>第 9 天｜弱视基础治疗</h1>
+  <p>屈光矫正 · 遮盖疗法 · 压抑疗法——弱视治疗三大基石</p>
+</div>
+<div class="nav-bar">
+  <a href="day08.html">← 第8天</a>
+  <a href="index.html">🏠 课程总览</a>
+  <a href="day10.html">第10天 →</a>
+</div>
+<div class="container">
+  <div class="target-box">
+    <h3>🎯 今日学习目标</h3>
+    <p>① 掌握睫状肌麻痹验光和屈光全矫原则；② 熟练掌握遮盖疗法的4大原则与年龄-时长配比；③ 了解压抑疗法（光学/药物）的适应症和操作；④ 能制定「3岁斜视性弱视」的遮盖+配镜方案。</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">👓</span>基础一：屈光矫正</div>
+    <h2>弱视治疗的起点——睫状肌麻痹验光</h2>
+    <p>屈光矫正是<span class="highlight">所有弱视治疗的第一步</span>，必须在睫状肌充分麻痹的状态下验光，消除假性屈光因素的影响，获得真实的屈光度。</p>
+    <div class="principle-box">
+      <h4>睫状肌麻痹验光（散瞳验光）要点</h4>
+      <ul>
+        <li><strong>用药选择：</strong>1%阿托品眼膏（≤6岁儿童首选）/ 复方托吡卡胺（快散，适用于>10岁儿童）</li>
+        <li><strong>阿托品用法：</strong>每天2次，连用5-7天；或每天1次，连用7天</li>
+        <li><strong>复验时机：</strong>阿托品散瞳后2-3周；快散后当天或次日</li>
+        <li><strong>处方原则：</strong>远视→全矫；近视→最佳矫正视力最低度数；散光→全矫</li>
+      </ul>
+    </div>
+    <h3>屈光矫正的原则</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>屈光类型</th><th>矫正原则</th><th>理由</th></tr></thead>
+        <tbody>
+          <tr><td>远视性弱视</td><td>睫状肌麻痹后全矫配镜</td><td>减少调节需求，改善视网膜成像</td></tr>
+          <tr><td>近视性弱视</td><td>最佳矫正视力最低近视度数</td><td>保证成像在视网膜上</td></tr>
+          <tr><td>散光性弱视</td><td>全矫散光度数</td><td>消除散光导致的视网膜像模糊</td></tr>
+          <tr><td>屈光参差性弱视</td><td>双眼全矫，参差＞2.5D配RGP</td><td>减少像大小差异，提升融像可能</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">🩹</span>基础二：遮盖疗法</div>
+    <h2>遮盖疗法——弱视治疗的核心武器</h2>
+    <p>遮盖疗法（Occlusion Therapy）是目前循证证据最充分的弱视治疗方法，通过遮盖优势眼，<span class="highlight">强迫使用弱视眼</span>，促进弱视眼视觉发育。</p>
+    
+    <h3>遮盖疗法4大原则（必须熟记！）</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>原则</th><th>内容</th><th>临床意义</th></tr></thead>
+        <tbody>
+          <tr><td><strong>原则一：先矫正</strong></td><td>睫状肌麻痹验光后全矫屈光不正，再开始遮盖</td><td>不矫正屈光不正的遮盖效果大打折扣</td></tr>
+          <tr><td><strong>原则二：全矫优先</strong></td><td>在屈光全矫的基础上遮盖</td><td>保证弱视眼在最佳视网膜像质量下训练</td></tr>
+          <tr><td><strong>原则三：年龄配比</strong></td><td>根据年龄确定遮盖时长</td><td>年龄越小可接受的遮盖时长越短</td></tr>
+          <tr><td><strong>原则四：规律复查</strong></td><td>遮盖期间每2-4周复查视力，防遮盖性弱视</td><td>及时发现遮盖过度导致的健眼视力下降</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>遮盖时长标准（根据年龄）</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>年龄段</th><th>每日遮盖时长</th><th>总疗程</th><th>复查频率</th></tr></thead>
+        <tbody>
+          <tr><td><strong>＜2岁</strong></td><td>1小时/天（分2次）</td><td>1周后复查调方案</td><td>每周1次</td></tr>
+          <tr><td><strong>2-3岁</strong></td><td>2小时/天</td><td>每2周评估</td><td>每2周1次</td></tr>
+          <tr><td><strong>3-4岁</strong></td><td>3-4小时/天</td><td>每月评估</td><td>每月1次</td></tr>
+          <tr><td><strong>4-6岁</strong></td><td>4-6小时/天 或 全日遮盖</td><td>每月评估</td><td>每月1次</td></tr>
+          <tr><td><strong>6-8岁</strong></td><td>全日遮盖（6小时+）</td><td>每4-6周评估</td><td>每6周1次</td></tr>
+          <tr><td><strong>＞8岁</strong></td><td>全日遮盖可达50%时间</td><td>每6-8周评估</td><td>每8周1次</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="method-card">
+      <h4>⚠️ 遮盖方式选择</h4>
+      <ul>
+        <li><strong>直接遮盖：</strong>遮住优势眼，弱视眼单独工作——最常用</li>
+        <li><strong>交替遮盖：</strong>双眼交替遮盖——适用于双眼弱视程度接近</li>
+        <li><strong>全天/部分遮盖：</strong>视力差大→全天；视力差小→短时遮盖</li>
+      </ul>
+    </div>
+
+    <div class="method-card">
+      <h4>⚠️ 遮盖性弱视（核心考点）</h4>
+      <ul>
+        <li><strong>定义：</strong>长期过度遮盖健眼，导致健眼视力暂时性下降</li>
+        <li><strong>预防：</strong>严格控制遮盖时长、定期复查、视力达标后减少遮盖</li>
+        <li><strong>处理：</strong>立即停止遮盖，健眼视力可快速恢复</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">💊</span>基础三：压抑疗法</div>
+    <h2>压抑疗法——遮盖的替代方案</h2>
+    <p>压抑疗法（Penalization）通过降低优势眼的成像质量，间接强迫使用弱视眼，作为遮盖的替代或辅助方案。</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>压抑类型</th><th>方法</th><th>适用场景</th><th>优缺点</th></tr></thead>
+        <tbody>
+          <tr><td><strong>光学压抑</strong></td><td>健眼过矫+3.00D，视远模糊</td><td>遮盖依从性差、维持期</td><td>美观、依从性好</td></tr>
+          <tr><td><strong>药物压抑（阿托品）</strong></td><td>1%阿托品滴健眼，麻痹调节</td><td>拒绝遮盖、中度弱视</td><td>无需遮盖，畏光为副作用</td></tr>
+          <tr><td><strong>Bangerter滤光镜</strong></td><td>健眼镜片贴滤光膜</td><td>轻中度弱视维持期</td><td>可摘取，效果温和</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">✏️</span>辅助治疗：精细目力训练</div>
+    <p>配合遮盖/压抑使用，强化弱视眼视觉刺激，加速视力提升</p>
+    <ul>
+      <li>训练内容：穿珠子、描红、插板、拼图、视标描图</li>
+      <li>训练时长：每次10-15分钟，每天1-2次</li>
+      <li>核心要求：必须佩戴矫正眼镜，单独使用弱视眼训练</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="case-box">
+      <h4>📋 实战案例：3岁斜视性弱视</h4>
+      <p><strong>案例：</strong>女童3岁，右眼内斜15Δ，左眼注视，睫状肌麻痹验光：右眼+4.00D（0.3），左眼+2.00D（1.0）。</p>
+      <p><strong>治疗方案制定：</strong></p>
+      <ul>
+        <li><strong>第一步：</strong>全矫配镜：右眼+4.00D，左眼+2.00D</li>
+        <li><strong>第二步：</strong>遮盖健眼（左眼），每日2小时，强迫使用右眼</li>
+        <li><strong>第三步：</strong>配合精细训练，每天10分钟</li>
+        <li><strong>第四步：</strong>每2周复查，防控遮盖性弱视</li>
+        <li><strong>第五步：</strong>弱视治愈后评估斜视手术</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="practice-box">
+      <h3>🛠️ 实操任务</h3>
+      <p>为以下案例制定初步治疗方案：</p>
+      <ol>
+        <li><strong>案例A：</strong>5岁，双眼高度远视+6.00D，右眼0.4，左眼0.5（双眼差一行，不算弱视标准）。您的建议是？</li>
+        <li><strong>案例B：</strong>7岁，右眼屈光参差性弱视，右眼+5.00D→0.3，左眼+1.00D→1.0。遮盖方案？</li>
+      </ol>
+      <h4 style="color:var(--secondary);margin-top:1rem;">✅ 参考答案</h4>
+      <p><strong>A：</strong>睫状肌麻痹后全矫配镜，无需遮盖，定期复查视力即可；</p>
+      <p><strong>B：</strong>全矫配镜，全日遮盖左眼（健眼），每6周复查，配合精细训练。</p>
+      <div class="answer-area">写下您的方案……</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="exam-box">
+      <h3>📝 今日考核</h3>
+      <ol>
+        <li>遮盖疗法的4大原则是什么？（背出原话）</li>
+        <li>2-3岁、5-6岁、8岁儿童的每日遮盖时长分别是多少？复查频率分别是多少？</li>
+        <li>什么是遮盖性弱视？如何在临床操作中预防？</li>
+        <li>药物压抑（阿托品）治疗弱视的原理和主要副作用是什么？</li>
+      </ol>
+      <h4 style="color:#d97706;margin-top:1rem;">✅ 标准答案</h4>
+      <p>1. 先矫正、全矫优先、年龄配比、规律复查；</p>
+      <p>2. 2-3岁：2h/天，每2周复查；5-6岁：4-6h/天，每月复查；8岁：全日遮盖，每6周复查；</p>
+      <p>3. 过度遮盖健眼导致健眼视力下降；预防：控制时长、定期复查、及时减量；</p>
+      <p>4. 原理：麻痹健眼调节，使其视近模糊；副作用：瞳孔散大、畏光、视近模糊。</p>
+    </div>
+  </div>
+</div>
+<div class="footer">
+  <div class="course-title">📚 视觉训练30天专业培训体系｜基于《视觉训练的原理和方法》（刘陇黔主编）</div>
+  <div class="course-info">第9天 共30天｜每天1小时｜资料整理：高级验光技师闫胜君工作室</div>
+  <div class="footer-sep"></div>
+  <div class="footer-nav">
+    <a href="day08.html">← 第8天</a>
+    <a href="index.html">🏠 课程总览</a>
+    <a href="day10.html">第10天 →</a>
+  </div>
+</div>
+</body>
+</html>
