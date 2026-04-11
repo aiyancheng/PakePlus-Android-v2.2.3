@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -456,26 +457,7 @@
             filter: brightness(0.9);
             transform: translateY(-2px);
         }
-
-        /* 🔥 新增：语音初始化按钮（解决Android自动播放限制） */
-        .voice-init-btn {
-            position: fixed;
-            top: 80px;
-            right: 20px;
-            background-color: var(--success-color);
-            color: white;
-            padding: 8px 12px;
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
-            z-index: 9999;
-            font-size: 0.8rem;
-            cursor: pointer;
-            border: none;
-        }
-        .voice-init-btn.hidden {
-            display: none;
-        }
-
+        
         @media (max-width: 768px) {
             .container {
                 padding: 10px;
@@ -527,12 +509,6 @@
                 padding: 8px 12px;
                 font-size: 0.8rem;
             }
-            .voice-init-btn {
-                top: 60px;
-                right: 10px;
-                padding: 6px 10px;
-                font-size: 0.7rem;
-            }
         }
         
         @media (max-width: 480px) {
@@ -558,13 +534,10 @@
     </style>
 </head>
 <body>
-    <!-- 🔥 新增：语音初始化按钮（用户点击后解除WebView限制） -->
-    <button id="voiceInitBtn" class="voice-init-btn">🔊 开启语音提示</button>
-
     <div class="container">
         <div class="header">
-            <h1>瞳距瞳高AI测量</h1>
-            <p>精确测量双眼瞳距和瞳高，专业验光配镜辅助工具</p>
+            <h1>眼科视光学瞳高AI测量</h1>
+            <p>测量双眼瞳距和瞳高，专业验光配镜辅助工具</p>
         </div>
         
         <!-- 优化后的统一控制面板 -->
@@ -636,17 +609,10 @@
             </div>
         </div>
 
-        <!-- 合并后的：客户信息+测量结果 -->
+        <!-- 测量结果（已删除客户信息） -->
         <div id="measurementSection" style="display: none;">
             <div class="eye-result">
-                <h3 style="color: var(--primary-color); margin-bottom: 15px; text-align: center;"></h3>
-                <div class="info-box" style="padding: 15px; background: #f8f9fa; border-radius: var(--radius); margin-bottom: 20px;">
-                    <div style="display: flex; gap: 20px; flex-wrap: wrap; justify-content: center;">
-                        <div><strong>姓名：</strong><span id="displayPatientName">--</span></div>
-                        <div><strong>年龄：</strong><span id="displayPatientAge">--</span></div>
-                    </div>
-                </div>
-
+                <h3 style="color: var(--primary-color); margin-bottom: 15px; text-align: center;">📐 测量结果</h3>
                 <div class="value" id="singleValue">--</div>
                 <div style="font-size: 0.9rem; color: #666; margin-top: 5px; text-align: center;">近用瞳距 | 远用瞳距 | 右瞳高 | 左瞳高 | 瞳高差值</div>
             </div>
@@ -656,10 +622,9 @@
         <div class="instructions">
             <h4>📋 使用说明</h4>
             <ol>
-                <li><strong>开启语音：</strong>点击右上角【开启语音提示】按钮（仅首次使用）</li>
                 <li><strong>填写信息：</strong>在上方填写客户姓名和年龄,然后输入镜框实际宽度（毫米）</li>
                 <li><strong>上传照片：</strong>点击上传区域或直接拖拽照片到上传区域，上传一张清晰的正面眼镜佩戴照片</li>
-                <li><strong>标定比例：</strong>先点击镜框左边缘，再点击镜框右边缘，系统会镜框实际宽度（毫米）自动计算比例</li>
+                <li><strong>标定比例：</strong>先点击镜框左边缘，再点击镜框右边缘，系统会自动计算比例</li>
                 <li><strong>测量瞳距：</strong>依次点击右眼瞳孔中心、左眼瞳孔中心</li>
                 <li><strong>测量瞳高：</strong>依次点击右眼镜框下缘、左眼镜框下缘</li>
                 <li><strong>查看结果：</strong>系统会自动计算并显示瞳距（近用、远用）和瞳高及差值</li>
@@ -671,7 +636,7 @@
 
     <!-- 版本信息 -->
     <div style="text-align: center; margin-top: 20px; padding: 10px; color: #666; font-size: 0.9rem; border-top: 1px solid var(--border-color);">
-        软件版本号：V1.0.1 &nbsp;&nbsp;&nbsp; 技术支持：高级验光技师闫胜君工作室 13574610303
+        软件版本号：V1.0.1 &nbsp;&nbsp;&nbsp; 技术支持：高级验光技师闫胜君工作室 
     </div>
 
     <script>
@@ -697,8 +662,7 @@
             patientName: document.getElementById('patientName'),
             patientAge: document.getElementById('patientAge'),
             displayPatientName: document.getElementById('displayPatientName'),
-            displayPatientAge: document.getElementById('displayPatientAge'),
-            voiceInitBtn: document.getElementById('voiceInitBtn') // 🔥 新增语音按钮
+            displayPatientAge: document.getElementById('displayPatientAge')
         };
 
         const ctx = Elements.canvas.getContext('2d');
@@ -726,69 +690,42 @@
         let canvasScaleX = 1;
         let canvasScaleY = 1;
 
-        // 🔥 优化版：Android WebView 兼容语音播报（核心修复）
+        // 文本与MP3文件映射（新增8.MP3）
+        const voiceMap = {
+            "请先输入姓名、年龄、镜框实际宽度": "./0.MP3",
+            "请点击镜框左边缘进行标定": "./1.MP3",
+            "请点击镜框右边缘进行标定": "./2.MP3",
+            "请点击右眼瞳孔中心": "./3.MP3",
+            "请点击左眼瞳孔中心": "./4.MP3",
+            "请点击右眼镜框下缘": "./5.MP3",
+            "请点击左眼镜框下缘": "./6.MP3",
+            "测量完成，请查看下方结果": "./7.MP3",
+            "请上传高清图片": "./8.MP3"
+        };
         let lastVoiceText = '';
-        let voiceInitialized = false; // 语音初始化状态
-        const Voice = {
-            // 初始化语音（用户点击触发，解除WebView限制）
-            init: () => {
-                if (voiceInitialized) return;
-                try {
-                    const synth = window.speechSynthesis;
-                    synth.cancel();
-                    // 播放空语音，触发WebView授权
-                    const utterance = new SpeechSynthesisUtterance('');
-                    utterance.lang = 'zh-CN';
-                    synth.speak(utterance);
-                    
-                    voiceInitialized = true;
-                    Elements.voiceInitBtn.classList.add('hidden');
-                    Voice.speak('语音提示已开启');
-                } catch (e) {
-                    console.log('语音初始化失败', e);
-                }
-            },
+        let audioInstance = null;
 
-            // 播报方法（仅初始化后生效）
+        // MP3音频播报
+        const Voice = {
             speak: (text) => {
-                if (!voiceInitialized || text === lastVoiceText) return;
+                if (text === lastVoiceText) return;
                 lastVoiceText = text;
                 console.log(`操作提示：${text}`);
+                if (!voiceMap[text]) return;
 
-                try {
-                    const synth = window.speechSynthesis;
-                    if (!synth) throw new Error('不支持语音合成');
-                    synth.cancel();
-
-                    const utterance = new SpeechSynthesisUtterance(text);
-                    utterance.lang = 'zh-CN';
-                    utterance.rate = 1.0;
-                    utterance.pitch = 1.0;
-                    utterance.volume = 1.0;
-                    synth.speak(utterance);
-                } 
-                catch (err) {
-                    try {
-                        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                        const oscillator = audioCtx.createOscillator();
-                        const gainNode = audioCtx.createGain();
-                        
-                        oscillator.type = 'sine';
-                        oscillator.frequency.setValueAtTime(440, audioCtx.currentTime);
-                        gainNode.gain.setValueAtTime(0.15, audioCtx.currentTime);
-                        
-                        oscillator.connect(gainNode);
-                        gainNode.connect(audioCtx.destination);
-                        
-                        oscillator.start();
-                        gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.3);
-                        oscillator.stop(audioCtx.currentTime + 0.3);
-                    } catch (err) {}
+                if (audioInstance) {
+                    audioInstance.pause();
+                    audioInstance = null;
                 }
+
+                audioInstance = new Audio(voiceMap[text]);
+                audioInstance.play().catch(err => {
+                    console.log("音频播放失败：", err);
+                });
             }
         };
 
-        // 初始化状态管理
+        // 状态管理
         const StateManager = {
             saveState: () => {
                 historyStack.push(JSON.parse(JSON.stringify(currentState)));
@@ -799,10 +736,6 @@
                 if (historyStack.length > 0) {
                     currentState = historyStack.pop();
                     UI.update();
-                    if(currentState.scale){
-                        Calculator.calculateScale();
-                        Calculator.calculateMeasurements();
-                    }
                     Voice.speak("已撤销上一步操作");
                 }
             },
@@ -835,15 +768,11 @@
             canvasScaleY = Elements.canvas.height / canvasRect.height;
         }
 
-        // 将鼠标事件坐标转换为画布内部坐标
+        // 鼠标坐标转画布坐标
         function eventToCanvasCoordinates(clientX, clientY) {
             const x = clientX - canvasRect.left;
             const y = clientY - canvasRect.top;
-            
-            const canvasX = x * canvasScaleX;
-            const canvasY = y * canvasScaleY;
-            
-            return { x: canvasX, y: canvasY };
+            return { x: x * canvasScaleX, y: y * canvasScaleY };
         }
 
         // 缩放管理器
@@ -854,65 +783,29 @@
                 if (centerX !== null && centerY !== null) {
                     const worldX = (centerX - offsetX) / zoom;
                     const worldY = (centerY - offsetY) / zoom;
-                    
                     offsetX = centerX - worldX * newZoom;
                     offsetY = centerY - worldY * newZoom;
                 }
                 
                 zoom = newZoom;
                 Elements.zoomLevel.textContent = Math.round(zoom * 100) + '%';
-                
                 Elements.dragHint.style.display = zoom > 1 ? 'block' : 'none';
                 Elements.precisionHint.style.display = zoom > 1 ? 'block' : 'none';
-                
                 Marker.drawAll();
             },
             
-            zoomIn: () => {
-                ZoomManager.setZoom(zoom * 1.2, canvasRect.width / 2, canvasRect.height / 2);
-                Voice.speak("放大图片");
-            },
-            
-            zoomOut: () => {
-                ZoomManager.setZoom(zoom / 1.2, canvasRect.width / 2, canvasRect.height / 2);
-                Voice.speak("缩小图片");
-            },
-            
-            reset: () => {
-                zoom = 1.0;
-                offsetX = 0;
-                offsetY = 0;
-                Elements.zoomLevel.textContent = '100%';
-                Elements.dragHint.style.display = 'none';
-                Elements.precisionHint.style.display = 'none';
-                Marker.drawAll();
-                Voice.speak("重置缩放");
-            },
-            
-            screenToWorld: (screenX, screenY) => {
-                return {
-                    x: (screenX - offsetX) / zoom,
-                    y: (screenY - offsetY) / zoom
-                };
-            },
-            
-            worldToScreen: (worldX, worldY) => {
-                return {
-                    x: worldX * zoom + offsetX,
-                    y: worldY * zoom + offsetY
-                };
-            }
+            zoomIn: () => { ZoomManager.setZoom(zoom * 1.2, canvasRect.width / 2, canvasRect.height / 2); Voice.speak("放大图片"); },
+            zoomOut: () => { ZoomManager.setZoom(zoom / 1.2, canvasRect.width / 2, canvasRect.height / 2); Voice.speak("缩小图片"); },
+            reset: () => { zoom = 1.0; offsetX = 0; offsetY = 0; Elements.zoomLevel.textContent = '100%'; Elements.dragHint.style.display = 'none'; Elements.precisionHint.style.display = 'none'; Marker.drawAll(); Voice.speak("重置缩放"); },
+            screenToWorld: (screenX, screenY) => { return { x: (screenX - offsetX) / zoom, y: (screenY - offsetY) / zoom }; },
+            worldToScreen: (worldX, worldY) => { return { x: worldX * zoom + offsetX, y: worldY * zoom + offsetY }; }
         };
 
         // 用户界面管理
         const UI = {
             update: () => {
                 Elements.scaleResult.textContent = currentState.scale ? currentState.scale.toFixed(4) : '0';
-                
-                if (currentState.scale) {
-                    Elements.singleValue.textContent = '--';
-                }
-                
+                if (currentState.scale) Elements.singleValue.textContent = '--';
                 Marker.drawAll();
                 UI.updateStatus();
                 UI.updateUndoButton();
@@ -930,59 +823,39 @@
                     }
                 } else {
                     switch(currentState.currentStep) {
-                        case 'right_pupil':
-                            voiceText = '请点击右眼瞳孔中心';
-                            break;
-                        case 'left_pupil':
-                            voiceText = '请点击左眼瞳孔中心';
-                            break;
-                        case 'right_frame':
-                            voiceText = '请点击右眼镜框下缘';
-                            break;
-                        case 'left_frame':
-                            voiceText = '请点击左眼镜框下缘';
-                            break;
-                        case 'completed':
-                            voiceText = '测量完成';
-                            Elements.measurementSection.style.display = 'block';
-                            break;
+                        case 'right_pupil': voiceText = '请点击右眼瞳孔中心'; break;
+                        case 'left_pupil': voiceText = '请点击左眼瞳孔中心'; break;
+                        case 'right_frame': voiceText = '请点击右眼镜框下缘'; break;
+                        case 'left_frame': voiceText = '请点击左眼镜框下缘'; break;
+                        case 'completed': voiceText = '测量完成，请查看下方结果'; Elements.measurementSection.style.display = 'block'; break;
                     }
                 }
                 Voice.speak(voiceText);
             },
             
-            updateUndoButton: () => {
-                Elements.undoButton.disabled = historyStack.length === 0;
-            }
+            updateUndoButton: () => { Elements.undoButton.disabled = historyStack.length === 0; }
         };
 
-        // 标记点绘制管理
+        // 标记点绘制
         const Marker = {
             drawAll: () => {
                 ctx.clearRect(0, 0, Elements.canvas.width, Elements.canvas.height);
-                
                 ctx.save();
                 ctx.translate(offsetX, offsetY);
                 ctx.scale(zoom, zoom);
-                
-                if (img.complete && img.naturalWidth > 0) {
-                    ctx.drawImage(img, 0, 0, imageWidth, imageHeight);
-                }
-                
+                if (img.complete && img.naturalWidth > 0) ctx.drawImage(img, 0, 0, imageWidth, imageHeight);
                 Marker.drawCalibration('left', '#4a90e2');
                 Marker.drawCalibration('right', '#4a90e2');
                 Marker.drawPupil('right', '#7ed321');
                 Marker.drawPupil('left', '#f5a623');
                 Marker.drawFrameBottom('right', '#7ed321');
                 Marker.drawFrameBottom('left', '#f5a623');
-                
                 ctx.restore();
             },
             
             drawCalibration: (side, color) => {
                 const point = currentState.calibrationPoints[side];
                 if (!point) return;
-                
                 const lineLength = 120 / zoom;
                 ctx.beginPath();
                 ctx.moveTo(point.x, point.y - lineLength/2);
@@ -990,12 +863,10 @@
                 ctx.strokeStyle = color;
                 ctx.lineWidth = 8 / zoom;
                 ctx.stroke();
-                
                 ctx.beginPath();
                 ctx.arc(point.x, point.y, 8 / zoom, 0, Math.PI * 2);
                 ctx.fillStyle = color;
                 ctx.fill();
-                
                 ctx.fillStyle = color;
                 ctx.font = `${12 / zoom}px Arial`;
                 ctx.fillText(side === 'left' ? '左基准' : '右基准', point.x + 6 / zoom, point.y - lineLength/2 - 4 / zoom);
@@ -1004,16 +875,13 @@
             drawPupil: (eye, color) => {
                 const point = currentState.measurementPoints[eye].pupil;
                 if (!point) return;
-                
                 ctx.beginPath();
                 ctx.arc(point.x, point.y, 10 / zoom, 0, Math.PI * 2);
                 ctx.fillStyle = color;
                 ctx.fill();
-                
                 ctx.strokeStyle = 'white';
                 ctx.lineWidth = 2 / zoom;
                 ctx.stroke();
-                
                 ctx.fillStyle = color;
                 ctx.font = `${12 / zoom}px Arial`;
                 ctx.fillText(eye === 'right' ? '右瞳孔' : '左瞳孔', point.x + 10 / zoom, point.y + 4 / zoom);
@@ -1022,7 +890,6 @@
             drawFrameBottom: (eye, color) => {
                 const point = currentState.measurementPoints[eye].frameBottom;
                 if (!point) return;
-                
                 const lineLength = 120 / zoom;
                 ctx.beginPath();
                 ctx.moveTo(point.x - lineLength/2, point.y);
@@ -1030,16 +897,13 @@
                 ctx.strokeStyle = color;
                 ctx.lineWidth = 8 / zoom;
                 ctx.stroke();
-                
                 ctx.beginPath();
                 ctx.arc(point.x, point.y, 10 / zoom, 0, Math.PI * 2);
                 ctx.fillStyle = color;
                 ctx.fill();
-                
                 ctx.strokeStyle = 'white';
                 ctx.lineWidth = 2 / zoom;
                 ctx.stroke();
-                
                 ctx.fillStyle = color;
                 ctx.font = `${12 / zoom}px Arial`;
                 ctx.fillText(eye === 'right' ? '右下缘' : '左下缘', point.x + 8 / zoom, point.y - 8 / zoom);
@@ -1048,7 +912,6 @@
             getMarkerAtPosition: (screenX, screenY) => {
                 const tolerance = 15 / zoom;
                 const worldPos = ZoomManager.screenToWorld(screenX, screenY);
-                
                 const markers = [
                     { type: 'calibration', side: 'left', point: currentState.calibrationPoints.left },
                     { type: 'calibration', side: 'right', point: currentState.calibrationPoints.right },
@@ -1057,14 +920,11 @@
                     { type: 'measurement', eye: 'left', part: 'pupil', point: currentState.measurementPoints.left.pupil },
                     { type: 'measurement', eye: 'left', part: 'frameBottom', point: currentState.measurementPoints.left.frameBottom }
                 ];
-                
                 for (const marker of markers) {
                     if (marker.point) {
                         const dx = Math.abs(marker.point.x - worldPos.x);
                         const dy = Math.abs(marker.point.y - worldPos.y);
-                        if (dx < tolerance && dy < tolerance) {
-                            return marker;
-                        }
+                        if (dx < tolerance && dy < tolerance) return marker;
                     }
                 }
                 return null;
@@ -1075,38 +935,33 @@
         const Calculator = {
             calculateScale: () => {
                 const actualWidth = parseFloat(Elements.actualWidth.value);
-                if (currentState.calibrationPoints.left && currentState.calibrationPoints.right && actualWidth > 0) {
+                if (isNaN(actualWidth) || actualWidth <= 0) {
+                    currentState.scale = 0;
+                    Elements.scaleResult.textContent = '0';
+                    if(currentState.currentStep === 'completed') Elements.singleValue.textContent = '--';
+                    return;
+                }
+                if (currentState.calibrationPoints.left && currentState.calibrationPoints.right) {
                     const pixelWidth = Math.abs(currentState.calibrationPoints.right.x - currentState.calibrationPoints.left.x);
                     currentState.scale = actualWidth / pixelWidth;
                     Elements.scaleResult.textContent = currentState.scale.toFixed(4) + ' mm/像素';
                     UI.updateStatus();
-                    
-                    if (
-                        currentState.measurementPoints.right.pupil &&
-                        currentState.measurementPoints.left.pupil &&
-                        currentState.measurementPoints.right.frameBottom &&
-                        currentState.measurementPoints.left.frameBottom
-                    ) {
+                    if (currentState.measurementPoints.right.pupil && currentState.measurementPoints.left.pupil &&
+                        currentState.measurementPoints.right.frameBottom && currentState.measurementPoints.left.frameBottom) {
                         Calculator.calculateMeasurements();
                     }
+                    Voice.speak("比例计算完成");
                 }
             },
             
             calculateMeasurements: () => {
-                if (
-                    currentState.measurementPoints.right.pupil &&
-                    currentState.measurementPoints.left.pupil &&
-                    currentState.measurementPoints.right.frameBottom &&
-                    currentState.measurementPoints.left.frameBottom &&
-                    currentState.scale
-                ) {
-                    // 计算瞳距
+                if (currentState.measurementPoints.right.pupil && currentState.measurementPoints.left.pupil &&
+                    currentState.measurementPoints.right.frameBottom && currentState.measurementPoints.left.frameBottom && currentState.scale) {
                     const rightPupilX = currentState.measurementPoints.right.pupil.x;
                     const leftPupilX = currentState.measurementPoints.left.pupil.x;
                     const nearPD = Math.abs(leftPupilX - rightPupilX) * currentState.scale;
                     const farPD = nearPD * 463 / 438;
                     
-                    // 计算瞳高
                     const rightPupilY = currentState.measurementPoints.right.pupil.y;
                     const rightFrameBottomY = currentState.measurementPoints.right.frameBottom.y;
                     const leftPupilY = currentState.measurementPoints.left.pupil.y;
@@ -1116,13 +971,7 @@
                     const leftPH = Math.abs(leftFrameBottomY - leftPupilY) * currentState.scale;
                     const phDiff = Math.abs(leftPH - rightPH);
                     
-                    // 显示结果
                     Elements.singleValue.textContent = `${nearPD.toFixed(2)} mm | ${farPD.toFixed(2)} mm | ${rightPH.toFixed(2)} mm | ${leftPH.toFixed(2)} mm | ${phDiff.toFixed(2)} mm`;
-                    
-                    // 更新客户信息
-                    Elements.displayPatientName.textContent = Elements.patientName.value || '--';
-                    Elements.displayPatientAge.textContent = Elements.patientAge.value || '--';
-                    
                     currentState.currentStep = 'completed';
                     UI.updateStatus();
                 }
@@ -1134,7 +983,6 @@
             handleImageUpload: (e) => {
                 const file = e.target.files[0];
                 if (!file) return;
-                
                 const reader = new FileReader();
                 reader.onload = function(event) {
                     img.onload = function() {
@@ -1142,15 +990,12 @@
                         imageHeight = img.height;
                         Elements.canvas.width = imageWidth;
                         Elements.canvas.height = imageHeight;
-                        
                         updateCanvasRect();
                         ZoomManager.reset();
-                        
                         Elements.uploadArea.style.display = 'none';
                         Elements.canvas.style.display = 'block';
                         Elements.reuploadOverlay.style.display = 'block';
                         Elements.zoomOverlay.style.display = 'flex';
-                        
                         Marker.drawAll();
                         StateManager.resetState();
                         Voice.speak("图片上传成功，请点击镜框左边缘进行标定");
@@ -1163,12 +1008,9 @@
             handleCanvasClick: (e) => {
                 updateCanvasRect();
                 const canvasCoords = eventToCanvasCoordinates(e.clientX, e.clientY);
-                
                 if (isDragging && currentState.selectedMarker) return;
-                
                 StateManager.saveState();
                 const worldPos = ZoomManager.screenToWorld(canvasCoords.x, canvasCoords.y);
-
                 if (!currentState.scale) {
                     EventHandlers.handleCalibrationClick(worldPos.x, worldPos.y);
                 } else {
@@ -1180,11 +1022,7 @@
             
             handleCalibrationClick: (x, y) => {
                 const actualWidth = Elements.actualWidth.value;
-                if (!actualWidth) {
-                    Voice.speak('请先输入镜框实际宽度');
-                    return;
-                }
-
+                if (!actualWidth) { Voice.speak('请先输入镜框实际宽度'); return; }
                 if (!currentState.calibrationPoints.left) {
                     currentState.calibrationPoints.left = { x, y };
                 } else if (!currentState.calibrationPoints.right) {
@@ -1195,29 +1033,16 @@
             
             handleMeasurementClick: (x, y) => {
                 switch(currentState.currentStep) {
-                    case 'right_pupil':
-                        currentState.measurementPoints.right.pupil = { x, y };
-                        currentState.currentStep = 'left_pupil';
-                        break;
-                    case 'left_pupil':
-                        currentState.measurementPoints.left.pupil = { x, y };
-                        currentState.currentStep = 'right_frame';
-                        break;
-                    case 'right_frame':
-                        currentState.measurementPoints.right.frameBottom = { x, y };
-                        currentState.currentStep = 'left_frame';
-                        break;
-                    case 'left_frame':
-                        currentState.measurementPoints.left.frameBottom = { x, y };
-                        Calculator.calculateMeasurements();
-                        break;
+                    case 'right_pupil': currentState.measurementPoints.right.pupil = { x, y }; currentState.currentStep = 'left_pupil'; break;
+                    case 'left_pupil': currentState.measurementPoints.left.pupil = { x, y }; currentState.currentStep = 'right_frame'; break;
+                    case 'right_frame': currentState.measurementPoints.right.frameBottom = { x, y }; currentState.currentStep = 'left_frame'; break;
+                    case 'left_frame': currentState.measurementPoints.left.frameBottom = { x, y }; Calculator.calculateMeasurements(); break;
                 }
             },
             
             handleDragStart: (e) => {
                 updateCanvasRect();
                 const canvasCoords = eventToCanvasCoordinates(e.clientX, e.clientY);
-                
                 const clickedMarker = Marker.getMarkerAtPosition(canvasCoords.x, canvasCoords.y);
                 if (clickedMarker) {
                     currentState.selectedMarker = clickedMarker;
@@ -1246,56 +1071,28 @@
                     updateCanvasRect();
                     const canvasCoords = eventToCanvasCoordinates(e.clientX, e.clientY);
                     const worldPos = ZoomManager.screenToWorld(canvasCoords.x, canvasCoords.y);
-                    
                     const marker = currentState.selectedMarker;
                     if (marker.type === 'calibration') {
-                        currentState.calibrationPoints[marker.side] = { 
-                            x: worldPos.x - marker.offsetX, 
-                            y: worldPos.y - marker.offsetY 
-                        };
-                        
-                        if (currentState.calibrationPoints.left && currentState.calibrationPoints.right && Elements.actualWidth.value) {
-                            Calculator.calculateScale();
-                        }
+                        currentState.calibrationPoints[marker.side] = { x: worldPos.x - marker.offsetX, y: worldPos.y - marker.offsetY };
+                        if (currentState.calibrationPoints.left && currentState.calibrationPoints.right && Elements.actualWidth.value) Calculator.calculateScale();
                     } else if (marker.type === 'measurement') {
-                        currentState.measurementPoints[marker.eye][marker.part] = { 
-                            x: worldPos.x - marker.offsetX, 
-                            y: worldPos.y - marker.offsetY 
-                        };
-                        if (currentState.scale) {
-                            Calculator.calculateMeasurements();
-                        }
+                        currentState.measurementPoints[marker.eye][marker.part] = { x: worldPos.x - marker.offsetX, y: worldPos.y - marker.offsetY };
+                        if ((marker.part === 'pupil' || marker.part === 'frameBottom') && currentState.currentStep === 'completed') Calculator.calculateMeasurements();
                     }
-                    
                     Marker.drawAll();
                 } else if (isDragging) {
                     const deltaX = e.clientX - lastX;
                     const deltaY = e.clientY - lastY;
-                    
                     offsetX += deltaX;
                     offsetY += deltaY;
-                    
                     lastX = e.clientX;
                     lastY = e.clientY;
-                    
                     Marker.drawAll();
                 }
             },
             
-            handleDragEnd: () => {
-                currentState.selectedMarker = null;
-                isDragging = false;
-                Elements.canvas.style.cursor = 'crosshair';
-            },
-            
-            handleWheel: (e) => {
-                e.preventDefault();
-                updateCanvasRect();
-                const canvasCoords = eventToCanvasCoordinates(e.clientX, e.clientY);
-                
-                const delta = e.deltaY > 0 ? 0.9 : 1.1;
-                ZoomManager.setZoom(zoom * delta, canvasCoords.x, canvasCoords.y);
-            },
+            handleDragEnd: () => { currentState.selectedMarker = null; isDragging = false; Elements.canvas.style.cursor = 'crosshair'; },
+            handleWheel: (e) => { e.preventDefault(); updateCanvasRect(); const canvasCoords = eventToCanvasCoordinates(e.clientX, e.clientY); ZoomManager.setZoom(zoom * (e.deltaY > 0 ? 0.9 : 1.1), canvasCoords.x, canvasCoords.y); },
             
             handleReupload: () => {
                 Elements.imageUpload.value = '';
@@ -1313,49 +1110,29 @@
             }
         };
 
-        // 初始化事件监听
+        // 事件监听
         Elements.undoButton.addEventListener('click', StateManager.restorePreviousState);
         Elements.imageUpload.addEventListener('change', EventHandlers.handleImageUpload);
         Elements.uploadArea.addEventListener('click', () => Elements.imageUpload.click());
         Elements.reuploadButton.addEventListener('click', EventHandlers.handleReupload);
-        Elements.voiceInitBtn.addEventListener('click', Voice.init); // 🔥 绑定语音初始化事件
-
-        // 缩放按钮事件
         Elements.zoomIn.addEventListener('click', ZoomManager.zoomIn);
         Elements.zoomOut.addEventListener('click', ZoomManager.zoomOut);
         Elements.resetZoom.addEventListener('click', ZoomManager.reset);
-
-        // 画布事件
         Elements.canvas.addEventListener('click', EventHandlers.handleCanvasClick);
         Elements.canvas.addEventListener('wheel', EventHandlers.handleWheel);
         Elements.canvas.addEventListener('mousedown', EventHandlers.handleDragStart);
         Elements.canvas.addEventListener('mousemove', EventHandlers.handleDragMove);
         Elements.canvas.addEventListener('mouseup', EventHandlers.handleDragEnd);
         Elements.canvas.addEventListener('mouseleave', EventHandlers.handleDragEnd);
-
-        // 窗口大小变化
-        window.addEventListener('resize', () => {
-            updateCanvasRect();
-            Marker.drawAll();
-        });
+        window.addEventListener('resize', () => { updateCanvasRect(); Marker.drawAll(); });
 
         // 拖拽上传
-        Elements.uploadArea.addEventListener('dragover', (e) => {
-            e.preventDefault();
-            Elements.uploadArea.style.borderColor = 'var(--primary-color)';
-            Elements.uploadArea.style.backgroundColor = '#eef7ff';
-        });
-
-        Elements.uploadArea.addEventListener('dragleave', () => {
-            Elements.uploadArea.style.borderColor = 'var(--border-color)';
-            Elements.uploadArea.style.backgroundColor = '#f8f9fa';
-        });
-
+        Elements.uploadArea.addEventListener('dragover', (e) => { e.preventDefault(); Elements.uploadArea.style.borderColor = 'var(--primary-color)'; Elements.uploadArea.style.backgroundColor = '#eef7ff'; });
+        Elements.uploadArea.addEventListener('dragleave', () => { Elements.uploadArea.style.borderColor = 'var(--border-color)'; Elements.uploadArea.style.backgroundColor = '#f8f9fa'; });
         Elements.uploadArea.addEventListener('drop', (e) => {
             e.preventDefault();
             Elements.uploadArea.style.borderColor = 'var(--border-color)';
             Elements.uploadArea.style.backgroundColor = '#f8f9fa';
-            
             const file = e.dataTransfer.files[0];
             if (file && file.type.startsWith('image/')) {
                 Elements.imageUpload.files = e.dataTransfer.files;
@@ -1363,7 +1140,17 @@
             }
         });
 
-        // 初始化（移除自动语音播报，避免被拦截）
+        // 框宽输入：实时计算 + 播报8.MP3
+        Elements.actualWidth.addEventListener('input', () => {
+            const val = parseFloat(Elements.actualWidth.value);
+            if(val > 0){
+                Voice.speak("请上传高清图片");
+            }
+            Calculator.calculateScale();
+            UI.update();
+        });
+
+        // 初始化
         UI.update();
     </script>
 </body>
