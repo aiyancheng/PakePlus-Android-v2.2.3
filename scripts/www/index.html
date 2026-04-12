@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -84,7 +83,7 @@
             padding: 10px 12px;
             border: 2px solid var(--primary-color);
             border-radius: var(--radius);
-            width: 120px;
+            width: 84px; /* 减小30%：120px * 0.7 = 84px */
             max-width: 100%;
             font-size: 1rem;
         }
@@ -349,6 +348,19 @@
             margin-top: 10px;
             font-size: 14px;
         }
+
+        /* 新增：相机按钮样式 */
+        .camera-button {
+            margin-top: 15px;
+            background-color: var(--success-color);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1rem;
+        }
+        .camera-button:hover {
+            background-color: #6fbc1c;
+        }
         
         .calibration-section {
             display: flex;
@@ -487,7 +499,7 @@
             }
             
             input[type="number"], input[type="text"] {
-                width: 100px; /* 平板竖版缩小输入框宽度 */
+                width: 70px; /* 平板竖版也相应减小 */
             }
             
             .calibration-section {
@@ -578,12 +590,15 @@
             </div>
         </div>
 
-        <!-- 上传区域 -->
+        <!-- 上传区域（新增相机按钮） -->
         <div id="uploadArea" class="upload-area">
             <div class="upload-icon">📷</div>
             <div style="margin-bottom: 15px;">点击或拖拽上传照片</div>
-            <input type="file" id="imageUpload" accept="image/*" class="upload-hidden">
-            <div class="upload-text">支持 JPG、PNG 格式，推荐分辨率 1920x1080 或更高</div>
+            <!-- 优化：添加 capture="environment" 主动调用后置相机 -->
+            <input type="file" id="imageUpload" accept="image/*" capture="environment" class="upload-hidden" style="display: none;">
+            <!-- 新增：相机拍摄按钮 -->
+            <button class="camera-button" id="cameraBtn">直接拍摄照片</button>
+            <div class="upload-text">支持 JPG、PNG 格式，图片要求10M以内</div>
         </div>
         
         <!-- 画布容器 -->
@@ -612,7 +627,7 @@
         <!-- 测量结果（已删除客户信息） -->
         <div id="measurementSection" style="display: none;">
             <div class="eye-result">
-                <h3 style="color: var(--primary-color); margin-bottom: 15px; text-align: center;">📐 测量结果</h3>
+                <h3 style="color: var(--primary-color); margin-bottom: 15px; text-align: center;">综合测量结果</h3>
                 <div class="value" id="singleValue">--</div>
                 <div style="font-size: 0.9rem; color: #666; margin-top: 5px; text-align: center;">近用瞳距 | 远用瞳距 | 右瞳高 | 左瞳高 | 瞳高差值</div>
             </div>
@@ -645,6 +660,7 @@
             canvas: document.getElementById('canvas'),
             undoButton: document.getElementById('undoButton'),
             imageUpload: document.getElementById('imageUpload'),
+            cameraBtn: document.getElementById('cameraBtn'), // 新增相机按钮
             uploadArea: document.getElementById('uploadArea'),
             reuploadButton: document.getElementById('reuploadButton'),
             actualWidth: document.getElementById('actualWidth'),
@@ -679,6 +695,9 @@
             selectedMarker: null
         };
 
+        // 新增状态标记：图片是否已上传
+        let isImageUploaded = false;
+
         // 缩放相关变量
         let zoom = 1.0;
         let offsetX = 0;
@@ -690,9 +709,10 @@
         let canvasScaleX = 1;
         let canvasScaleY = 1;
 
-        // 文本与MP3文件映射（新增8.MP3）
+        // 文本与MP3文件映射
         const voiceMap = {
             "请先输入姓名、年龄、镜框实际宽度": "./0.MP3",
+            "请先输入姓名和镜框实际宽度": "./0.MP3",
             "请点击镜框左边缘进行标定": "./1.MP3",
             "请点击镜框右边缘进行标定": "./2.MP3",
             "请点击右眼瞳孔中心": "./3.MP3",
@@ -700,10 +720,15 @@
             "请点击右眼镜框下缘": "./5.MP3",
             "请点击左眼镜框下缘": "./6.MP3",
             "测量完成，请查看下方结果": "./7.MP3",
-            "请上传高清图片": "./8.MP3"
+            "请上传高清图片": "./8.MP3",
+            "图片文件过大，请选择小于10MB的图片": "./9.MP3",
+            "文件读取失败，请重新选择图片": "./10.MP3",
+            "图片加载失败，请选择有效的图片文件": "./11.MP3",
+            "图片加载失败，请重新选择图片": "./12.MP3"
         };
         let lastVoiceText = '';
         let audioInstance = null;
+        let hasAnnouncedUpload = false; // 标记是否已播报上传提示
 
         // MP3音频播报
         const Voice = {
@@ -813,15 +838,14 @@
             
             updateStatus: () => {
                 let voiceText = '';
-                if (!currentState.scale) {
-                    if (!Elements.actualWidth.value) {
-                        voiceText = '请先输入姓名、年龄、镜框实际宽度';
-                    } else if (!currentState.calibrationPoints.left) {
+                // 关键修改：只有在图片已上传的情况下，才播报后续的测量步骤
+                if (!currentState.scale && isImageUploaded) {
+                    if (!currentState.calibrationPoints.left) {
                         voiceText = '请点击镜框左边缘进行标定';
                     } else if (!currentState.calibrationPoints.right) {
                         voiceText = '请点击镜框右边缘进行标定';
                     }
-                } else {
+                } else if (currentState.scale) {
                     switch(currentState.currentStep) {
                         case 'right_pupil': voiceText = '请点击右眼瞳孔中心'; break;
                         case 'left_pupil': voiceText = '请点击左眼瞳孔中心'; break;
@@ -830,7 +854,7 @@
                         case 'completed': voiceText = '测量完成，请查看下方结果'; Elements.measurementSection.style.display = 'block'; break;
                     }
                 }
-                Voice.speak(voiceText);
+                if (voiceText) Voice.speak(voiceText);
             },
             
             updateUndoButton: () => { Elements.undoButton.disabled = historyStack.length === 0; }
@@ -945,11 +969,14 @@
                     const pixelWidth = Math.abs(currentState.calibrationPoints.right.x - currentState.calibrationPoints.left.x);
                     currentState.scale = actualWidth / pixelWidth;
                     Elements.scaleResult.textContent = currentState.scale.toFixed(4) + ' mm/像素';
-                    UI.updateStatus();
+                    
+                    // 修复：如果已经有测量点，重新计算测量结果
                     if (currentState.measurementPoints.right.pupil && currentState.measurementPoints.left.pupil &&
                         currentState.measurementPoints.right.frameBottom && currentState.measurementPoints.left.frameBottom) {
                         Calculator.calculateMeasurements();
                     }
+                    
+                    UI.updateStatus();
                     Voice.speak("比例计算完成");
                 }
             },
@@ -973,19 +1000,82 @@
                     
                     Elements.singleValue.textContent = `${nearPD.toFixed(2)} mm | ${farPD.toFixed(2)} mm | ${rightPH.toFixed(2)} mm | ${leftPH.toFixed(2)} mm | ${phDiff.toFixed(2)} mm`;
                     currentState.currentStep = 'completed';
+                    Elements.measurementSection.style.display = 'block'; // 确保结果区域显示
                     UI.updateStatus();
                 }
             }
         };
+
+        // 必填项验证函数（仅验证姓名和框宽）
+        function checkRequiredFields() {
+            const name = Elements.patientName.value.trim();
+            const width = Elements.actualWidth.value.trim();
+            if (!name || !width) {
+                Voice.speak("请先输入姓名和镜框实际宽度");
+                return false;
+            }
+            return true;
+        }
+
+        // 检查并播报上传提示（需要姓名、年龄、框宽都填写）
+        function checkAndAnnounceUpload() {
+            const name = Elements.patientName.value.trim();
+            const age = Elements.patientAge.value.trim();
+            const width = Elements.actualWidth.value.trim();
+            if (name && age && width && !hasAnnouncedUpload) {
+                Voice.speak("请上传高清图片");
+                hasAnnouncedUpload = true;
+            } else if ((!name || !age || !width) && hasAnnouncedUpload) {
+                hasAnnouncedUpload = false; // 清空时重置标记
+            }
+            // 实时计算比例
+            if (width && currentState.calibrationPoints.left && currentState.calibrationPoints.right) {
+                Calculator.calculateScale();
+            }
+            UI.update();
+        }
 
         // 事件处理器
         const EventHandlers = {
             handleImageUpload: (e) => {
                 const file = e.target.files[0];
                 if (!file) return;
+
+                // 检查文件大小（限制为10MB）
+                const maxSize = 10 * 1024 * 1024; 
+                if (file.size > maxSize) {
+                    alert("图片文件过大，请选择小于10MB的图片");
+                    Voice.speak("图片文件过大，请选择小于10MB的图片");
+                    Elements.imageUpload.value = '';
+                    return;
+                }
+
                 const reader = new FileReader();
+                
+                // 文件读取错误处理
+                reader.onerror = function() {
+                    alert("文件读取失败，请重新选择图片");
+                    Voice.speak("文件读取失败，请重新选择图片");
+                    Elements.imageUpload.value = '';
+                };
+
                 reader.onload = function(event) {
+                    // 图片加载错误处理
+                    img.onerror = function() {
+                        alert("图片加载失败，请重新选择图片");
+                        Voice.speak("图片加载失败，请重新选择图片");
+                        Elements.imageUpload.value = '';
+                    };
+
                     img.onload = function() {
+                        // 检查图片有效性
+                        if (img.naturalWidth === 0 || img.naturalHeight === 0) {
+                            alert("图片加载失败，请选择有效的图片文件");
+                            Voice.speak("图片加载失败，请选择有效的图片文件");
+                            Elements.imageUpload.value = '';
+                            return;
+                        }
+
                         imageWidth = img.width;
                         imageHeight = img.height;
                         Elements.canvas.width = imageWidth;
@@ -996,12 +1086,19 @@
                         Elements.canvas.style.display = 'block';
                         Elements.reuploadOverlay.style.display = 'block';
                         Elements.zoomOverlay.style.display = 'flex';
+                        
+                        // 标记图片已上传
+                        isImageUploaded = true;
+                        
                         Marker.drawAll();
                         StateManager.resetState();
-                        Voice.speak("图片上传成功，请点击镜框左边缘进行标定");
+                        // 图片上传成功后播放1.MP3
+                        Voice.speak("请点击镜框左边缘进行标定");
                     };
+
                     img.src = event.target.result;
                 };
+
                 reader.readAsDataURL(file);
             },
             
@@ -1104,6 +1201,8 @@
                 Elements.actualWidth.value = '';
                 Elements.patientName.value = '';
                 Elements.patientAge.value = '';
+                hasAnnouncedUpload = false; // 重置播报标记
+                isImageUploaded = false; // 重置图片上传标记
                 StateManager.resetState();
                 UI.update();
                 Voice.speak("已重新上传图片");
@@ -1112,8 +1211,29 @@
 
         // 事件监听
         Elements.undoButton.addEventListener('click', StateManager.restorePreviousState);
-        Elements.imageUpload.addEventListener('change', EventHandlers.handleImageUpload);
-        Elements.uploadArea.addEventListener('click', () => Elements.imageUpload.click());
+        
+        // 修改后的上传事件：先验证必填项
+        Elements.imageUpload.addEventListener('change', (e) => {
+            if (!checkRequiredFields()) {
+                Elements.imageUpload.value = ''; 
+                return;
+            }
+            EventHandlers.handleImageUpload(e);
+        });
+
+        // 新增：相机按钮点击事件
+        Elements.cameraBtn.addEventListener('click', () => {
+            if (checkRequiredFields()) {
+                Elements.imageUpload.click();
+            }
+        });
+        
+        Elements.uploadArea.addEventListener('click', () => {
+            if (checkRequiredFields()) {
+                Elements.imageUpload.click();
+            }
+        });
+        
         Elements.reuploadButton.addEventListener('click', EventHandlers.handleReupload);
         Elements.zoomIn.addEventListener('click', ZoomManager.zoomIn);
         Elements.zoomOut.addEventListener('click', ZoomManager.zoomOut);
@@ -1126,13 +1246,16 @@
         Elements.canvas.addEventListener('mouseleave', EventHandlers.handleDragEnd);
         window.addEventListener('resize', () => { updateCanvasRect(); Marker.drawAll(); });
 
-        // 拖拽上传
+        // 拖拽上传：添加必填项验证
         Elements.uploadArea.addEventListener('dragover', (e) => { e.preventDefault(); Elements.uploadArea.style.borderColor = 'var(--primary-color)'; Elements.uploadArea.style.backgroundColor = '#eef7ff'; });
         Elements.uploadArea.addEventListener('dragleave', () => { Elements.uploadArea.style.borderColor = 'var(--border-color)'; Elements.uploadArea.style.backgroundColor = '#f8f9fa'; });
         Elements.uploadArea.addEventListener('drop', (e) => {
             e.preventDefault();
             Elements.uploadArea.style.borderColor = 'var(--border-color)';
             Elements.uploadArea.style.backgroundColor = '#f8f9fa';
+            if (!checkRequiredFields()) {
+                return;
+            }
             const file = e.dataTransfer.files[0];
             if (file && file.type.startsWith('image/')) {
                 Elements.imageUpload.files = e.dataTransfer.files;
@@ -1140,18 +1263,16 @@
             }
         });
 
-        // 框宽输入：实时计算 + 播报8.MP3
-        Elements.actualWidth.addEventListener('input', () => {
-            const val = parseFloat(Elements.actualWidth.value);
-            if(val > 0){
-                Voice.speak("请上传高清图片");
-            }
-            Calculator.calculateScale();
-            UI.update();
-        });
+        // 三个输入框的input事件都调用checkAndAnnounceUpload
+        Elements.patientName.addEventListener('input', checkAndAnnounceUpload);
+        Elements.patientAge.addEventListener('input', checkAndAnnounceUpload);
+        Elements.actualWidth.addEventListener('input', checkAndAnnounceUpload);
 
-        // 初始化
+        // 初始化：打开软件后播放0.MP3 - 使用延迟确保DOM和音频系统就绪
         UI.update();
+        setTimeout(() => {
+            Voice.speak("请先输入姓名、年龄、镜框实际宽度");
+        }, 500);
     </script>
 </body>
 </html>
