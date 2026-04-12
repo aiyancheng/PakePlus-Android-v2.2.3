@@ -70,20 +70,16 @@
             align-items: center;
         }
         
-        input[type="file"] {
-            padding: 10px;
-            border: 2px dashed var(--border-color);
-            border-radius: var(--radius);
-            width: 100%;
-            background: transparent;
-            cursor: pointer;
+        /* 隐藏原生文件上传按钮 */
+        .upload-hidden {
+            display: none !important;
         }
         
         input[type="number"], input[type="text"] {
             padding: 10px 12px;
             border: 2px solid var(--primary-color);
             border-radius: var(--radius);
-            width: 84px; /* 减小20%：120px * 0.8= 96px */
+            width: 84px;
             max-width: 100%;
             font-size: 1rem;
         }
@@ -112,22 +108,6 @@
             background-color: #ccc;
             cursor: not-allowed;
             transform: none;
-        }
-        
-        .secondary-btn {
-            background-color: var(--primary-color);
-        }
-        
-        .warning-btn {
-            background-color: var(--primary-color);
-        }
-        
-        .success-btn {
-            background-color: var(--primary-color);
-        }
-        
-        .danger-btn {
-            background-color: var(--primary-color);
         }
         
         .status-box {
@@ -206,7 +186,6 @@
             justify-content: flex-end;
         }
         
-        /* 竖排缩放按钮样式 */
         .zoom-section {
             display: flex;
             flex-direction: column;
@@ -271,7 +250,6 @@
             display: inline-block;
         }
         
-        /* 图片左上角：重新上传按钮 */
         .canvas-overlay-left {
             position: absolute;
             top: 10px;
@@ -282,7 +260,6 @@
             z-index: 10;
             box-shadow: var(--shadow);
         }
-        /* 图片右上角：竖排放缩控件 */
         .canvas-overlay-right {
             position: absolute;
             top: 10px;
@@ -349,6 +326,55 @@
             font-size: 14px;
         }
         
+        /* 拍照/相册选择弹窗样式 */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 999;
+            display: none;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-box {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            width: 80%;
+            max-width: 300px;
+            text-align: center;
+            box-shadow: var(--shadow);
+        }
+        
+        .modal-box h3 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+        
+        .modal-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .modal-btn {
+            padding: 12px;
+            font-size: 1rem;
+        }
+        
+        .camera-btn {
+            background: var(--success-color);
+        }
+        
+        .gallery-btn {
+            background: var(--primary-color);
+        }
+
         .calibration-section {
             display: flex;
             align-items: center;
@@ -389,7 +415,6 @@
             margin-bottom: 5px;
         }
         
-        /* 优化控制面板：减小间距，适配平板竖版 */
         .control-panel {
             background: #f8f9fa;
             padding: 15px;
@@ -399,11 +424,11 @@
         
         .panel-row {
             display: flex;
-            flex-wrap: nowrap; /* 强制不换行 */
-            gap: 8px; /* 减小间距，原15px → 8px */
+            flex-wrap: nowrap;
+            gap: 8px;
             align-items: center;
             margin-bottom: 10px;
-            overflow-x: auto; /* 极小屏幕允许横向滚动 */
+            overflow-x: auto;
             padding-bottom: 5px;
         }
         
@@ -411,7 +436,7 @@
             display: flex;
             align-items: center;
             gap: 6px;
-            flex: 0 1 auto; /* 自适应宽度 */
+            flex: 0 1 auto;
             min-width: fit-content;
         }
         
@@ -424,7 +449,7 @@
         
         .panel-content {
             flex: 1;
-            min-width: 80px; /* 减小最小宽度 */
+            min-width: 80px;
         }
         
         .panel-actions {
@@ -433,7 +458,6 @@
             flex-wrap: wrap;
         }
         
-        /* 返回主页按钮样式 */
         .back-to-home {
             position: fixed;
             top: 20px;
@@ -486,7 +510,7 @@
             }
             
             input[type="number"], input[type="text"] {
-                width: 70px; /* 平板竖版也相应减小 */
+                width: 70px;
             }
             
             .calibration-section {
@@ -533,13 +557,23 @@
     </style>
 </head>
 <body>
+    <!-- 拍照/相册选择弹窗 -->
+    <div class="modal-overlay" id="uploadModal">
+        <div class="modal-box">
+            <h3>选择图片来源</h3>
+            <div class="modal-buttons">
+                <button class="modal-btn camera-btn" id="openCamera">📸 直接拍照</button>
+                <button class="modal-btn gallery-btn" id="openGallery">🖼️ 从相册选择</button>
+            </div>
+        </div>
+    </div>
+
     <div class="container">
         <div class="header">
             <h1>眼科视光学瞳高AI测量</h1>
             <p>测量双眼瞳距和瞳高，专业验光配镜辅助工具</p>
         </div>
         
-        <!-- 优化后的统一控制面板 -->
         <div class="control-panel">
             <div class="panel-row">
                 <div class="panel-item">
@@ -556,7 +590,6 @@
                     </div>
                 </div>
                 
-                <!-- 新增：框宽标签 -->
                 <div class="panel-item">
                     <span class="panel-label">框宽</span>
                     <div class="panel-content">
@@ -581,22 +614,22 @@
         <div id="uploadArea" class="upload-area">
             <div class="upload-icon">📷</div>
             <div style="margin-bottom: 15px;">点击或拖拽上传照片</div>
-            <input type="file" id="imageUpload" accept="image/*" class="upload-hidden">
             <div class="upload-text">支持 JPG、PNG 格式，推荐分辨率 1920x1080 或更高</div>
         </div>
+
+        <!-- 隐藏的文件上传按钮：相机 + 相册 -->
+        <input type="file" id="cameraUpload" class="upload-hidden" accept="image/*" capture="camera">
+        <input type="file" id="galleryUpload" class="upload-hidden" accept="image/*">
         
-        <!-- 画布容器 -->
         <div class="canvas-container">
             <div class="canvas-wrapper">
                 <canvas id="canvas" style="display: none;"></canvas>
                 <div class="drag-hint" id="dragHint" style="display: none;">🖱️ 拖拽可移动图片</div>
                 <div class="precision-hint" id="precisionHint" style="display: none;">🔍 放大后点击更精准</div>
                 
-                <!-- 左上角：重新上传按钮 -->
                 <div class="canvas-overlay-left" id="reuploadOverlay" style="display: none;">
                     <button id="reuploadButton" class="danger-btn">🔄 重新上传</button>
                 </div>
-                <!-- 右上角：竖排放缩控件 -->
                 <div class="canvas-overlay-right" id="zoomOverlay" style="display: none;">
                     <div class="zoom-section">
                         <button class="zoom-btn" id="zoomIn" title="放大">+</button>
@@ -608,7 +641,6 @@
             </div>
         </div>
 
-        <!-- 测量结果（已删除客户信息） -->
         <div id="measurementSection" style="display: none;">
             <div class="eye-result">
                 <h3 style="color: var(--primary-color); margin-bottom: 15px; text-align: center;">📐 测量结果</h3>
@@ -617,7 +649,6 @@
             </div>
         </div>
 
-        <!-- 使用说明 -->
         <div class="instructions">
             <h4>📋 使用说明</h4>
             <ol>
@@ -633,7 +664,6 @@
         </div>
     </div>
 
-    <!-- 版本信息 -->
     <div style="text-align: center; margin-top: 20px; padding: 10px; color: #666; font-size: 0.9rem; border-top: 1px solid var(--border-color);">
         软件版本号：V1.0.1 &nbsp;&nbsp;&nbsp; 技术支持：高级验光技师闫胜君工作室 
     </div>
@@ -643,7 +673,12 @@
         const Elements = {
             canvas: document.getElementById('canvas'),
             undoButton: document.getElementById('undoButton'),
-            imageUpload: document.getElementById('imageUpload'),
+            // 替换为相机/相册双上传
+            cameraUpload: document.getElementById('cameraUpload'),
+            galleryUpload: document.getElementById('galleryUpload'),
+            uploadModal: document.getElementById('uploadModal'),
+            openCamera: document.getElementById('openCamera'),
+            openGallery: document.getElementById('openGallery'),
             uploadArea: document.getElementById('uploadArea'),
             reuploadButton: document.getElementById('reuploadButton'),
             actualWidth: document.getElementById('actualWidth'),
@@ -659,9 +694,7 @@
             zoomOverlay: document.getElementById('zoomOverlay'),
             measurementSection: document.getElementById('measurementSection'),
             patientName: document.getElementById('patientName'),
-            patientAge: document.getElementById('patientAge'),
-            displayPatientName: document.getElementById('displayPatientName'),
-            displayPatientAge: document.getElementById('displayPatientAge')
+            patientAge: document.getElementById('patientAge')
         };
 
         const ctx = Elements.canvas.getContext('2d');
@@ -678,10 +711,7 @@
             selectedMarker: null
         };
 
-        // 新增状态标记：图片是否已上传
         let isImageUploaded = false;
-
-        // 缩放相关变量
         let zoom = 1.0;
         let offsetX = 0;
         let offsetY = 0;
@@ -692,7 +722,6 @@
         let canvasScaleX = 1;
         let canvasScaleY = 1;
 
-        // 文本与MP3文件映射
         const voiceMap = {
             "请先输入姓名、年龄、镜框实际宽度": "./0.MP3",
             "请先输入姓名和镜框实际宽度": "./0.MP3",
@@ -707,11 +736,17 @@
             "图片文件过大，请选择小于10MB的图片": "./9.MP3",
             "文件读取失败，请重新选择图片": "./10.MP3",
             "图片加载失败，请选择有效的图片文件": "./11.MP3",
-            "图片加载失败，请重新选择图片": "./12.MP3"
+            "图片加载失败，请重新选择图片": "./12.MP3",
+            "已撤销上一步操作": "./13.MP3",
+            "放大图片": "./14.MP3",
+            "缩小图片": "./15.MP3",
+            "重置缩放": "./16.MP3",
+            "比例计算完成": "./17.MP3",
+            "已重新上传图片": "./18.MP3"
         };
         let lastVoiceText = '';
         let audioInstance = null;
-        let hasAnnouncedUpload = false; // 标记是否已播报上传提示
+        let hasAnnouncedUpload = false;
 
         // MP3音频播报
         const Voice = {
@@ -764,7 +799,6 @@
             }
         };
 
-        // 更新画布位置和缩放信息
         function updateCanvasRect() {
             const rect = Elements.canvas.getBoundingClientRect();
             canvasRect.left = rect.left;
@@ -776,7 +810,6 @@
             canvasScaleY = Elements.canvas.height / canvasRect.height;
         }
 
-        // 鼠标坐标转画布坐标
         function eventToCanvasCoordinates(clientX, clientY) {
             const x = clientX - canvasRect.left;
             const y = clientY - canvasRect.top;
@@ -821,7 +854,6 @@
             
             updateStatus: () => {
                 let voiceText = '';
-                // 关键修改：只有在图片已上传的情况下，才播报后续的测量步骤
                 if (!currentState.scale && isImageUploaded) {
                     if (!currentState.calibrationPoints.left) {
                         voiceText = '请点击镜框左边缘进行标定';
@@ -840,7 +872,9 @@
                 if (voiceText) Voice.speak(voiceText);
             },
             
-            updateUndoButton: () => { Elements.undoButton.disabled = historyStack.length === 0; }
+            updateUndoButton: () => { Elements.undoButton.disabled = historyStack.length === 0; },
+            // 关闭上传弹窗
+            closeModal: () => { Elements.uploadModal.style.display = 'none'; }
         };
 
         // 标记点绘制
@@ -953,7 +987,6 @@
                     currentState.scale = actualWidth / pixelWidth;
                     Elements.scaleResult.textContent = currentState.scale.toFixed(4) + ' mm/像素';
                     
-                    // 修复：如果已经有测量点，重新计算测量结果
                     if (currentState.measurementPoints.right.pupil && currentState.measurementPoints.left.pupil &&
                         currentState.measurementPoints.right.frameBottom && currentState.measurementPoints.left.frameBottom) {
                         Calculator.calculateMeasurements();
@@ -983,13 +1016,13 @@
                     
                     Elements.singleValue.textContent = `${nearPD.toFixed(2)} mm | ${farPD.toFixed(2)} mm | ${rightPH.toFixed(2)} mm | ${leftPH.toFixed(2)} mm | ${phDiff.toFixed(2)} mm`;
                     currentState.currentStep = 'completed';
-                    Elements.measurementSection.style.display = 'block'; // 确保结果区域显示
+                    Elements.measurementSection.style.display = 'block';
                     UI.updateStatus();
                 }
             }
         };
 
-        // 必填项验证函数（仅验证姓名和框宽）
+        // 必填项验证
         function checkRequiredFields() {
             const name = Elements.patientName.value.trim();
             const width = Elements.actualWidth.value.trim();
@@ -1000,7 +1033,6 @@
             return true;
         }
 
-        // 检查并播报上传提示（需要姓名、年龄、框宽都填写）
         function checkAndAnnounceUpload() {
             const name = Elements.patientName.value.trim();
             const age = Elements.patientAge.value.trim();
@@ -1009,53 +1041,52 @@
                 Voice.speak("请上传高清图片");
                 hasAnnouncedUpload = true;
             } else if ((!name || !age || !width) && hasAnnouncedUpload) {
-                hasAnnouncedUpload = false; // 清空时重置标记
+                hasAnnouncedUpload = false;
             }
-            // 实时计算比例
             if (width && currentState.calibrationPoints.left && currentState.calibrationPoints.right) {
                 Calculator.calculateScale();
             }
             UI.update();
         }
 
-        // 事件处理器
+        // 统一图片处理逻辑
         const EventHandlers = {
             handleImageUpload: (e) => {
                 const file = e.target.files[0];
                 if (!file) return;
 
-                // 检查文件大小（限制为10MB）
                 const maxSize = 10 * 1024 * 1024; 
                 if (file.size > maxSize) {
                     alert("图片文件过大，请选择小于10MB的图片");
                     Voice.speak("图片文件过大，请选择小于10MB的图片");
-                    Elements.imageUpload.value = '';
+                    Elements.cameraUpload.value = '';
+                    Elements.galleryUpload.value = '';
                     return;
                 }
 
                 const reader = new FileReader();
                 
-                // 文件读取错误处理
                 reader.onerror = function() {
                     alert("文件读取失败，请重新选择图片");
                     Voice.speak("文件读取失败，请重新选择图片");
-                    Elements.imageUpload.value = '';
+                    Elements.cameraUpload.value = '';
+                    Elements.galleryUpload.value = '';
                 };
 
                 reader.onload = function(event) {
-                    // 图片加载错误处理
                     img.onerror = function() {
                         alert("图片加载失败，请重新选择图片");
                         Voice.speak("图片加载失败，请重新选择图片");
-                        Elements.imageUpload.value = '';
+                        Elements.cameraUpload.value = '';
+                        Elements.galleryUpload.value = '';
                     };
 
                     img.onload = function() {
-                        // 检查图片有效性
                         if (img.naturalWidth === 0 || img.naturalHeight === 0) {
                             alert("图片加载失败，请选择有效的图片文件");
                             Voice.speak("图片加载失败，请选择有效的图片文件");
-                            Elements.imageUpload.value = '';
+                            Elements.cameraUpload.value = '';
+                            Elements.galleryUpload.value = '';
                             return;
                         }
 
@@ -1070,12 +1101,9 @@
                         Elements.reuploadOverlay.style.display = 'block';
                         Elements.zoomOverlay.style.display = 'flex';
                         
-                        // 标记图片已上传
                         isImageUploaded = true;
-                        
                         Marker.drawAll();
                         StateManager.resetState();
-                        // 图片上传成功后播放1.MP3
                         Voice.speak("请点击镜框左边缘进行标定");
                     };
 
@@ -1175,7 +1203,8 @@
             handleWheel: (e) => { e.preventDefault(); updateCanvasRect(); const canvasCoords = eventToCanvasCoordinates(e.clientX, e.clientY); ZoomManager.setZoom(zoom * (e.deltaY > 0 ? 0.9 : 1.1), canvasCoords.x, canvasCoords.y); },
             
             handleReupload: () => {
-                Elements.imageUpload.value = '';
+                Elements.cameraUpload.value = '';
+                Elements.galleryUpload.value = '';
                 Elements.uploadArea.style.display = 'flex';
                 Elements.canvas.style.display = 'none';
                 Elements.reuploadOverlay.style.display = 'none';
@@ -1184,8 +1213,8 @@
                 Elements.actualWidth.value = '';
                 Elements.patientName.value = '';
                 Elements.patientAge.value = '';
-                hasAnnouncedUpload = false; // 重置播报标记
-                isImageUploaded = false; // 重置图片上传标记
+                hasAnnouncedUpload = false;
+                isImageUploaded = false;
                 StateManager.resetState();
                 UI.update();
                 Voice.speak("已重新上传图片");
@@ -1195,20 +1224,27 @@
         // 事件监听
         Elements.undoButton.addEventListener('click', StateManager.restorePreviousState);
         
-        // 修改后的上传事件：先验证必填项
-        Elements.imageUpload.addEventListener('change', (e) => {
-            if (!checkRequiredFields()) {
-                Elements.imageUpload.value = ''; 
-                return;
-            }
-            EventHandlers.handleImageUpload(e);
+        // 点击上传区域 → 弹出选择弹窗
+        Elements.uploadArea.addEventListener('click', () => {
+            if (!checkRequiredFields()) return;
+            Elements.uploadModal.style.display = 'flex';
         });
         
-        Elements.uploadArea.addEventListener('click', () => {
-            if (checkRequiredFields()) {
-                Elements.imageUpload.click();
-            }
+        // 打开相机
+        Elements.openCamera.addEventListener('click', () => {
+            UI.closeModal();
+            Elements.cameraUpload.click();
         });
+        
+        // 打开相册
+        Elements.openGallery.addEventListener('click', () => {
+            UI.closeModal();
+            Elements.galleryUpload.click();
+        });
+        
+        // 统一绑定文件上传事件
+        Elements.cameraUpload.addEventListener('change', EventHandlers.handleImageUpload);
+        Elements.galleryUpload.addEventListener('change', EventHandlers.handleImageUpload);
         
         Elements.reuploadButton.addEventListener('click', EventHandlers.handleReupload);
         Elements.zoomIn.addEventListener('click', ZoomManager.zoomIn);
@@ -1222,30 +1258,25 @@
         Elements.canvas.addEventListener('mouseleave', EventHandlers.handleDragEnd);
         window.addEventListener('resize', () => { updateCanvasRect(); Marker.drawAll(); });
 
-        // 拖拽上传：添加必填项验证
+        // 拖拽上传
         Elements.uploadArea.addEventListener('dragover', (e) => { e.preventDefault(); Elements.uploadArea.style.borderColor = 'var(--primary-color)'; Elements.uploadArea.style.backgroundColor = '#eef7ff'; });
         Elements.uploadArea.addEventListener('dragleave', () => { Elements.uploadArea.style.borderColor = 'var(--border-color)'; Elements.uploadArea.style.backgroundColor = '#f8f9fa'; });
         Elements.uploadArea.addEventListener('drop', (e) => {
             e.preventDefault();
             Elements.uploadArea.style.borderColor = 'var(--border-color)';
             Elements.uploadArea.style.backgroundColor = '#f8f9fa';
-            if (!checkRequiredFields()) {
-                return;
-            }
+            if (!checkRequiredFields()) return;
             const file = e.dataTransfer.files[0];
             if (file && file.type.startsWith('image/')) {
-                Elements.imageUpload.files = e.dataTransfer.files;
+                Elements.galleryUpload.files = e.dataTransfer.files;
                 EventHandlers.handleImageUpload({target: {files: [file]}});
             }
         });
 
-        // 三个输入框的input事件都调用checkAndAnnounceUpload
         Elements.patientName.addEventListener('input', checkAndAnnounceUpload);
         Elements.patientAge.addEventListener('input', checkAndAnnounceUpload);
         Elements.actualWidth.addEventListener('input', checkAndAnnounceUpload);
 
-        // 初始化：打开软件后播放0.MP3 - 使用延迟确保DOM和音频系统就绪
-        UI.update();
         setTimeout(() => {
             Voice.speak("请先输入姓名、年龄、镜框实际宽度");
         }, 500);
