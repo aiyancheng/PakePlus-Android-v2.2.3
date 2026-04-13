@@ -1,9 +1,9 @@
+
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>瞳距瞳高综合测量工具</title>
     <style>
         :root {
@@ -71,27 +71,7 @@
             align-items: center;
         }
 
-        /* 上传按钮样式优化 - 移动端可见 */
-        .upload-buttons {
-            display: flex;
-            gap: 10px;
-            margin-top: 15px;
-            justify-content: center;
-        }
-        
-        .upload-btn {
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: var(--radius);
-            cursor: pointer;
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
+        /* 平板兼容的隐藏上传按钮 */
         .upload-hidden {
             opacity: 0;
             position: absolute;
@@ -103,27 +83,29 @@
         
         input[type="file"] {
             padding: 10px;
-            border: 2px dashed var(--border-color);
+            border: 1px dashed var(--border-color);
             border-radius: var(--radius);
             width: 100%;
             background: transparent;
             cursor: pointer;
         }
         
+        /* 姓名输入框：加宽40%（原70px → 98px） */
         input[type="text"] {
             padding: 10px 12px;
-            border: 2px solid var(--primary-color);
+            border: 1px solid var(--primary-color);
             border-radius: var(--radius);
-            width: 101px;
+            width: 98px;
             max-width: 100%;
             font-size: 1rem;
         }
         
+        /* 年龄/框宽输入框：保持原尺寸不变 */
         input[type="number"] {
             padding: 10px 12px;
-            border: 2px solid var(--primary-color);
+            border: 1px solid var(--primary-color);
             border-radius: var(--radius);
-            width: 84px;
+            width: 70px;
             max-width: 100%;
             font-size: 1rem;
         }
@@ -159,15 +141,15 @@
         }
         
         .warning-btn {
-            background-color: var(--primary-color);
+            background-color: var(--warning-color);
         }
         
         .success-btn {
-            background-color: var(--primary-color);
+            background-color: var(--success-color);
         }
         
         .danger-btn {
-            background-color: var(--primary-color);
+            background-color: var(--danger-color);
         }
         
         .status-box {
@@ -296,6 +278,7 @@
             width: auto;
             height: auto;
             transition: var(--transition);
+            /* 修复移动端标定：禁止浏览器所有默认触摸行为 */
             touch-action: none;
         }
         
@@ -547,16 +530,6 @@
                 padding: 8px 12px;
                 font-size: 0.8rem;
             }
-            
-            .upload-buttons {
-                flex-direction: column;
-                width: 100%;
-            }
-            
-            .upload-btn {
-                width: 100%;
-                justify-content: center;
-            }
         }
         
         @media (max-width: 480px) {
@@ -626,19 +599,10 @@
 
         <div id="uploadArea" class="upload-area">
             <div class="upload-icon">📷</div>
-            <div style="margin-bottom: 15px;">选择照片来源</div>
-            
-            <!-- 新增：分开的拍照/相册按钮 -->
-            <div class="upload-buttons">
-                <button type="button" class="upload-btn" id="cameraBtn">📷 拍照</button>
-                <button type="button" class="upload-btn" id="albumBtn">🖼️ 从相册选择</button>
-            </div>
-            
-            <!-- 隐藏的文件输入框 - 分别配置拍照和相册 -->
-            <input type="file" id="cameraInput" accept="image/jpeg,image/png" capture="camera" class="upload-hidden">
-            <input type="file" id="albumInput" accept="image/*" class="upload-hidden">
-            
-            <div class="upload-text">支持相机拍摄/本地图片，推荐分辨率 1920x1080 或更高</div>
+            <div style="margin-bottom: 15px;">请点击上传图片</div>
+            <!-- 核心修改：添加capture属性并完善accept值，支持移动端拍照 -->
+            <input type="file" id="imageUpload" accept="image/*" capture="environment" class="upload-hidden">
+            <div class="upload-text">支持本地图片，推荐分辨率 1920x1080 或更高，10M以内</div>
         </div>
         
         <div class="canvas-container">
@@ -663,7 +627,7 @@
 
         <div id="measurementSection" style="display: none;">
             <div class="eye-result">
-                <h3 style="color: var(--primary-color); margin-bottom: 15px; text-align: center;">📐 测量结果</h3>
+                <h3 style="color: var(--primary-color); margin-bottom: 15px; text-align: center;">综合测量结果</h3>
                 <div class="value" id="singleValue">--</div>
                 <div style="font-size: 0.9rem; color: #666; margin-top: 5px; text-align: center;">近用瞳距 | 远用瞳距 | 右瞳高 | 左瞳高 | 瞳高差值</div>
             </div>
@@ -673,7 +637,7 @@
             <h4>📋 使用说明</h4>
             <ol>
                 <li><strong>填写信息：</strong>在上方填写客户姓名和年龄,然后输入镜框实际宽度（毫米）</li>
-                <li><strong>上传照片：</strong>点击"拍照"直接拍摄或"从相册选择"上传一张清晰的正面眼镜佩戴照片</li>
+                <li><strong>上传照片：</strong>点击上传区域或直接拖拽照片到上传区域，上传一张清晰的正面眼镜佩戴照片</li>
                 <li><strong>标定比例：</strong>先点击镜框左边缘，再点击镜框右边缘，系统会自动计算比例</li>
                 <li><strong>测量瞳距：</strong>依次点击右眼瞳孔中心、左眼瞳孔中心</li>
                 <li><strong>测量瞳高：</strong>依次点击右眼镜框下缘、左眼镜框下缘</li>
@@ -693,10 +657,7 @@
         const Elements = {
             canvas: document.getElementById('canvas'),
             undoButton: document.getElementById('undoButton'),
-            cameraInput: document.getElementById('cameraInput'),
-            albumInput: document.getElementById('albumInput'),
-            cameraBtn: document.getElementById('cameraBtn'),
-            albumBtn: document.getElementById('albumBtn'),
+            imageUpload: document.getElementById('imageUpload'),
             uploadArea: document.getElementById('uploadArea'),
             reuploadButton: document.getElementById('reuploadButton'),
             actualWidth: document.getElementById('actualWidth'),
@@ -715,6 +676,125 @@
             patientAge: document.getElementById('patientAge')
         };
 
+        // 红米平板相机兼容性修复
+        const RedmiTabletCamera = {
+            // 检测设备类型
+            isRedmiTablet: function() {
+                const userAgent = navigator.userAgent.toLowerCase();
+                return userAgent.includes('redmi') && userAgent.includes('tablet');
+            },
+            
+            // 获取最佳摄像头选项
+            getCameraOptions: function() {
+                if (this.isRedmiTablet()) {
+                    return {
+                        facingMode: 'environment',
+                        width: { ideal: 1920 },
+                        height: { ideal: 1080 },
+                        // 红米平板特殊配置
+                        resizeMode: 'crop-and-scale',
+                        imageSmoothingEnabled: true,
+                        sampleRate: 44100
+                    };
+                }
+                return {
+                    facingMode: 'environment',
+                    width: { ideal: 1920 },
+                    height: { ideal: 1080 }
+                };
+            },
+            
+            // 请求摄像头权限并获取视频流
+            requestCamera: async function() {
+                try {
+                    const constraints = this.getCameraOptions();
+                    const stream = await navigator.mediaDevices.getUserMedia({
+                        video: constraints,
+                        audio: false
+                    });
+                    return stream;
+                } catch (err) {
+                    console.error('无法访问摄像头:', err);
+                    throw err;
+                }
+            },
+            
+            // 创建临时画布捕获图像
+            captureFromStream: function(stream) {
+                return new Promise((resolve) => {
+                    const video = document.createElement('video');
+                    video.srcObject = stream;
+                    video.play();
+                    
+                    video.onloadedmetadata = () => {
+                        const canvas = document.createElement('canvas');
+                        canvas.width = video.videoWidth;
+                        canvas.height = video.videoHeight;
+                        
+                        const ctx = canvas.getContext('2d');
+                        // 应用红米平板优化设置
+                        ctx.imageSmoothingEnabled = true;
+                        ctx.imageSmoothingQuality = 'high';
+                        
+                        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+                        
+                        canvas.toBlob((blob) => {
+                            const file = new File([blob], 'camera-capture.jpg', { type: 'image/jpeg' });
+                            resolve(file);
+                            
+                            // 停止所有视频轨道
+                            stream.getTracks().forEach(track => track.stop());
+                        }, 'image/jpeg', 0.9);
+                    };
+                });
+            },
+            
+            // 初始化相机功能
+            initCameraFeature: function() {
+                // 添加相机按钮
+                const cameraButton = document.createElement('button');
+                cameraButton.id = 'cameraButton';
+                cameraButton.className = 'success-btn';
+                cameraButton.innerHTML = '📸 相机拍摄';
+                cameraButton.title = '直接调用后置摄像头拍摄';
+                
+                // 插入到上传区域
+                const originalUploadArea = document.getElementById('uploadArea');
+                const cameraContainer = document.createElement('div');
+                cameraContainer.style.display = 'flex';
+                cameraContainer.style.justifyContent = 'center';
+                cameraContainer.style.marginTop = '10px';
+                cameraContainer.appendChild(cameraButton);
+                
+                // 只在红米平板上显示相机按钮
+                if (this.isRedmiTablet()) {
+                    originalUploadArea.parentNode.insertBefore(cameraContainer, originalUploadArea.nextSibling);
+                }
+                
+                // 绑定相机功能
+                cameraButton.addEventListener('click', async () => {
+                    if (!checkRequiredFields()) {
+                        return;
+                    }
+                    
+                    try {
+                        const stream = await this.requestCamera();
+                        const capturedFile = await this.captureFromStream(stream);
+                        
+                        // 触发图像处理
+                        const event = new Event('change', { bubbles: true });
+                        const dataTransfer = new DataTransfer();
+                        dataTransfer.items.add(capturedFile);
+                        Elements.imageUpload.files = dataTransfer.files;
+                        Elements.imageUpload.dispatchEvent(event);
+                    } catch (error) {
+                        alert('相机访问失败，请检查权限设置或使用相册上传');
+                        console.error('相机功能错误:', error);
+                    }
+                });
+            }
+        };
+
         // 安卓/平板兼容性修复
         const AndroidCompat = {
             fixAndroidImagePath: function(file) {
@@ -730,21 +810,6 @@
                     return e.touches[0];
                 }
                 return e;
-            },
-            // 修复Android WebView文件选择问题
-            triggerFileInput: function(inputElement) {
-                try {
-                    // 创建新的点击事件，兼容Android WebView
-                    const event = new MouseEvent('click', {
-                        bubbles: true,
-                        cancelable: true,
-                        view: window
-                    });
-                    inputElement.dispatchEvent(event);
-                } catch (e) {
-                    // 降级方案
-                    inputElement.click();
-                }
             }
         };
 
@@ -787,9 +852,7 @@
             "图片文件过大，请选择小于10MB的图片": "./9.MP3",
             "文件读取失败，请重新选择图片": "./10.MP3",
             "图片加载失败，请选择有效的图片文件": "./11.MP3",
-            "图片加载失败，请重新选择图片": "./12.MP3",
-            "请点击拍照按钮拍摄照片": "./13.MP3",
-            "请从相册选择清晰的照片": "./14.MP3"
+            "图片加载失败，请重新选择图片": "./12.MP3"
         };
         let lastVoiceText = '';
         let audioInstance = null;
@@ -875,7 +938,7 @@
                 zoom = newZoom;
                 Elements.zoomLevel.textContent = Math.round(zoom * 100) + '%';
                 Elements.dragHint.style.display = zoom > 1 ? 'block' : 'none';
-                Elements.precisionHint.style.display = zoom > 1 ? 'block' : 'none';
+                Elements.precisionHint.style.display = zoom > 1 ? 'none' : 'none';
                 Marker.drawAll();
             },
             
@@ -888,7 +951,7 @@
 
         const UI = {
             update: () => {
-                Elements.scaleResult.textContent = currentState.scale ? currentState.scale.toFixed(4) : '0';
+                Elements.scaleResult.textContent = currentState.scale ? currentState.scale.toFixed(4) + ' mm/像素' : '0';
                 if (currentState.scale) Elements.singleValue.textContent = '--';
                 Marker.drawAll();
                 UI.updateStatus();
@@ -911,8 +974,6 @@
                         case 'left_frame': voiceText = '请点击左眼镜框下缘'; break;
                         case 'completed': voiceText = '测量完成，请查看下方结果'; Elements.measurementSection.style.display = 'block'; break;
                     }
-                } else if (!isImageUploaded && checkRequiredFields()) {
-                    voiceText = '请点击拍照按钮拍摄照片或从相册选择照片';
                 }
                 if (voiceText) Voice.speak(voiceText);
             },
@@ -1078,7 +1139,7 @@
             const age = Elements.patientAge.value.trim();
             const width = Elements.actualWidth.value.trim();
             if (name && age && width && !hasAnnouncedUpload) {
-                Voice.speak("请点击拍照按钮拍摄照片或从相册选择照片");
+                Voice.speak("请上传高清图片");
                 hasAnnouncedUpload = true;
             } else if ((!name || !age || !width) && hasAnnouncedUpload) {
                 hasAnnouncedUpload = false;
@@ -1089,62 +1150,67 @@
             UI.update();
         }
 
-        // 统一处理图片上传
-        function handleImageSelection(file) {
-            if (!file) return;
-
-            const maxSize = 10 * 1024 * 1024; 
-            if (file.size > maxSize) {
-                alert("图片文件过大，请选择小于10MB的图片");
-                Voice.speak("图片文件过大，请选择小于10MB的图片");
-                return;
-            }
-
-            const imageUrl = AndroidCompat.fixAndroidImagePath(file);
-            const reader = new FileReader();
-            
-            reader.onerror = function() {
-                alert("文件读取失败，请重新选择图片");
-                Voice.speak("文件读取失败，请重新选择图片");
-            };
-
-            reader.onload = function(event) {
-                img.onerror = function() {
-                    alert("图片加载失败，请重新选择图片");
-                    Voice.speak("图片加载失败，请重新选择图片");
-                };
-
-                img.onload = function() {
-                    if (img.naturalWidth === 0 || img.naturalHeight === 0) {
-                        alert("图片加载失败，请选择有效的图片文件");
-                        Voice.speak("图片加载失败，请选择有效的图片文件");
-                        return;
-                    }
-
-                    imageWidth = img.width;
-                    imageHeight = img.height;
-                    Elements.canvas.width = imageWidth;
-                    Elements.canvas.height = imageHeight;
-                    updateCanvasRect();
-                    ZoomManager.reset();
-                    Elements.uploadArea.style.display = 'none';
-                    Elements.canvas.style.display = 'block';
-                    Elements.reuploadOverlay.style.display = 'block';
-                    Elements.zoomOverlay.style.display = 'flex';
-                    
-                    isImageUploaded = true;
-                    Marker.drawAll();
-                    StateManager.resetState();
-                    Voice.speak("请点击镜框左边缘进行标定");
-                };
-
-                img.src = imageUrl || event.target.result;
-            };
-
-            reader.readAsDataURL(file);
-        }
-
         const EventHandlers = {
+            handleImageUpload: (e) => {
+                const file = e.target.files[0];
+                if (!file) return;
+
+                const maxSize = 10 * 1024 * 1024; 
+                if (file.size > maxSize) {
+                    alert("图片文件过大，请选择小于10MB的图片");
+                    Voice.speak("图片文件过大，请选择小于10MB的图片");
+                    Elements.imageUpload.value = '';
+                    return;
+                }
+
+                const imageUrl = AndroidCompat.fixAndroidImagePath(file);
+                const reader = new FileReader();
+                
+                reader.onerror = function() {
+                    alert("文件读取失败，请重新选择图片");
+                    Voice.speak("文件读取失败，请重新选择图片");
+                    Elements.imageUpload.value = '';
+                };
+
+                reader.onload = function(event) {
+                    img.onerror = function() {
+                        alert("图片加载失败，请重新选择图片");
+                        Voice.speak("图片加载失败，请重新选择图片");
+                        Elements.imageUpload.value = '';
+                    };
+
+                    img.onload = function() {
+                        if (img.naturalWidth === 0 || img.naturalHeight === 0) {
+                            alert("图片加载失败，请选择有效的图片文件");
+                            Voice.speak("图片加载失败，请选择有效的图片文件");
+                            Elements.imageUpload.value = '';
+                            return;
+                        }
+
+                        imageWidth = img.width;
+                        imageHeight = img.height;
+                        Elements.canvas.width = imageWidth;
+                        Elements.canvas.height = imageHeight;
+                        updateCanvasRect();
+                        ZoomManager.reset();
+                        Elements.uploadArea.style.display = 'none';
+                        Elements.canvas.style.display = 'block';
+                        Elements.reuploadOverlay.style.display = 'block';
+                        Elements.zoomOverlay.style.display = 'flex';
+                        
+                        isImageUploaded = true;
+                        Marker.drawAll();
+                        StateManager.resetState();
+                        Voice.speak("请点击镜框左边缘进行标定");
+                    };
+
+                    img.src = imageUrl || event.target.result;
+                };
+
+                reader.readAsDataURL(file);
+            },
+            
+            // 修复移动端标定：统一触摸/鼠标点击逻辑
             handleCanvasClick: (e) => {
                 e.preventDefault();
                 const touch = AndroidCompat.convertTouchToMouse(e);
@@ -1247,8 +1313,7 @@
             handleWheel: (e) => { e.preventDefault(); updateCanvasRect(); const canvasCoords = eventToCanvasCoordinates(e.clientX, e.clientY); ZoomManager.setZoom(zoom * (e.deltaY > 0 ? 0.9 : 1.1), canvasCoords.x, canvasCoords.y); },
             
             handleReupload: () => {
-                Elements.cameraInput.value = '';
-                Elements.albumInput.value = '';
+                Elements.imageUpload.value = '';
                 Elements.uploadArea.style.display = 'flex';
                 Elements.canvas.style.display = 'none';
                 Elements.reuploadOverlay.style.display = 'none';
@@ -1265,42 +1330,19 @@
             }
         };
 
-        // 绑定事件
         Elements.undoButton.addEventListener('click', StateManager.restorePreviousState);
         
-        // 拍照按钮点击事件
-        Elements.cameraBtn.addEventListener('click', () => {
+        Elements.imageUpload.addEventListener('change', (e) => {
+            if (!checkRequiredFields()) {
+                Elements.imageUpload.value = ''; 
+                return;
+            }
+            EventHandlers.handleImageUpload(e);
+        });
+        
+        Elements.uploadArea.addEventListener('click', () => {
             if (checkRequiredFields()) {
-                Voice.speak("请点击拍照按钮拍摄照片");
-                AndroidCompat.triggerFileInput(Elements.cameraInput);
-            }
-        });
-        
-        // 相册按钮点击事件
-        Elements.albumBtn.addEventListener('click', () => {
-            if (checkRequiredFields()) {
-                Voice.speak("请从相册选择清晰的照片");
-                AndroidCompat.triggerFileInput(Elements.albumInput);
-            }
-        });
-        
-        // 拍照文件选择事件
-        Elements.cameraInput.addEventListener('change', (e) => {
-            const file = e.target.files[0];
-            if (file) {
-                handleImageSelection(file);
-                // 清空input值，允许重复选择相同文件
-                Elements.cameraInput.value = '';
-            }
-        });
-        
-        // 相册文件选择事件
-        Elements.albumInput.addEventListener('change', (e) => {
-            const file = e.target.files[0];
-            if (file) {
-                handleImageSelection(file);
-                // 清空input值，允许重复选择相同文件
-                Elements.albumInput.value = '';
+                Elements.imageUpload.click();
             }
         });
         
@@ -1309,11 +1351,12 @@
         Elements.zoomOut.addEventListener('click', ZoomManager.zoomOut);
         Elements.resetZoom.addEventListener('click', ZoomManager.reset);
         
-        // 画布事件绑定
+        // 双事件绑定：确保电脑/平板/手机都能正常标定
         Elements.canvas.addEventListener('click', EventHandlers.handleCanvasClick);
         Elements.canvas.addEventListener('touchstart', EventHandlers.handleCanvasClick);
         Elements.canvas.addEventListener('wheel', EventHandlers.handleWheel);
         
+        // 拖拽事件全绑定
         Elements.canvas.addEventListener('mousedown', EventHandlers.handleDragStart);
         Elements.canvas.addEventListener('mousemove', EventHandlers.handleDragMove);
         Elements.canvas.addEventListener('mouseup', EventHandlers.handleDragEnd);
@@ -1325,18 +1368,8 @@
         
         window.addEventListener('resize', () => { updateCanvasRect(); Marker.drawAll(); });
 
-        // 拖拽上传（保留PC端功能）
-        Elements.uploadArea.addEventListener('dragover', (e) => { 
-            e.preventDefault(); 
-            Elements.uploadArea.style.borderColor = 'var(--primary-color)'; 
-            Elements.uploadArea.style.backgroundColor = '#eef7ff'; 
-        });
-        
-        Elements.uploadArea.addEventListener('dragleave', () => { 
-            Elements.uploadArea.style.borderColor = 'var(--border-color)'; 
-            Elements.uploadArea.style.backgroundColor = '#f8f9fa'; 
-        });
-        
+        Elements.uploadArea.addEventListener('dragover', (e) => { e.preventDefault(); Elements.uploadArea.style.borderColor = 'var(--primary-color)'; Elements.uploadArea.style.backgroundColor = '#eef7ff'; });
+        Elements.uploadArea.addEventListener('dragleave', () => { Elements.uploadArea.style.borderColor = 'var(--border-color)'; Elements.uploadArea.style.backgroundColor = '#f8f9fa'; });
         Elements.uploadArea.addEventListener('drop', (e) => {
             e.preventDefault();
             Elements.uploadArea.style.borderColor = 'var(--border-color)';
@@ -1346,13 +1379,17 @@
             }
             const file = e.dataTransfer.files[0];
             if (file && file.type.startsWith('image/')) {
-                handleImageSelection(file);
+                Elements.imageUpload.files = e.dataTransfer.files;
+                EventHandlers.handleImageUpload({target: {files: [file]}});
             }
         });
 
         Elements.patientName.addEventListener('input', checkAndAnnounceUpload);
         Elements.patientAge.addEventListener('input', checkAndAnnounceUpload);
         Elements.actualWidth.addEventListener('input', checkAndAnnounceUpload);
+
+        // 初始化红米平板相机功能
+        RedmiTabletCamera.initCameraFeature();
 
         UI.update();
         setTimeout(() => {
