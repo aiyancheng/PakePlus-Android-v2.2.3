@@ -70,7 +70,7 @@
             align-items: center;
         }
 
-        /* 🔥 新增：平板兼容的隐藏上传按钮（替代display:none） */
+        /* 平板兼容的隐藏上传按钮 */
         .upload-hidden {
             opacity: 0;
             position: absolute;
@@ -82,27 +82,33 @@
         
         input[type="file"] {
             padding: 10px;
-            border: 2px dashed var(--border-color);
+            border: 1px dashed var(--border-color);
             border-radius: var(--radius);
             width: 100%;
             background: transparent;
             cursor: pointer;
         }
         
-        input[type="number"], input[type="text"] {
+        /* 姓名输入框：加宽40%（原70px →98px） */
+        input[type="text"] {
             padding: 10px 12px;
             border: 1px solid var(--primary-color);
             border-radius: var(--radius);
-            width: 80px;
+            width: 98px;
             max-width: 100%;
             font-size: 1rem;
         }
-
-/* 🔥 新增：仅姓名输入框宽度+20%（其他输入框不受影响） */
-#patientName {
-    width: calc(80px * 1.2); /* 原80px × 1.2 = 96px，精准增加20% */
-}
-
+        
+        /* 年龄/框宽输入框：保持原尺寸不变 */
+        input[type="number"] {
+            padding: 10px 12px;
+            border:1px solid var(--primary-color);
+            border-radius: var(--radius);
+            width: 70px;
+            max-width: 100%;
+            font-size: 1rem;
+        }
+        
         button {
             background-color: var(--primary-color);
             color: white;
@@ -271,8 +277,8 @@
             width: auto;
             height: auto;
             transition: var(--transition);
-            /* 🔥 新增：平板触摸优化 */
-            touch-action: manipulation;
+            /* 修复移动端标定：禁止浏览器所有默认触摸行为 */
+            touch-action: none;
         }
         
         .canvas-container {
@@ -497,8 +503,11 @@
                 grid-template-columns: 1fr;
             }
             
-            input[type="number"], input[type="text"] {
+            input[type="number"] {
                 width: 70px;
+            }
+            input[type="text"] {
+                width: 84px;
             }
             
             .calibration-section {
@@ -587,7 +596,6 @@
             </div>
         </div>
 
-        <!-- 🔥 修复：移除capture="camera"，使用兼容隐藏样式 -->
         <div id="uploadArea" class="upload-area">
             <div class="upload-icon">📷</div>
             <div style="margin-bottom: 15px;">点击拍摄照片 / 上传图片</div>
@@ -668,18 +676,16 @@
             displayPatientAge: document.getElementById('displayPatientAge')
         };
 
-        // 🔥 优化：红米平板专属兼容性修复
+        // 安卓/平板兼容性修复
         const AndroidCompat = {
             fixAndroidImagePath: function(file) {
                 if (!file) return null;
                 try {
-                    // 兼容红米平板文件路径
                     return URL.createObjectURL(file);
                 } catch (e) {
                     return null;
                 }
             },
-            // 平板触摸事件转换
             convertTouchToMouse: function(e) {
                 if (e.touches && e.touches.length > 0) {
                     return e.touches[0];
@@ -1085,6 +1091,7 @@
                 reader.readAsDataURL(file);
             },
             
+            // 修复移动端标定：统一触摸/鼠标点击逻辑
             handleCanvasClick: (e) => {
                 e.preventDefault();
                 const touch = AndroidCompat.convertTouchToMouse(e);
@@ -1225,15 +1232,16 @@
         Elements.zoomOut.addEventListener('click', ZoomManager.zoomOut);
         Elements.resetZoom.addEventListener('click', ZoomManager.reset);
         
-        // 🔥 核心：同时绑定鼠标+平板触摸事件
+        // 双事件绑定：确保电脑/平板/手机都能正常标定
         Elements.canvas.addEventListener('click', EventHandlers.handleCanvasClick);
+        Elements.canvas.addEventListener('touchstart', EventHandlers.handleCanvasClick);
         Elements.canvas.addEventListener('wheel', EventHandlers.handleWheel);
-        // 鼠标事件
+        
+        // 拖拽事件全绑定
         Elements.canvas.addEventListener('mousedown', EventHandlers.handleDragStart);
         Elements.canvas.addEventListener('mousemove', EventHandlers.handleDragMove);
         Elements.canvas.addEventListener('mouseup', EventHandlers.handleDragEnd);
         Elements.canvas.addEventListener('mouseleave', EventHandlers.handleDragEnd);
-        // 触摸事件（红米平板专属）
         Elements.canvas.addEventListener('touchstart', EventHandlers.handleDragStart);
         Elements.canvas.addEventListener('touchmove', EventHandlers.handleDragMove);
         Elements.canvas.addEventListener('touchend', EventHandlers.handleDragEnd);
