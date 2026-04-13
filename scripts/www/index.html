@@ -69,6 +69,16 @@
             flex-wrap: wrap;
             align-items: center;
         }
+
+        /* 🔥 新增：平板兼容的隐藏上传按钮（替代display:none） */
+        .upload-hidden {
+            opacity: 0;
+            position: absolute;
+            width: 0;
+            height: 0;
+            pointer-events: none;
+            z-index: -1;
+        }
         
         input[type="file"] {
             padding: 10px;
@@ -81,13 +91,18 @@
         
         input[type="number"], input[type="text"] {
             padding: 10px 12px;
-            border: 2px solid var(--primary-color);
+            border: 1px solid var(--primary-color);
             border-radius: var(--radius);
-            width: 84px;
+            width: 80px;
             max-width: 100%;
             font-size: 1rem;
         }
-        
+
+/* 🔥 新增：仅姓名输入框宽度+20%（其他输入框不受影响） */
+#patientName {
+    width: calc(80px * 1.2); /* 原80px × 1.2 = 96px，精准增加20% */
+}
+
         button {
             background-color: var(--primary-color);
             color: white;
@@ -256,6 +271,8 @@
             width: auto;
             height: auto;
             transition: var(--transition);
+            /* 🔥 新增：平板触摸优化 */
+            touch-action: manipulation;
         }
         
         .canvas-container {
@@ -570,11 +587,11 @@
             </div>
         </div>
 
-        <!-- 修复后的上传区域 -->
+        <!-- 🔥 修复：移除capture="camera"，使用兼容隐藏样式 -->
         <div id="uploadArea" class="upload-area">
             <div class="upload-icon">📷</div>
             <div style="margin-bottom: 15px;">点击拍摄照片 / 上传图片</div>
-            <input type="file" id="imageUpload" accept="image/*" capture="camera" class="upload-hidden" style="display:none;">
+            <input type="file" id="imageUpload" accept="image/*" class="upload-hidden">
             <div class="upload-text">支持相机拍摄/本地图片，推荐分辨率 1920x1080 或更高</div>
         </div>
         
@@ -600,7 +617,7 @@
 
         <div id="measurementSection" style="display: none;">
             <div class="eye-result">
-                <h3 style="color: var(--primary-color); margin-bottom: 15px; text-align: center;">综合测量结果</h3>
+                <h3 style="color: var(--primary-color); margin-bottom: 15px; text-align: center;">📐 测量结果</h3>
                 <div class="value" id="singleValue">--</div>
                 <div style="font-size: 0.9rem; color: #666; margin-top: 5px; text-align: center;">近用瞳距 | 远用瞳距 | 右瞳高 | 左瞳高 | 瞳高差值</div>
             </div>
@@ -651,14 +668,23 @@
             displayPatientAge: document.getElementById('displayPatientAge')
         };
 
-        // 新增：安卓WebView相机兼容性修复
+        // 🔥 优化：红米平板专属兼容性修复
         const AndroidCompat = {
             fixAndroidImagePath: function(file) {
                 if (!file) return null;
-                if (file.path && file.path.startsWith('content://')) {
-                    return file.path;
+                try {
+                    // 兼容红米平板文件路径
+                    return URL.createObjectURL(file);
+                } catch (e) {
+                    return null;
                 }
-                return URL.createObjectURL(file);
+            },
+            // 平板触摸事件转换
+            convertTouchToMouse: function(e) {
+                if (e.touches && e.touches.length > 0) {
+                    return e.touches[0];
+                }
+                return e;
             }
         };
 
@@ -1060,8 +1086,10 @@
             },
             
             handleCanvasClick: (e) => {
+                e.preventDefault();
+                const touch = AndroidCompat.convertTouchToMouse(e);
                 updateCanvasRect();
-                const canvasCoords = eventToCanvasCoordinates(e.clientX, e.clientY);
+                const canvasCoords = eventToCanvasCoordinates(touch.clientX, touch.clientY);
                 if (isDragging && currentState.selectedMarker) return;
                 StateManager.saveState();
                 const worldPos = ZoomManager.screenToWorld(canvasCoords.x, canvasCoords.y);
@@ -1095,8 +1123,10 @@
             },
             
             handleDragStart: (e) => {
+                e.preventDefault();
+                const touch = AndroidCompat.convertTouchToMouse(e);
                 updateCanvasRect();
-                const canvasCoords = eventToCanvasCoordinates(e.clientX, e.clientY);
+                const canvasCoords = eventToCanvasCoordinates(touch.clientX, touch.clientY);
                 const clickedMarker = Marker.getMarkerAtPosition(canvasCoords.x, canvasCoords.y);
                 if (clickedMarker) {
                     currentState.selectedMarker = clickedMarker;
@@ -1114,16 +1144,18 @@
                     }
                 } else {
                     isDragging = true;
-                    lastX = e.clientX;
-                    lastY = e.clientY;
+                    lastX = touch.clientX;
+                    lastY = touch.clientY;
                     Elements.canvas.style.cursor = 'grabbing';
                 }
             },
             
             handleDragMove: (e) => {
+                e.preventDefault();
+                const touch = AndroidCompat.convertTouchToMouse(e);
                 if (currentState.selectedMarker) {
                     updateCanvasRect();
-                    const canvasCoords = eventToCanvasCoordinates(e.clientX, e.clientY);
+                    const canvasCoords = eventToCanvasCoordinates(touch.clientX, touch.clientY);
                     const worldPos = ZoomManager.screenToWorld(canvasCoords.x, canvasCoords.y);
                     const marker = currentState.selectedMarker;
                     if (marker.type === 'calibration') {
@@ -1135,17 +1167,23 @@
                     }
                     Marker.drawAll();
                 } else if (isDragging) {
-                    const deltaX = e.clientX - lastX;
-                    const deltaY = e.clientY - lastY;
+                    const deltaX = touch.clientX - lastX;
+                    const deltaY = touch.clientY - lastY;
                     offsetX += deltaX;
                     offsetY += deltaY;
-                    lastX = e.clientX;
-                    lastY = e.clientY;
+                    lastX = touch.clientX;
+                    lastY = touch.clientY;
                     Marker.drawAll();
                 }
             },
             
-            handleDragEnd: () => { currentState.selectedMarker = null; isDragging = false; Elements.canvas.style.cursor = 'crosshair'; },
+            handleDragEnd: (e) => {
+                e.preventDefault();
+                currentState.selectedMarker = null;
+                isDragging = false;
+                Elements.canvas.style.cursor = 'crosshair';
+            },
+            
             handleWheel: (e) => { e.preventDefault(); updateCanvasRect(); const canvasCoords = eventToCanvasCoordinates(e.clientX, e.clientY); ZoomManager.setZoom(zoom * (e.deltaY > 0 ? 0.9 : 1.1), canvasCoords.x, canvasCoords.y); },
             
             handleReupload: () => {
@@ -1186,12 +1224,21 @@
         Elements.zoomIn.addEventListener('click', ZoomManager.zoomIn);
         Elements.zoomOut.addEventListener('click', ZoomManager.zoomOut);
         Elements.resetZoom.addEventListener('click', ZoomManager.reset);
+        
+        // 🔥 核心：同时绑定鼠标+平板触摸事件
         Elements.canvas.addEventListener('click', EventHandlers.handleCanvasClick);
         Elements.canvas.addEventListener('wheel', EventHandlers.handleWheel);
+        // 鼠标事件
         Elements.canvas.addEventListener('mousedown', EventHandlers.handleDragStart);
         Elements.canvas.addEventListener('mousemove', EventHandlers.handleDragMove);
         Elements.canvas.addEventListener('mouseup', EventHandlers.handleDragEnd);
         Elements.canvas.addEventListener('mouseleave', EventHandlers.handleDragEnd);
+        // 触摸事件（红米平板专属）
+        Elements.canvas.addEventListener('touchstart', EventHandlers.handleDragStart);
+        Elements.canvas.addEventListener('touchmove', EventHandlers.handleDragMove);
+        Elements.canvas.addEventListener('touchend', EventHandlers.handleDragEnd);
+        Elements.canvas.addEventListener('touchcancel', EventHandlers.handleDragEnd);
+        
         window.addEventListener('resize', () => { updateCanvasRect(); Marker.drawAll(); });
 
         Elements.uploadArea.addEventListener('dragover', (e) => { e.preventDefault(); Elements.uploadArea.style.borderColor = 'var(--primary-color)'; Elements.uploadArea.style.backgroundColor = '#eef7ff'; });
