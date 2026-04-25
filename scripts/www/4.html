@@ -1,11 +1,9 @@
-
-
-
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 平板专属视口配置，优化触控与缩放 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>视功能影响</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -14,38 +12,45 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+            /* 平板优化：消除点击高亮 */
+            -webkit-tap-highlight-color: transparent;
         }
         
-        body {
+        html, body {
+            height: 100%;
             background-color: #f8f9fa;
             color: #333;
-            line-height: 1.5;
+            line-height: 1.6;
+            /* 平板优化：平滑滚动 */
+            scroll-behavior: smooth;
         }
         
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 15px;
+            /* 平板优化：统一内边距 */
+            padding: 20px;
+            min-height: 100%;
         }
         
         header {
             background: linear-gradient(135deg, #1a6dcc 0%, #0d4d9c 100%);
             color: white;
-            padding: 30px 15px;
-            border-radius: 8px;
+            padding: 35px 20px;
+            border-radius: 10px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             text-align: center;
         }
         
         h1 {
-            font-size: 2.2rem;
-            margin-bottom: 12px;
+            font-size: 2.4rem;
+            margin-bottom: 15px;
             text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
         }
         
         .subtitle {
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             opacity: 0.9;
             max-width: 800px;
             margin: 0 auto;
@@ -53,9 +58,9 @@
         
         .core-summary {
             background-color: #f1f8ff;
-            padding: 20px;
-            margin-bottom: 20px;
-            border-radius: 6px;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-radius: 8px;
             box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
         }
         
@@ -64,7 +69,7 @@
             margin-bottom: 12px;
             display: flex;
             align-items: center;
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             font-weight: bold;
         }
         
@@ -74,9 +79,9 @@
         
         .section {
             background-color: white;
-            border-radius: 8px;
-            padding: 25px;
-            margin-bottom: 20px;
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 25px;
             box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
             transition: transform 0.3s ease;
         }
@@ -87,103 +92,105 @@
         
         h2 {
             color: #1a6dcc;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             display: flex;
             align-items: center;
-            font-size: 1.4rem;
+            font-size: 1.6rem;
         }
         
         h2 i {
-            margin-right: 10px;
+            margin-right: 12px;
             background-color: #e9f2ff;
             padding: 8px;
             border-radius: 50%;
-            width: 40px;
-            height: 40px;
+            width: 44px;
+            height: 44px;
             display: flex;
             align-items: center;
             justify-content: center;
+            font-size: 1rem;
         }
         
         h3 {
             color: #0d4d9c;
-            margin: 15px 0 8px;
-            font-size: 1.2rem;
+            margin: 18px 0 10px;
+            font-size: 1.3rem;
         }
         
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin: 15px 0;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
         }
         
         .stat-box {
             background-color: #f1f8ff;
-            padding: 15px;
-            border-radius: 6px;
+            padding: 20px;
+            border-radius: 8px;
             text-align: center;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
         }
         
         .stat-number {
-            font-size: 2rem;
+            font-size: 2.2rem;
             font-weight: bold;
             color: #1a6dcc;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
         }
         
         .image-container {
             display: flex;
             flex-wrap: wrap;
-            gap: 15px;
-            margin: 15px 0;
+            gap: 20px;
+            margin: 20px 0;
             justify-content: center;
         }
         
         .image-box {
             flex: 1;
-            min-width: 250px;
+            min-width: 280px;
             text-align: center;
             background-color: #f8f9fa;
-            padding: 12px;
-            border-radius: 6px;
+            padding: 15px;
+            border-radius: 8px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
         }
         
         .image-box img {
             max-width: 100%;
             height: auto;
-            border-radius: 5px;
-            margin-bottom: 8px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            object-fit: contain;
         }
         
         .image-caption {
             font-style: italic;
             color: #666;
-            font-size: 0.85rem;
+            font-size: 0.95rem;
         }
         
         .function-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 15px;
-            margin: 15px 0;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
         }
         
         .function-card {
             background-color: #f8f9fa;
-            padding: 15px;
-            border-radius: 6px;
+            padding: 20px;
+            border-radius: 8px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
         }
         
         .function-card h4 {
             color: #0d4d9c;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             display: flex;
             align-items: center;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
         }
         
         .function-card h4 i {
@@ -197,14 +204,14 @@
         
         .step {
             display: flex;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             position: relative;
         }
         
         .step-number {
             flex-shrink: 0;
-            width: 40px;
-            height: 40px;
+            width: 44px;
+            height: 44px;
             background-color: #1a6dcc;
             color: white;
             border-radius: 50%;
@@ -212,50 +219,50 @@
             align-items: center;
             justify-content: center;
             font-weight: bold;
-            font-size: 1.2rem;
-            margin-right: 15px;
+            font-size: 1.3rem;
+            margin-right: 18px;
             box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
         }
         
         .step-content {
             flex-grow: 1;
             background-color: #f8f9fa;
-            padding: 15px;
-            border-radius: 6px;
+            padding: 20px;
+            border-radius: 8px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
         }
         
         .recommendations {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin: 15px 0;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
         }
         
         .recommendation-card {
             background-color: #f1f8ff;
-            padding: 15px;
-            border-radius: 6px;
+            padding: 20px;
+            border-radius: 8px;
             text-align: center;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
         }
         
         .recommendation-card i {
-            font-size: 1.8rem;
+            font-size: 2rem;
             color: #1a6dcc;
-            margin-bottom: 12px;
+            margin-bottom: 15px;
         }
         
         .recommendation-card h4 {
-            font-size: 1.1rem;
-            margin-bottom: 10px;
+            font-size: 1.2rem;
+            margin-bottom: 12px;
         }
         
         .warning-box {
             background-color: #fff8e1;
-            padding: 15px;
-            margin: 20px 0;
-            border-radius: 5px;
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 6px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
         }
         
@@ -266,15 +273,15 @@
         .conclusion {
             background: linear-gradient(135deg, #0d4d9c 0%, #1a6dcc 100%);
             color: white;
-            padding: 30px;
-            border-radius: 8px;
+            padding: 35px;
+            border-radius: 10px;
             text-align: center;
-            margin-top: 20px;
+            margin-top: 25px;
         }
         
         .conclusion h2 {
             color: white;
-            font-size: 1.5rem;
+            font-size: 1.6rem;
         }
         
         .conclusion .warning-box {
@@ -282,21 +289,54 @@
             color: white;
         }
         
-        footer {
-            text-align: center;
-            padding: 20px 0;
-            color: #666;
-            margin-top: 20px;
-            font-size: 0.9rem;
+        /* 底部翻页导航样式 */
+        .page-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            margin: 30px 0;
+            flex-wrap: wrap;
         }
         
-        /* 返回首页按钮样式 */
+        .nav-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 22px;
+            background-color: #1a6dcc;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 1.05rem;
+            font-weight: 500;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            flex: 1;
+            min-width: 160px;
+            text-align: center;
+        }
+        
+        .nav-btn:hover {
+            background-color: #0d4d9c;
+            transform: translateY(-2px);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 25px 0;
+            color: #666;
+            margin-top: 25px;
+            font-size: 1rem;
+        }
+        
+        /* 返回首页按钮 - 平板优化尺寸 */
         .back-to-home {
             position: fixed;
-            bottom: 15px;
-            right: 15px;
-            width: 45px;
-            height: 45px;
+            bottom: 25px;
+            right: 25px;
+            width: 55px;
+            height: 55px;
             background-color: #1a6dcc;
             color: white;
             border-radius: 50%;
@@ -315,11 +355,12 @@
         }
         
         .back-to-home span {
-            font-size: 1.3rem;
+            font-size: 1.6rem;
         }
         
         p {
-            font-size: 1rem;
+            font-size: 1.05rem;
+            margin-bottom: 10px;
         }
         
         strong {
@@ -328,35 +369,53 @@
         }
         
         ul {
-            margin: 10px 0;
-            padding-left: 20px;
+            margin: 12px 0;
+            padding-left: 25px;
         }
         
         li {
-            margin-bottom: 8px;
+            margin-bottom: 10px;
+            font-size: 1.05rem;
         }
-        
-        @media (max-width: 768px) {
+
+        /* 修复代码错误 */
+        .image-box div img {
+            border: none;
+            outline: none;
+        }
+
+        /* ==================== 荣耀平板X9 专属适配 ==================== */
+        /* 竖屏：平板竖屏标准尺寸 */
+        @media (max-width: 800px) {
+            .container {
+                padding: 15px;
+            }
+            
             h1 {
-                font-size: 1.8rem;
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.4rem;
+            }
+            
+            h3 {
+                font-size: 1.2rem;
             }
             
             .section {
-                padding: 20px;
+                padding: 22px;
+            }
+            
+            .stats-grid,
+            .function-grid,
+            .recommendations {
+                grid-template-columns: 1fr;
+                gap: 15px;
             }
             
             .image-box {
                 min-width: 100%;
-            }
-            
-            h2 {
-                font-size: 1.3rem;
-            }
-            
-            h2 i {
-                width: 35px;
-                height: 35px;
-                font-size: 0.8rem;
             }
             
             .step {
@@ -366,30 +425,53 @@
             
             .step-number {
                 margin-right: 0;
-                margin-bottom: 12px;
+                margin-bottom: 15px;
             }
             
             .back-to-home {
-                bottom: 12px;
-                right: 12px;
-                width: 40px;
-                height: 40px;
+                width: 50px;
+                height: 50px;
+                bottom: 20px;
+                right: 20px;
             }
-            
-            .back-to-home span {
-                font-size: 1.2rem;
+
+            /* 竖屏导航适配 */
+            .page-nav {
+                flex-direction: column;
+                gap: 12px;
             }
-            
+            .nav-btn {
+                width: 100%;
+            }
+        }
+
+        /* 横屏：平板横屏专属优化 */
+        @media (min-width: 801px) and (max-width: 1200px) {
             .container {
-                padding: 10px;
+                padding: 25px;
             }
             
             .stats-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns: repeat(3, 1fr);
             }
             
             .function-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .recommendations {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* 超小尺寸兼容 */
+        @media (max-width: 400px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .section {
+                padding: 18px;
             }
         }
     </style>
@@ -425,23 +507,21 @@
             
             <h2><strong>视功能异常 → 导致阅读等近距离用眼时效率低下、易疲劳 → 为看清而采取不良姿势与用眼习惯 → 加重眼部负担 → 加速近视进展并加剧视疲劳症状。</strong></h2>
 
-<div class="image-container">
-    <div class="image-box">
-        <div style="background-color: #e9f2ff; height: 200px; display: flex; align-items: center; justify-content: center; border-radius: 5px; overflow: hidden;">
-            <!-- 第一张图片：替换原毕业生长图标，保持容器样式一致 -->
-            <img src="images/jinjuli.jpg" alt="青少年用眼场景" style="width: auto; height: 100%; object-fit: contain;">
-        </div>
-        <p class="image-caption">青少年长时间近距离用眼是近视发展的主要因素</p>
-    </div>
-    <div class="image-box">
-        <div style="background-color: #fff8e1; height: 200px; display: flex; align-items: center; justify-content: center; border-radius: 5px; overflow: hidden;">
-            <!-- 第二张图片：替换原错误的i标签，使用你指定的shipilao.jpg -->
-            <img src="images/shipilao.jpg" alt="视功能异常相关示意" style="width: auto; height: 100%; object-fit: contain;">
-        </div>
-        <p class="image-caption">视功能异常导致视觉疲劳和注意力下降</p>
-    </div>
-</div>
-</section>
+            <div class="image-container">
+                <div class="image-box">
+                    <div style="background-color: #e9f2ff; height: 200px; display: flex; align-items: center; justify-content: center; border-radius: 5px; overflow: hidden;">
+                        <img src="images/jinjuli.jpg" alt="青少年用眼场景" style="width: auto; height: 100%; object-fit: contain;">
+                    </div>
+                    <p class="image-caption">青少年长时间近距离用眼是近视发展的主要因素</p>
+                </div>
+                <div class="image-box">
+                    <div style="background-color: #fff8e1; height: 200px; display: flex; align-items: center; justify-content: center; border-radius: 5px; overflow: hidden;">
+                        <img src="images/shipilao.jpg" alt="视功能异常相关示意" style="width: auto; height: 100%; object-fit: contain;">
+                    </div>
+                    <p class="image-caption">视功能异常导致视觉疲劳和注意力下降</p>
+                </div>
+            </div>
+        </section>
         
         <section class="section">
             <h2><i class="fas fa-search"></i> 核心概念：什么是视功能异常？</h2>
@@ -469,7 +549,7 @@
             <div class="image-container">
                 <div class="image-box">
                     <div style="background-color: #f0f8ff; height: 180px; display: flex; align-items: center; justify-content: center; border-radius: 5px;">
-                        <<img src="images/3shigongneng.png"alt="视功能异常相关示意" style="font-size: 10rem; color: #1a6dcc;"></i>
+                        <img src="images/3shigongneng.png"alt="视功能异常相关示意" style="width: auto; height: 100%; object-fit: contain;">
                     </div>
                     <p class="image-caption">视功能检查是发现异常的关键</p>
                 </div>
@@ -569,8 +649,14 @@
             <h2>面对青少年近视，我们应从被动的"矫正视力"转向主动的"管理视觉健康"。</h2>
             <h2> 针对普遍存在的视功能异常，进行科学、个性化的视觉训练，是缓解视疲劳、提升视觉品质、并为近视综合防控贡献积极力量的有效策略。</h2>  
             <h2> 早筛查、早诊断、早干预，多管齐下，方能更好地守护孩子的光明未来。</h2>   
-            </div>
         </section>
+
+        <!-- 底部翻页导航 -->
+        <div class="page-nav">
+            <a href="3.html" class="nav-btn">⬅ 前一页：科学防控</a>
+            <a href="index.html" class="nav-btn">🏠 首页</a>
+            <a href="5.html" class="nav-btn">后一页：视力发育 ➡</a>
+        </div>
         
         <footer>
             <p>视功能异常对于近视的影响</p>
@@ -578,10 +664,7 @@
         </footer>
     </div>
 
-    <!-- 返回首页按钮 -->
-    <a href="index.html" class="back-to-home">
-        <span>🏠</span>
-    </a>
+
 
     <script>
         // 添加简单的交互效果：点击各部分标题时平滑滚动
@@ -595,33 +678,27 @@
             });
         });
         
-// 为统计数字添加动画效果，保留小数点后一位
-function animateNumbers() {
-    const statNumbers = document.querySelectorAll('.stat-number');
-    
-    statNumbers.forEach(stat => {
-        // 提取目标数值（移除>/%符号，保留1位小数并转为数字）
-        const target = parseFloat(stat.textContent.replace(/[>%]/g, '')).toFixed(1) * 1;
-        let current = 0; 
-        // 步长保留3位小数，保证动画细腻度，避免累计误差
-        const increment = (target / 50).toFixed(3) * 1; 
-        const timer = setInterval(() => {
-            current += increment;
-            // 到达目标值时终止动画，修正current为准确目标值
-            if (current >= target) {
-                current = target;
-                clearInterval(timer);
-            }
-            // 核心修改：保留小数点后1位，替代原Math.floor()取整
-            let displayValue = current.toFixed(1);
-            // 还原原始符号（>/%）
-            if(stat.textContent.includes('>')) displayValue = '>' + displayValue;
-            if(stat.textContent.includes('%')) displayValue += '%';
-            // 更新显示内容
-            stat.textContent = displayValue;
-        }, 20);
-    });
-}
+        // 为统计数字添加动画效果，保留小数点后一位
+        function animateNumbers() {
+            const statNumbers = document.querySelectorAll('.stat-number');
+            
+            statNumbers.forEach(stat => {
+                const target = parseFloat(stat.textContent.replace(/[>%]/g, '')).toFixed(1) * 1;
+                let current = 0; 
+                const increment = (target / 50).toFixed(3) * 1; 
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        current = target;
+                        clearInterval(timer);
+                    }
+                    let displayValue = current.toFixed(1);
+                    if(stat.textContent.includes('>')) displayValue = '>' + displayValue;
+                    if(stat.textContent.includes('%')) displayValue += '%';
+                    stat.textContent = displayValue;
+                }, 20);
+            });
+        }
         
         // 页面加载完成后触发数字动画
         document.addEventListener('DOMContentLoaded', function() {
@@ -630,6 +707,3 @@ function animateNumbers() {
     </script>
 </body>
 </html>
-
-
-
