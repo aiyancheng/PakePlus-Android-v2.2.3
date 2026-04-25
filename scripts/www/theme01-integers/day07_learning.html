@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第7天 - 阶段小测与错题复盘 - 小学数学60天计划</title>
+    <style>
+        :root {
+            --primary: #4A90D9;
+            --primary-light: #E3F2FD;
+            --success: #52C41A;
+            --success-light: #F6FFED;
+            --warning: #FAAD14;
+            --warning-light: #FFF7E6;
+            --danger: #FF4D4F;
+            --background: #F0F7FF;
+            --card-bg: #FFFFFF;
+            --text-primary: #333333;
+            --text-secondary: #666666;
+            --border-radius: 16px;
+            --shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Microsoft YaHei', 'PingFang SC', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: var(--text-primary);
+            line-height: 1.8;
+            font-size: 18px;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .nav-bar {
+            background: white;
+            padding: 16px 24px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-home {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .nav-prev-next {
+            display: flex;
+            gap: 12px;
+        }
+
+        .nav-btn {
+            padding: 8px 16px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+
+        .header {
+            background: white;
+            padding: 40px 32px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        .day-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary), #6BB5FF);
+            color: white;
+            padding: 8px 24px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 18px;
+            margin-bottom: 16px;
+        }
+
+        .header h1 {
+            font-size: 32px;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .content-section, .exercise-section {
+            background: white;
+            padding: 32px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 24px;
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .knowledge-card, .exercise-card {
+            background: var(--primary-light);
+            padding: 24px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+
+        .knowledge-card h3, .exercise-card h3 {
+            font-size: 20px;
+            color: var(--primary);
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .example-box {
+            background: var(--success-light);
+            padding: 20px;
+            border-radius: 12px;
+            margin: 16px 0;
+        }
+
+        .tip-box {
+            background: var(--warning-light);
+            padding: 16px 20px;
+            border-radius: 12px;
+            margin: 16px 0;
+        }
+
+        .question {
+            background: white;
+            padding: 16px 20px;
+            margin: 12px 0;
+            border-radius: 8px;
+            font-size: 18px;
+        }
+
+        .answer-reveal {
+            background: #F0F7FF;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 16px 0;
+            display: none;
+        }
+
+        .answer-reveal.show {
+            display: block;
+        }
+
+        .toggle-answer {
+            background: var(--warning);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            margin: 8px 0;
+        }
+
+        .practice-link, .submit-section {
+            text-align: center;
+            margin-top: 32px;
+            padding: 24px;
+            background: linear-gradient(135deg, var(--success-light), #E8F5E9);
+            border-radius: 12px;
+        }
+
+        .practice-link a, .submit-btn {
+            display: inline-block;
+            padding: 16px 48px;
+            background: linear-gradient(135deg, var(--success), #69F0AE);
+            color: white;
+            text-decoration: none;
+            border: none;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .fill-blank {
+            display: inline-block;
+            min-width: 100px;
+            padding: 4px 8px;
+            border: 2px solid var(--primary);
+            border-radius: 6px;
+            font-size: 18px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="nav-bar">
+            <a href="../index.html" class="nav-home">🏠 返回目录</a>
+            <div class="nav-prev-next">
+                <a href="day06_exercises.html" class="nav-btn">⬅️ 第6天练习</a>
+                <a href="day07_exercises.html" class="nav-btn">做练习 ➡️</a>
+            </div>
+        </div>
+
+        <div class="header">
+            <div class="day-badge">第 7 天</div>
+            <h1>📚 阶段小测与错题复盘</h1>
+            <div style="color: #666;">主题一：数与代数</div>
+        </div>
+
+        <div class="content-section">
+            <div class="section-title">📚 今天的学习内容</div>
+            
+            <div class="knowledge-card">
+                <h3>🌟 第1-6天知识点回顾</h3>
+                <p><strong>第1天</strong>：数位顺序表、多位数的读写</p>
+                <p><strong>第2天</strong>：整万整亿数的改写、近似数</p>
+                <p><strong>第3天</strong>：多位数比较大小、十进制计数法</p>
+                <p><strong>第4天</strong>：奇数偶数、2/5/3倍数特征</p>
+                <p><strong>第5天</strong>：5/9倍数特征、同时被2/3/5整除</p>
+                <p><strong>第6天</strong>：质数与合数的判断</p>
+            </div>
+
+            <div class="knowledge-card">
+                <h3>🌟 阶段小测说明</h3>
+                <p>今天进行<strong>第1-6天综合测试</strong>，用时30分钟，约20题。</p>
+                <p>测试内容涵盖：</p>
+                <p>1. 数位读写与改写</p>
+                <p>2. 倍数特征判断</p>
+                <p>3. 质数合数分类</p>
+            </div>
+
+            <div class="knowledge-card">
+                <h3>🌟 错题复盘方法</h3>
+                <p><strong>步骤：</strong></p>
+                <p>1. 订正错题，找出错误原因</p>
+                <p>2. 将错题整理到错题本</p>
+                <p>3. 重做错题及同类题各5道</p>
+                <div class="tip-box">
+                    <strong>💡 复盘要点：</strong><br>
+                    - 概念模糊 → 重新学习相关知识点<br>
+                    - 计算错误 → 加强计算练习<br>
+                    - 审题不清 → 练习审题技巧
+                </div>
+            </div>
+        </div>
+
+        <div class="practice-link">
+            <p style="font-size: 18px; margin-bottom: 16px; color: #666;">
+                📝 准备进行阶段小测了吗？
+            </p>
+            <a href="day07_exercises.html">开始小测 ➡️</a>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            localStorage.setItem('day07_learning_completed', 'true');
+            updateProgress();
+        });
+
+        function updateProgress() {
+            const allDays = 60;
+            let completed = 0;
+            for (let i = 1; i <= allDays; i++) {
+                const dayStr = i.toString().padStart(2, '0');
+                if (localStorage.getItem(`day${dayStr}_learning_completed`) === 'true') {
+                    completed++;
+                }
+            }
+            
+            const progress = Math.round((completed / allDays) * 100);
+            if (document.getElementById('progress-fill')) {
+                document.getElementById('progress-fill').style.width = progress + '%';
+                document.getElementById('progress-text').textContent = progress + '%';
+            }
+        }
+    </script>
+</body>
+</html>
