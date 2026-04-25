@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第5天 - 5/9倍数特征与综合应用 - 小学数学60天计划</title>
+    <style>
+
+        :root {
+            --primary: #4A90D9;
+            --primary-light: #E3F2FD;
+            --success: #52C41A;
+            --success-light: #F6FFED;
+            --warning: #FAAD14;
+            --warning-light: #FFF7E6;
+            --danger: #FF4D4F;
+            --background: #F0F7FF;
+            --card-bg: #FFFFFF;
+            --text-primary: #333333;
+            --text-secondary: #666666;
+            --border-radius: 16px;
+            --shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Microsoft YaHei', 'PingFang SC', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: var(--text-primary);
+            line-height: 1.8;
+            font-size: 18px;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .nav-bar {
+            background: white;
+            padding: 16px 24px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-home {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .nav-prev-next {
+            display: flex;
+            gap: 12px;
+        }
+
+        .nav-btn {
+            padding: 8px 16px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+
+        .header {
+            background: white;
+            padding: 40px 32px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        .day-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary), #6BB5FF);
+            color: white;
+            padding: 8px 24px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 18px;
+            margin-bottom: 16px;
+        }
+
+        .header h1 {
+            font-size: 32px;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .content-section, .exercise-section {
+            background: white;
+            padding: 32px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 24px;
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .knowledge-card, .exercise-card {
+            background: var(--primary-light);
+            padding: 24px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+
+        .knowledge-card h3, .exercise-card h3 {
+            font-size: 20px;
+            color: var(--primary);
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .example-box {
+            background: var(--success-light);
+            padding: 20px;
+            border-radius: 12px;
+            margin: 16px 0;
+        }
+
+        .tip-box {
+            background: var(--warning-light);
+            padding: 16px 20px;
+            border-radius: 12px;
+            margin: 16px 0;
+        }
+
+        .question {
+            background: white;
+            padding: 16px 20px;
+            margin: 12px 0;
+            border-radius: 8px;
+            font-size: 18px;
+        }
+
+        .fill-blank {
+            display: inline-block;
+            min-width: 100px;
+            padding: 4px 8px;
+            border: 2px solid var(--primary);
+            border-radius: 6px;
+            font-size: 18px;
+            text-align: center;
+        }
+
+        .practice-link, .submit-section {
+            text-align: center;
+            margin-top: 32px;
+            padding: 24px;
+            background: linear-gradient(135deg, var(--success-light), #E8F5E9);
+            border-radius: 12px;
+        }
+
+        .practice-link a, .submit-btn {
+            display: inline-block;
+            padding: 16px 48px;
+            background: linear-gradient(135deg, var(--success), #69F0AE);
+            color: white;
+            text-decoration: none;
+            border: none;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="nav-bar">
+            <a href="../index.html" class="nav-home">🏠 返回目录</a>
+            <div class="nav-prev-next">
+                <a href="day04_exercises.html" class="nav-btn">⬅️ 第4天练习</a>
+                <a href="day05_exercises.html" class="nav-btn">做练习 ➡️</a>
+            </div>
+        </div>
+
+        <div class="header">
+            <div class="day-badge">第 5 天</div>
+            <h1>📚 5/9倍数特征与综合应用</h1>
+            <div style="color: #666;">主题一：数与代数</div>
+        </div>
+
+        <div class="content-section">
+            <div class="section-title">📚 今天的学习内容</div>
+            
+        <div class="knowledge-card">
+            <h3>🌟 5的倍数特征（复习）</h3>
+            <p><strong>5的倍数</strong>：个位上是0或5。</p>
+        </div>
+
+        <div class="knowledge-card">
+            <h3>🌟 9的倍数特征</h3>
+            <p><strong>9的倍数特征</strong>：各位上的数字之和是9的倍数。</p>
+            <div class="example-box">
+                <strong>📝 例子：</strong><br>
+                - 判断279是不是9的倍数：2+7+9=18，18是9的倍数，所以279是9的倍数。<br>
+                - 判断405是不是9的倍数：4+0+5=9，9是9的倍数，所以405是9的倍数。
+            </div>
+        </div>
+
+        <div class="knowledge-card">
+            <h3>🌟 同时被2、3、5整除的数的特征</h3>
+            <p><strong>同时满足</strong>：</p>
+            <p>1. 个位是0（同时满足2和5的倍数特征）</p>
+            <p>2. 各位数字之和是3的倍数</p>
+            <div class="example-box">
+                <strong>📝 例子：</strong><br>
+                判断120是不是同时被2、3、5整除：<br>
+                - 个位是0 ✓（满足2和5）<br>
+                - 1+2+0=3，3是3的倍数 ✓<br>
+                - 所以120能同时被2、3、5整除。
+            </div>
+        </div>
+
+        </div>
+
+        <div class="practice-link">
+            <p style="font-size: 18px; margin-bottom: 16px; color: #666;">
+                📝 学完了吗？来做练习题吧！
+            </p>
+            <a href="day05_exercises.html">开始做练习 ➡️</a>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            localStorage.setItem('day05_learning_visited', 'true');
+        });
+    </script>
+</body>
+</html>
