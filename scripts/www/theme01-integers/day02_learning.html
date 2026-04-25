@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第2天 - 改写与近似数 - 小学数学60天计划</title>
+    <style>
+        :root {
+            --primary: #4A90D9;
+            --primary-light: #E3F2FD;
+            --success: #52C41A;
+            --success-light: #F6FFED;
+            --warning: #FAAD14;
+            --warning-light: #FFF7E6;
+            --danger: #FF4D4F;
+            --background: #F0F7FF;
+            --card-bg: #FFFFFF;
+            --text-primary: #333333;
+            --text-secondary: #666666;
+            --border-radius: 16px;
+            --shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Microsoft YaHei', 'PingFang SC', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: var(--text-primary);
+            line-height: 1.8;
+            font-size: 18px;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .nav-bar {
+            background: white;
+            padding: 16px 24px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-home {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .nav-prev-next {
+            display: flex;
+            gap: 12px;
+        }
+
+        .nav-btn {
+            padding: 8px 16px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .header {
+            background: white;
+            padding: 40px 32px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        .day-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary), #6BB5FF);
+            color: white;
+            padding: 8px 24px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 18px;
+            margin-bottom: 16px;
+        }
+
+        .header h1 {
+            font-size: 32px;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .content-section {
+            background: white;
+            padding: 32px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 24px;
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .knowledge-card {
+            background: var(--primary-light);
+            padding: 24px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+
+        .knowledge-card h3 {
+            font-size: 20px;
+            color: var(--primary);
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .example-box {
+            background: var(--success-light);
+            padding: 20px;
+            border-radius: 12px;
+            margin: 16px 0;
+        }
+
+        .tip-box {
+            background: var(--warning-light);
+            padding: 16px 20px;
+            border-radius: 12px;
+            margin: 16px 0;
+        }
+
+        .practice-link {
+            text-align: center;
+            margin-top: 32px;
+            padding: 24px;
+            background: linear-gradient(135deg, var(--success-light), #E8F5E9);
+            border-radius: 12px;
+        }
+
+        .practice-link a {
+            display: inline-block;
+            padding: 16px 48px;
+            background: linear-gradient(135deg, var(--success), #69F0AE);
+            color: white;
+            text-decoration: none;
+            border: none;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .practice-link a:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(82, 196, 26, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="nav-bar">
+            <a href="../index.html" class="nav-home">🏠 返回目录</a>
+            <div class="nav-prev-next">
+                <a href="day01_exercises.html" class="nav-btn">⬅️ 第1天练习</a>
+                <a href="day02_exercises.html" class="nav-btn">做练习 ➡️</a>
+            </div>
+        </div>
+
+        <div class="header">
+            <div class="day-badge">第 2 天</div>
+            <h1>📚 改写与近似数</h1>
+            <div style="color: #666;">主题一：数与代数</div>
+        </div>
+
+        <div class="content-section">
+            <div class="section-title">📚 今天的学习内容</div>
+            
+            <div class="knowledge-card">
+                <h3>🌟 整万、整亿数的改写</h3>
+                <p><strong>改写规则</strong>：</p>
+                <p>1. 整万数改写成用"万"作单位：去掉末尾的<strong>4个0</strong>，加"万"字</p>
+                <p>2. 整亿数改写成用"亿"作单位：去掉末尾的<strong>8个0</strong>，加"亿"字</p>
+                <div class="example-box">
+                    <strong>📝 例子：</strong><br>
+                    - 120000 = <strong>12万</strong>（去掉4个0，加"万"）<br>
+                    - 5000000 = <strong>500万</strong>（去掉4个0，加"万"）<br>
+                    - 3400000000 = <strong>34亿</strong>（去掉8个0，加"亿"）
+                </div>
+            </div>
+
+            <div class="knowledge-card">
+                <h3>🌟 用"四舍五入"法求近似数</h3>
+                <p><strong>四舍五入法则</strong>：</p>
+                <p>1. 看<strong>省略部分的最高位</strong></p>
+                <p>2. 如果这一位<strong>小于5</strong>（0-4），舍去（四舍）</p>
+                <p>3. 如果这一位<strong>大于等于5</strong>（5-9），进1（五入）</p>
+                <div class="example-box">
+                    <strong>📝 例子：省略万位后面的尾数</strong><br>
+                    - 123456 ≈ <strong>12万</strong>（千位是3，小于5，舍去）<br>
+                    - 98765 ≈ <strong>10万</strong>（千位是8，大于等于5，进1）<br><br>
+                    <strong>省略亿位后面的尾数</strong><br>
+                    - 345000000 ≈ <strong>3亿</strong>（千万位是4，小于5，舍去）<br>
+                    - 560000000 ≈ <strong>6亿</strong>（千万位是6，大于等于5，进1）
+                </div>
+            </div>
+
+            <div class="knowledge-card">
+                <h3>🌟 精确到某一位</h3>
+                <p><strong>精确到万位</strong> = 省略万位后面的尾数</p>
+                <p><strong>精确到亿位</strong> = 省略亿位后面的尾数</p>
+                <div class="example-box">
+                    <strong>📝 例子：</strong><br>
+                    123456 精确到万位 ≈ <strong>120000</strong> 或 <strong>12万</strong><br>
+                    987654321 精确到亿位 ≈ <strong>1000000000</strong> 或 <strong>10亿</strong>
+                </div>
+            </div>
+
+            <div class="tip-box">
+                <strong>💡 学习提示：</strong><br>
+                1. 改写≠近似数（改写是准确数，近似数是大概的数）<br>
+                2. "四舍五入"要看<strong>省略部分的最高位</strong>，不是只看一位<br>
+                3. 改写后要加"万"或"亿"字，近似数可以写"万"或"亿"，也可以写全数
+            </div>
+        </div>
+
+        <div class="practice-link">
+            <p style="font-size: 18px; margin-bottom: 16px; color: #666;">
+                📝 学完了吗？来做练习题吧！
+            </p>
+            <a href="day02_exercises.html">开始做练习 ➡️</a>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            localStorage.setItem('day02_learning_completed', 'true');
+            updateProgress();
+        });
+
+        function updateProgress() {
+            const allDays = 60;
+            let completed = 0;
+            for (let i = 1; i <= allDays; i++) {
+                const dayStr = i.toString().padStart(2, '0');
+                if (localStorage.getItem(`day${dayStr}_learning_completed`) === 'true') {
+                    completed++;
+                }
+            }
+            
+            const progress = Math.round((completed / allDays) * 100);
+            if (document.getElementById('progress-fill')) {
+                document.getElementById('progress-fill').style.width = progress + '%';
+                document.getElementById('progress-text').textContent = progress + '%';
+            }
+        }
+    </script>
+</body>
+</html>
