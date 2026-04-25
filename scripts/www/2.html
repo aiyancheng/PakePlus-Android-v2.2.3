@@ -1,13 +1,10 @@
 
-
-
-
-
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 荣耀平板专属视口：禁止缩放、完美适配触摸 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>青少年近视防控预测与危害分析系统</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -17,6 +14,13 @@
             padding: 0;
             box-sizing: border-box;
         }
+
+        /* 平板全局基础优化 */
+        html, body {
+            width: 100%;
+            overflow-x: hidden;
+            touch-action: manipulation;
+        }
         
         body {
             font-family: 'Microsoft YaHei', Arial, sans-serif;
@@ -24,11 +28,11 @@
             color: #333;
             background: linear-gradient(135deg, #e3f2fd 0%, #f5f5f5 100%);
             padding: 10px;
-            font-size: 16px; /* 默认字体大小 */
+            font-size: 16px;
         }
         
         .container {
-            max-width: 1200px; /* 限制最大宽度适应平板 */
+            max-width: 1200px;
             margin: 0 auto;
             background: white;
             border-radius: 10px;
@@ -40,27 +44,27 @@
         header {
             background: linear-gradient(135deg, #2196F3 0%, #21CBF3 100%);
             color: white;
-            padding: 20px 15px; /* 减少padding */
+            padding: 20px 15px;
             text-align: center;
         }
         
         h1 {
-            font-size: 1.8em; /* 适配平板 */
+            font-size: 1.8em;
             margin-bottom: 8px;
         }
         
         .subtitle {
-            font-size: 1.0em; /* 适配平板 */
+            font-size: 1.0em;
             opacity: 0.9;
         }
         
         .content {
-            padding: 20px; /* 减少内边距 */
+            padding: 20px;
         }
         
         .input-section {
             background: #f8f9fa;
-            padding: 20px; /* 减少内边距 */
+            padding: 20px;
             border-radius: 8px;
             margin-bottom: 20px;
             border: 1px solid #e9ecef;
@@ -68,14 +72,14 @@
         
         .form-row {
             display: flex;
-            gap: 15px; /* 减小间距 */
+            gap: 15px;
             margin-bottom: 12px;
             flex-wrap: wrap;
         }
         
         .form-group {
             flex: 1;
-            min-width: 150px; /* 调整最小宽度 */
+            min-width: 150px;
         }
         
         label {
@@ -83,15 +87,15 @@
             margin-bottom: 6px;
             font-weight: bold;
             color: #495057;
-            font-size: 14px; /* 适配平板 */
+            font-size: 14px;
         }
         
         input, select {
             width: 100%;
-            padding: 10px; /* 减小内边距 */
+            padding: 10px;
             border: 1px solid #ced4da;
             border-radius: 5px;
-            font-size: 14px; /* 适配平板 */
+            font-size: 14px;
             transition: border-color 0.3s;
         }
         
@@ -104,11 +108,11 @@
         button {
             background: #2196F3;
             color: white;
-            padding: 10px 20px; /* 减小按钮大小 */
+            padding: 10px 20px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            font-size: 14px; /* 适配平板 */
+            font-size: 14px;
             transition: background 0.3s;
         }
         
@@ -136,17 +140,17 @@
         .prediction-table th {
             background: linear-gradient(135deg, #2196F3, #21CBF3);
             color: white;
-            padding: 12px 8px; /* 减小内边距 */
+            padding: 12px 8px;
             text-align: center;
             font-weight: bold;
-            font-size: 14px; /* 适配平板 */
+            font-size: 14px;
         }
         
         .prediction-table td {
-            padding: 10px 8px; /* 减小内边距 */
+            padding: 10px 8px;
             text-align: center;
             border-bottom: 1px solid #eee;
-            font-size: 14px; /* 适配平板 */
+            font-size: 14px;
         }
         
         .prediction-table tr:nth-child(even) {
@@ -163,9 +167,9 @@
         }
         
         .chart-container {
-            height: 400px; /* 调整图表高度 */
+            height: 400px;
             margin: 20px 0;
-            padding: 15px; /* 减小内边距 */
+            padding: 15px;
             background: white;
             border-radius: 8px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
@@ -191,16 +195,15 @@
         
         .info-box {
             background: #e3f2fd;
-            padding: 12px; /* 减小内边距 */
+            padding: 12px;
             border-radius: 8px;
             margin: 15px 0;
             margin-bottom: 15px;
             text-indent: 2em;
             line-height: 1.6;
             white-space: normal;
-            font-size: 14px; /* 适配平板 */
+            font-size: 14px;
         }
-        /* 新增样式：让info-box内的第一个h2标题居中 */
         .info-box h2:first-child {
             text-align: center;
             margin-top: 2;
@@ -208,22 +211,22 @@
         
         .summary-box {
             background: #d4edda;
-            padding: 12px; /* 减小内边距 */
+            padding: 12px;
             border-radius: 8px;
             margin: 15px 0;
-            font-size: 14px; /* 适配平板 */
+            font-size: 14px;
         }
         
         .eye-comparison-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* 调整网格大小 */
-            gap: 15px; /* 减小间距 */
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
             margin: 20px 0;
         }
         
         .eye-section {
             background: white;
-            padding: 15px; /* 减小内边距 */
+            padding: 15px;
             border-radius: 8px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             text-align: center;
@@ -232,12 +235,12 @@
         .eye-section h3 {
             margin-bottom: 12px;
             color: #2196F3;
-            font-size: 16px; /* 适配平板 */
+            font-size: 16px;
         }
         
         .eye-image {
             width: 100%;
-            max-width: 240px; /* 调整图片大小 */
+            max-width: 240px;
             height: auto;
             border-radius: 8px;
             margin: 8px 0;
@@ -246,26 +249,26 @@
         
         .risk-calculator {
             background: #fff3cd;
-            padding: 15px; /* 减小内边距 */
+            padding: 15px;
             border-radius: 8px;
             margin: 15px 0;
             border-left: 5px solid #ffc107;
-            font-size: 14px; /* 适配平板 */
+            font-size: 14px;
         }
         
         .complication-card {
             background: white;
-            padding: 15px; /* 减小内边距 */
+            padding: 15px;
             border-radius: 8px;
             margin: 12px 0;
             box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-            font-size: 14px; /* 适配平板 */
+            font-size: 14px;
         }
         
         .complication-card h3 {
             color: #dc3545;
             margin-bottom: 8px;
-            font-size: 16px; /* 适配平板 */
+            font-size: 16px;
         }
         
         .complication-card p {
@@ -274,17 +277,17 @@
         
         .method-card {
             background: white;
-            padding: 15px; /* 减小内边距 */
+            padding: 15px;
             border-radius: 8px;
             margin: 12px 0;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            font-size: 14px; /* 适配平板 */
+            font-size: 14px;
         }
         
         .method-card h3 {
             color: #28a745;
             margin-bottom: 8px;
-            font-size: 16px; /* 适配平板 */
+            font-size: 16px;
         }
         
         .method-card p {
@@ -298,11 +301,11 @@
         
         footer {
             text-align: center;
-            padding: 15px; /* 减小内边距 */
+            padding: 15px;
             background: #f8f9fa;
             color: #6c757d;
             border-top: 1px solid #e9ecef;
-            font-size: 14px; /* 适配平板 */
+            font-size: 14px;
             position: relative;
         }
         
@@ -320,7 +323,6 @@
             text-align: left;
         }
         
-        /* 图片框样式 */
         .image-container {
             display: flex;
             justify-content: center;
@@ -336,7 +338,6 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
         
-        /* 图片展示网格样式 */
         .image-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -365,120 +366,6 @@
             margin-top: 10px;
             font-size: 14px;
             color: #666;
-        }
-        
-        /* 针对平板设备的媒体查询 */
-        @media screen and (max-width: 1200px) {
-            body {
-                font-size: 15px;
-            }
-            
-            h1 {
-                font-size: 1.6em;
-            }
-            
-            .subtitle {
-                font-size: 0.9em;
-            }
-            
-            .form-group {
-                min-width: 140px;
-            }
-            
-            .eye-image {
-                max-width: 180px;
-            }
-        }
-        
-        @media screen and (max-width: 1000px) {
-            body {
-                font-size: 14px;
-                padding: 8px;
-            }
-            
-            h1 {
-                font-size: 1.4em;
-            }
-            
-            .subtitle {
-                font-size: 0.85em;
-            }
-            
-            .content {
-                padding: 15px;
-            }
-            
-            .form-group {
-                min-width: 120px;
-            }
-            
-            .chart-container {
-                height: 350px;
-            }
-            
-            .eye-image {
-                max-width: 160px;
-            }
-            
-            .footer-content {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-        }
-        
-        @media screen and (max-width: 800px) {
-            body {
-                font-size: 13px;
-            }
-            
-            h1 {
-                font-size: 1.3em;
-            }
-            
-            .form-group {
-                min-width: 100px;
-            }
-            
-            .chart-container {
-                height: 300px;
-            }
-            
-            .eye-image {
-                max-width: 160px;
-            }
-        }
-        
-        @media screen and (max-width: 600px) {
-            body {
-                font-size: 12px;
-                padding: 5px;
-            }
-            
-            h1 {
-                font-size: 1.2em;
-            }
-            
-            .form-group {
-                min-width: 90px;
-            }
-            
-            input, select {
-                font-size: 13px;
-            }
-            
-            .chart-container {
-                height: 280px;
-            }
-            
-            .prediction-table th, 
-            .prediction-table td {
-                padding: 8px 6px;
-                font-size: 13px;
-            }
-            
-            .eye-image {
-                max-width: 150px;
-            }
         }
         
         /* 美化近视对学业和工作影响部分的样式 */
@@ -545,47 +432,6 @@
             margin: 10px 0 5px 0;
             display: block;
         }
-        
-        /* 针对桌面端的优化 */
-        @media screen and (min-width: 1201px) {
-            body {
-                font-size: 16px;
-            }
-            
-            .container {
-                max-width: 1400px;
-            }
-            
-            h1 {
-                font-size: 2.0em;
-            }
-            
-            .subtitle {
-                font-size: 1.1em;
-            }
-            
-            .content {
-                padding: 25px;
-            }
-            
-            .form-group {
-                min-width: 180px;
-            }
-            
-            .chart-container {
-                height: 450px;
-            }
-            
-            .eye-image {
-                max-width: 280px;
-            }
-            
-            .prediction-table th, 
-            .prediction-table td {
-                padding: 12px 10px;
-                font-size: 15px;
-            }
-        }
 
         /* 返回首页按钮样式 */
         .back-to-home {
@@ -613,6 +459,62 @@
 
         .back-to-home i {
             font-size: 20px;
+        }
+
+        /* =============================================
+           荣耀平板 X9 11" 1920×1200 横/竖屏 专属适配
+        ============================================== */
+        /* 横屏：1920px */
+        @media (min-width: 1200px) and (max-width: 1920px) and (orientation: landscape) {
+            body { padding: 20px 30px; font-size: 17px; }
+            .container { max-width: 1400px; }
+            h1 { font-size: 2.2em; }
+            .chart-container { height: 480px; }
+            .eye-image { max-width: 280px; }
+            .form-group { min-width: 180px; }
+        }
+
+        /* 竖屏：1200px */
+        @media (min-width: 768px) and (max-width: 1200px) and (orientation: portrait) {
+            body { padding: 15px 20px; font-size: 16px; }
+            h1 { font-size: 2em; }
+            .chart-container { height: 420px; }
+            .eye-image { max-width: 240px; }
+            .form-group { min-width: 160px; }
+        }
+
+        /* 平板小屏通用 */
+        @media (max-width: 768px) {
+            .footer-content { flex-direction: column; gap: 10px; text-align: center; }
+            .disclaimer { text-align: center; }
+        }
+
+        /* 底部翻页导航按钮 - 新增 */
+        .page-nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin: 40px 0 20px;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            display: inline-block;
+            padding: 12px 25px;
+            background-color: #2196F3;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+        }
+
+        .nav-btn:hover {
+            background-color: #1976D2;
+            transform: translateY(-2px);
         }
     </style>
 </head>
@@ -669,6 +571,8 @@
                         </table>
                     </div>
                     
+
+            </div>
 
             <!-- 危害分析 -->
             <div class="section" id="risks">
@@ -804,6 +708,13 @@
                 </div>
             </div>
         </div>
+
+        <!-- ====================== 新增：底部翻页导航 ====================== -->
+        <div class="page-nav">
+            <a href="1.html" class="nav-btn">⬅ 前一页：了解近视</a>
+            <a href="index.html" class="nav-btn">🏠 首页</a>
+            <a href="3.html" class="nav-btn">后一页：科学防控➡</a>
+        </div>
         
         <footer>
             <div class="footer-content">
@@ -815,10 +726,7 @@
         </footer>
     </div>
 
-    <!-- 返回首页按钮 -->
-    <a href="index.html" class="back-to-home">
-        <span>🏠</span>
-    </a>
+
 
     <script>
         // 初始化图表
@@ -1046,6 +954,3 @@
     </script>
 </body>
 </html>
-
-
-
