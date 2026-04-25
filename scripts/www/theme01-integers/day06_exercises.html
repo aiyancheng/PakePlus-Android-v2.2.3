@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第6天 - 练习题 - 质数与合数</title>
+    <style>
+
+        :root {
+            --primary: #4A90D9;
+            --primary-light: #E3F2FD;
+            --success: #52C41A;
+            --success-light: #F6FFED;
+            --warning: #FAAD14;
+            --warning-light: #FFF7E6;
+            --danger: #FF4D4F;
+            --background: #F0F7FF;
+            --card-bg: #FFFFFF;
+            --text-primary: #333333;
+            --text-secondary: #666666;
+            --border-radius: 16px;
+            --shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Microsoft YaHei', 'PingFang SC', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: var(--text-primary);
+            line-height: 1.8;
+            font-size: 18px;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .nav-bar {
+            background: white;
+            padding: 16px 24px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-home {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .nav-prev-next {
+            display: flex;
+            gap: 12px;
+        }
+
+        .nav-btn {
+            padding: 8px 16px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+
+        .header {
+            background: white;
+            padding: 40px 32px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        .day-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary), #6BB5FF);
+            color: white;
+            padding: 8px 24px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 18px;
+            margin-bottom: 16px;
+        }
+
+        .header h1 {
+            font-size: 32px;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .content-section, .exercise-section {
+            background: white;
+            padding: 32px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 24px;
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .knowledge-card, .exercise-card {
+            background: var(--primary-light);
+            padding: 24px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+
+        .knowledge-card h3, .exercise-card h3 {
+            font-size: 20px;
+            color: var(--primary);
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .example-box {
+            background: var(--success-light);
+            padding: 20px;
+            border-radius: 12px;
+            margin: 16px 0;
+        }
+
+        .tip-box {
+            background: var(--warning-light);
+            padding: 16px 20px;
+            border-radius: 12px;
+            margin: 16px 0;
+        }
+
+        .question {
+            background: white;
+            padding: 16px 20px;
+            margin: 12px 0;
+            border-radius: 8px;
+            font-size: 18px;
+        }
+
+        .fill-blank {
+            display: inline-block;
+            min-width: 100px;
+            padding: 4px 8px;
+            border: 2px solid var(--primary);
+            border-radius: 6px;
+            font-size: 18px;
+            text-align: center;
+        }
+
+        .practice-link, .submit-section {
+            text-align: center;
+            margin-top: 32px;
+            padding: 24px;
+            background: linear-gradient(135deg, var(--success-light), #E8F5E9);
+            border-radius: 12px;
+        }
+
+        .practice-link a, .submit-btn {
+            display: inline-block;
+            padding: 16px 48px;
+            background: linear-gradient(135deg, var(--success), #69F0AE);
+            color: white;
+            text-decoration: none;
+            border: none;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="nav-bar">
+            <a href="../index.html" class="nav-home">🏠 返回目录</a>
+            <div class="nav-prev-next">
+                <a href="day06_learning.html" class="nav-btn">⬅️ 回到学习</a>
+                <a href="day07_learning.html" class="nav-btn">第7天学习 ➡️</a>
+            </div>
+        </div>
+
+        <div class="header">
+            <div class="day-badge" style="background: linear-gradient(135deg, var(--warning), #FFD54F);">第 6 天 - 练习</div>
+            <h1>📝 质数与合数</h1>
+            <div style="color: #666;">主题一：数与代数</div>
+            <div style="color: #666;">共 10 道题 · 建议用时：60分钟</div>
+        </div>
+
+        <div class="exercise-section">
+            <div class="section-title">✏️ 练习题</div>
+            
+        <div class="exercise-card">
+            <h3>🌟 练习题</h3>
+            
+            <div class="question">
+                <strong>一、判断下列数是质数还是合数（10题）</strong><br>
+                1. 2 □<br>
+                2. 9 □<br>
+                3. 11 □<br>
+                4. 15 □<br>
+                5. 23 □<br>
+                6. 27 □<br>
+                7. 31 □<br>
+                8. 35 □<br>
+                9. 37 □<br>
+                10. 49 □
+            </div>
+
+            <div class="question">
+                <strong>二、填空（10空）</strong><br>
+                11. 最小的质数是 □<br>
+                12. 最小的合数是 □<br>
+                13. 最小的偶数是 □<br>
+                14. 1既不是 □ 也不是 □<br>
+                15. 20以内共有 □ 个质数
+            </div>
+
+            <div class="answer-reveal">
+                <strong>参考答案：</strong><br>
+                1. 质数 2. 合数 3. 质数 4. 合数 5. 质数<br>
+                6. 合数 7. 质数 8. 合数 9. 质数 10. 合数<br>
+                11. 2 12. 4 13. 0 14. 质数，合数 15. 8
+            </div>
+        </div>
+
+        </div>
+
+        <div class="submit-section">
+            <p style="font-size: 18px; margin-bottom: 16px; color: #666;">
+                📝 做完所有题目了吗？
+            </p>
+            <button class="submit-btn" onclick="alert('练习完成！')">✅ 提交练习</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            localStorage.setItem('day06_exercises_visited', 'true');
+        });
+    </script>
+</body>
+</html>
