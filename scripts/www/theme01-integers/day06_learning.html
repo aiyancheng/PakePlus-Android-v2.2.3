@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第6天 - 质数与合数 - 小学数学60天计划</title>
+    <style>
+
+        :root {
+            --primary: #4A90D9;
+            --primary-light: #E3F2FD;
+            --success: #52C41A;
+            --success-light: #F6FFED;
+            --warning: #FAAD14;
+            --warning-light: #FFF7E6;
+            --danger: #FF4D4F;
+            --background: #F0F7FF;
+            --card-bg: #FFFFFF;
+            --text-primary: #333333;
+            --text-secondary: #666666;
+            --border-radius: 16px;
+            --shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Microsoft YaHei', 'PingFang SC', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: var(--text-primary);
+            line-height: 1.8;
+            font-size: 18px;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .nav-bar {
+            background: white;
+            padding: 16px 24px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-home {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .nav-prev-next {
+            display: flex;
+            gap: 12px;
+        }
+
+        .nav-btn {
+            padding: 8px 16px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+
+        .header {
+            background: white;
+            padding: 40px 32px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        .day-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary), #6BB5FF);
+            color: white;
+            padding: 8px 24px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 18px;
+            margin-bottom: 16px;
+        }
+
+        .header h1 {
+            font-size: 32px;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .content-section, .exercise-section {
+            background: white;
+            padding: 32px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 24px;
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .knowledge-card, .exercise-card {
+            background: var(--primary-light);
+            padding: 24px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+
+        .knowledge-card h3, .exercise-card h3 {
+            font-size: 20px;
+            color: var(--primary);
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .example-box {
+            background: var(--success-light);
+            padding: 20px;
+            border-radius: 12px;
+            margin: 16px 0;
+        }
+
+        .tip-box {
+            background: var(--warning-light);
+            padding: 16px 20px;
+            border-radius: 12px;
+            margin: 16px 0;
+        }
+
+        .question {
+            background: white;
+            padding: 16px 20px;
+            margin: 12px 0;
+            border-radius: 8px;
+            font-size: 18px;
+        }
+
+        .fill-blank {
+            display: inline-block;
+            min-width: 100px;
+            padding: 4px 8px;
+            border: 2px solid var(--primary);
+            border-radius: 6px;
+            font-size: 18px;
+            text-align: center;
+        }
+
+        .practice-link, .submit-section {
+            text-align: center;
+            margin-top: 32px;
+            padding: 24px;
+            background: linear-gradient(135deg, var(--success-light), #E8F5E9);
+            border-radius: 12px;
+        }
+
+        .practice-link a, .submit-btn {
+            display: inline-block;
+            padding: 16px 48px;
+            background: linear-gradient(135deg, var(--success), #69F0AE);
+            color: white;
+            text-decoration: none;
+            border: none;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="nav-bar">
+            <a href="../index.html" class="nav-home">🏠 返回目录</a>
+            <div class="nav-prev-next">
+                <a href="day05_exercises.html" class="nav-btn">⬅️ 第5天练习</a>
+                <a href="day06_exercises.html" class="nav-btn">做练习 ➡️</a>
+            </div>
+        </div>
+
+        <div class="header">
+            <div class="day-badge">第 6 天</div>
+            <h1>📚 质数与合数</h1>
+            <div style="color: #666;">主题一：数与代数</div>
+        </div>
+
+        <div class="content-section">
+            <div class="section-title">📚 今天的学习内容</div>
+            
+        <div class="knowledge-card">
+            <h3>🌟 质数与合数的定义</h3>
+            <p><strong>质数（素数）</strong>：一个大于1的自然数，只有1和它本身两个因数。</p>
+            <p><strong>合数</strong>：一个大于1的自然数，除了1和它本身还有别的因数。</p>
+            <div class="example-box">
+                <strong>📝 例子：</strong><br>
+                - 质数：2, 3, 5, 7, 11, 13, 17, 19...（只有两个因数）<br>
+                - 合数：4, 6, 8, 9, 10, 12, 14, 15...（有三个或更多因数）
+            </div>
+        </div>
+
+        <div class="knowledge-card">
+            <h3>🌟 重要结论</h3>
+            <p>1. <strong>1既不是质数也不是合数</strong>（1只有一个因数）</p>
+            <p>2. <strong>2是唯一的偶质数</strong></p>
+            <p>3. <strong>20以内的质数</strong>：2, 3, 5, 7, 11, 13, 17, 19</p>
+            <div class="tip-box">
+                <strong>💡 记忆技巧：</strong><br>
+                20以内质数口诀：二三五七一十一，十三十七一十九。
+            </div>
+        </div>
+
+        <div class="knowledge-card">
+            <h3>🌟 如何判断一个数是质数还是合数？</h3>
+            <p>方法：找出这个数的所有因数</p>
+            <p>- 只有2个因数 → 质数</p>
+            <p>- 有3个或更多因数 → 合数</p>
+            <div class="example-box">
+                <strong>📝 例子：判断17是质数还是合数？</strong><br>
+                17的因数有：1, 17（只有2个）<br>
+                所以17是<strong>质数</strong>。
+            </div>
+        </div>
+
+        </div>
+
+        <div class="practice-link">
+            <p style="font-size: 18px; margin-bottom: 16px; color: #666;">
+                📝 学完了吗？来做练习题吧！
+            </p>
+            <a href="day06_exercises.html">开始做练习 ➡️</a>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            localStorage.setItem('day06_learning_visited', 'true');
+        });
+    </script>
+</body>
+</html>
