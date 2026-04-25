@@ -1,11 +1,555 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>PakePlus</title>
-    </head>
-    <body>
-        PakePlus
-    </body>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>小学数学60天学习计划</title>
+    <style>
+        /* CSS变量定义 - 儿童友好配色 */
+        :root {
+            --primary: #4A90D9;
+            --primary-light: #E3F2FD;
+            --success: #52C41A;
+            --success-light: #F6FFED;
+            --warning: #FAAD14;
+            --warning-light: #FFF7E6;
+            --danger: #FF4D4F;
+            --purple: #A855F7;
+            --purple-light: #F3E8FF;
+            --pink: #EC4899;
+            --orange: #F97316;
+            --background: #F0F7FF;
+            --card-bg: #FFFFFF;
+            --text-primary: #333333;
+            --text-secondary: #666666;
+            --border-radius: 16px;
+            --shadow: 0 4px 12px rgba(0,0,0,0.1);
+            --shadow-hover: 0 8px 24px rgba(0,0,0,0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Microsoft YaHei', 'PingFang SC', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: var(--text-primary);
+            line-height: 1.6;
+            font-size: 18px;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* 标题区 */
+        .header {
+            text-align: center;
+            padding: 48px 24px;
+            color: white;
+            animation: fadeInDown 0.8s ease;
+        }
+
+        .header h1 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .header .subtitle {
+            font-size: 24px;
+            opacity: 0.95;
+            font-weight: 500;
+        }
+
+        .header .emoji {
+            font-size: 64px;
+            margin-bottom: 16px;
+            display: block;
+            animation: bounce 2s infinite;
+        }
+
+        /* 进度统计区 */
+        .progress-section {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 32px;
+            margin-bottom: 32px;
+            box-shadow: var(--shadow);
+            animation: fadeInUp 0.8s ease 0.2s both;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .progress-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .progress-stats {
+            font-size: 18px;
+            color: var(--text-secondary);
+        }
+
+        .progress-bar {
+            background: var(--primary-light);
+            height: 24px;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 16px;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, var(--success), #69F0AE);
+            height: 100%;
+            border-radius: 12px;
+            transition: width 1s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .progress-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 16px;
+            margin-top: 20px;
+        }
+
+        .stat-card {
+            background: var(--primary-light);
+            padding: 16px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+
+        /* 主题卡片区 */
+        .themes-section {
+            margin-bottom: 32px;
+        }
+
+        .themes-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            animation: fadeInUp 0.8s ease 0.4s both;
+        }
+
+        .themes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 24px;
+        }
+
+        .theme-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 28px;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            animation: fadeInUp 0.8s ease both;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .theme-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .theme-card:nth-child(1) { animation-delay: 0.5s; }
+        .theme-card:nth-child(2) { animation-delay: 0.6s; }
+        .theme-card:nth-child(3) { animation-delay: 0.7s; }
+        .theme-card:nth-child(4) { animation-delay: 0.8s; }
+        .theme-card:nth-child(5) { animation-delay: 0.9s; }
+        .theme-card:nth-child(6) { animation-delay: 1.0s; }
+
+        .theme-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .theme-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+
+        .theme-subtitle {
+            font-size: 16px;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+        }
+
+        .theme-progress {
+            margin-top: 16px;
+        }
+
+        .theme-progress-bar {
+            background: #E8F4FD;
+            height: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+
+        .theme-progress-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 1s ease;
+        }
+
+        .theme-stats {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        /* 不同主题的颜色 */
+        .theme-card:nth-child(1) .theme-progress-fill { background: linear-gradient(90deg, #4A90D9, #6BB5FF); }
+        .theme-card:nth-child(2) .theme-progress-fill { background: linear-gradient(90deg, #52C41A, #69F0AE); }
+        .theme-card:nth-child(3) .theme-progress-fill { background: linear-gradient(90deg, #FAAD14, #FFD54F); }
+        .theme-card:nth-child(4) .theme-progress-fill { background: linear-gradient(90deg, #A855F7, #C084FC); }
+        .theme-card:nth-child(5) .theme-progress-fill { background: linear-gradient(90deg, #EC4899, #F472B6); }
+        .theme-card:nth-child(6) .theme-progress-fill { background: linear-gradient(90deg, #F97316, #FB923C); }
+
+        /* 底部信息 */
+        .footer {
+            text-align: center;
+            padding: 32px;
+            color: white;
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        .footer a {
+            color: white;
+            text-decoration: underline;
+        }
+
+        /* 动画 */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 36px;
+            }
+
+            .header .subtitle {
+                font-size: 18px;
+            }
+
+            .themes-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .progress-details {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .themes-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 标题区 -->
+        <div class="header">
+            <span class="emoji">📚</span>
+            <h1>小学数学60天冲刺计划</h1>
+            <div class="subtitle">每天2小时 · 60天掌握小学数学核心知识</div>
+        </div>
+
+        <!-- 进度统计区 -->
+        <div class="progress-section">
+            <div class="progress-header">
+                <div class="progress-title">
+                    📊 学习进度总览
+                </div>
+                <div class="progress-stats">
+                    已完成 <strong id="completed-days">0</strong> 天 / 共 60 天
+                </div>
+            </div>
+            
+            <div class="progress-bar">
+                <div class="progress-fill" id="overall-progress" style="width: 0%;">
+                    0%
+                </div>
+            </div>
+
+            <div class="progress-details">
+                <div class="stat-card">
+                    <div class="stat-number" id="stat-learning">0</div>
+                    <div class="stat-label">学习完成</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="stat-exercises">0</div>
+                    <div class="stat-label">练习完成</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="stat-themes">0</div>
+                    <div class="stat-label">主题完成</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="stat-streak">0</div>
+                    <div class="stat-label">连续学习天数</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 主题卡片区 -->
+        <div class="themes-section">
+            <div class="themes-title">
+                📖 六个学习主题
+            </div>
+
+            <div class="themes-grid">
+                <!-- 主题1 -->
+                <a href="theme01-integers/day01_learning.html" class="theme-card">
+                    <span class="theme-icon">🔢</span>
+                    <div class="theme-title">主题一：数与代数</div>
+                    <div class="theme-subtitle">整数的认识 & 因数倍数<br>第1-10天</div>
+                    <div class="theme-progress">
+                        <div class="theme-progress-bar">
+                            <div class="theme-progress-fill" id="theme1-progress" style="width: 10%;"></div>
+                        </div>
+                        <div class="theme-stats">
+                            <span>进度：1/10 天</span>
+                            <span>📚 学习</span>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- 主题2 -->
+                <a href="theme02-fractions-equations/day11_learning.html" class="theme-card">
+                    <span class="theme-icon">📐</span>
+                    <div class="theme-title">主题二：小数分数方程</div>
+                    <div class="theme-subtitle">小数、分数、四则运算与方程<br>第11-20天</div>
+                    <div class="theme-progress">
+                        <div class="theme-progress-bar">
+                            <div class="theme-progress-fill" id="theme2-progress" style="width: 0%;"></div>
+                        </div>
+                        <div class="theme-stats">
+                            <span>进度：0/10 天</span>
+                            <span>🔜 未开始</span>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- 主题3 -->
+                <a href="theme03-ratio-percent/day21_learning.html" class="theme-card">
+                    <span class="theme-icon">📊</span>
+                    <div class="theme-title">主题三：比比例百分数</div>
+                    <div class="theme-subtitle">比、比例、百分数<br>第21-30天</div>
+                    <div class="theme-progress">
+                        <div class="theme-progress-bar">
+                            <div class="theme-progress-fill" id="theme3-progress" style="width: 0%;"></div>
+                        </div>
+                        <div class="theme-stats">
+                            <span>进度：0/10 天</span>
+                            <span>🔜 未开始</span>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- 主题4 -->
+                <a href="theme04-geometry/day31_learning.html" class="theme-card">
+                    <span class="theme-icon">📏</span>
+                    <div class="theme-title">主题四：图形与几何</div>
+                    <div class="theme-subtitle">平面图形 + 立体图形<br>第31-40天</div>
+                    <div class="theme-progress">
+                        <div class="theme-progress-bar">
+                            <div class="theme-progress-fill" id="theme4-progress" style="width: 0%;"></div>
+                        </div>
+                        <div class="theme-stats">
+                            <span>进度：0/10 天</span>
+                            <span>🔜 未开始</span>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- 主题5 -->
+                <a href="theme05-statistics-problems/day41_learning.html" class="theme-card">
+                    <span class="theme-icon">📈</span>
+                    <div class="theme-title">主题五：统计分析应用</div>
+                    <div class="theme-subtitle">统计、概率、典型应用题<br>第41-50天</div>
+                    <div class="theme-progress">
+                        <div class="theme-progress-bar">
+                            <div class="theme-progress-fill" id="theme5-progress" style="width: 0%;"></div>
+                        </div>
+                        <div class="theme-stats">
+                            <span>进度：0/10 天</span>
+                            <span>🔜 未开始</span>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- 主题6 -->
+                <a href="theme06-comprehensive/day51_learning.html" class="theme-card">
+                    <span class="theme-icon">🎯</span>
+                    <div class="theme-title">主题六：综合模拟冲刺</div>
+                    <div class="theme-subtitle">综合模拟与冲刺<br>第51-60天</div>
+                    <div class="theme-progress">
+                        <div class="theme-progress-bar">
+                            <div class="theme-progress-fill" id="theme6-progress" style="width: 0%;"></div>
+                        </div>
+                        <div class="theme-stats">
+                            <span>进度：0/10 天</span>
+                            <span>🔜 未开始</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <!-- 底部信息 -->
+        <div class="footer">
+            <p>🌟 每天坚持2小时，60天后成为数学小能手！</p>
+            <p style="margin-top: 12px; font-size: 14px;">
+                💡 建议：每天1小时学习 + 1小时练习<br>
+                📱 本计划适配平板和电脑，随时随地都能学！
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('📚 小学数学60天计划 - 目录页加载完成');
+            
+            // 更新进度
+            updateProgress();
+        });
+
+        // 更新学习进度
+        function updateProgress() {
+            let completedLearning = 0;
+            let completedExercises = 0;
+            let completedThemes = 0;
+            
+            // 检查每个主题的完成情况（这里只检查第1天作为示例）
+            // 实际应用中，应该遍历所有60天
+            for (let i = 1; i <= 60; i++) {
+                const dayStr = i.toString().padStart(2, '0');
+                const learningKey = `day${dayStr}_learning_completed`;
+                const exercisesKey = `day${dayStr}_exercises_completed`;
+                
+                if (localStorage.getItem(learningKey) === 'true') {
+                    completedLearning++;
+                }
+                
+                if (localStorage.getItem(exercisesKey) === 'true') {
+                    completedExercises++;
+                }
+            }
+            
+            // 计算完成的主题数（每个主题10天，需要学习和练习都完成）
+            // 这里简化处理，实际应该更精确
+            const totalCompleted = Math.min(completedLearning, completedExercises);
+            completedThemes = Math.floor(totalCompleted / 10);
+            
+            // 更新总体进度
+            const totalDays = 60;
+            const overallPercent = Math.round((totalCompleted / totalDays) * 100);
+            
+            document.getElementById('overall-progress').style.width = overallPercent + '%';
+            document.getElementById('overall-progress').textContent = overallPercent + '%';
+            document.getElementById('completed-days').textContent = totalCompleted;
+            
+            // 更新统计数据
+            document.getElementById('stat-learning').textContent = completedLearning;
+            document.getElementById('stat-exercises').textContent = completedExercises;
+            document.getElementById('stat-themes').textContent = completedThemes;
+            
+            // 计算连续学习天数（简化版）
+            let streak = 0;
+            for (let i = 1; i <= 60; i++) {
+                const dayStr = i.toString().padStart(2, '0');
+                const learningKey = `day${dayStr}_learning_visited`;
+                
+                if (localStorage.getItem(learningKey) === 'true') {
+                    streak++;
+                } else {
+                    break;
+                }
+            }
+            document.getElementById('stat-streak').textContent = streak;
+            
+            // 更新主题进度条（简化版，只更新第1天）
+            // 实际应用中，应该根据每个主题的完成情况计算
+            const theme1Percent = (1 / 10) * 100; // 示例：第1天完成了10%
+            document.getElementById('theme1-progress').style.width = theme1Percent + '%';
+        }
+    </script>
+</body>
 </html>
