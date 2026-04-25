@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第5天 - 练习题 - 5/9倍数特征与综合应用</title>
+    <style>
+
+        :root {
+            --primary: #4A90D9;
+            --primary-light: #E3F2FD;
+            --success: #52C41A;
+            --success-light: #F6FFED;
+            --warning: #FAAD14;
+            --warning-light: #FFF7E6;
+            --danger: #FF4D4F;
+            --background: #F0F7FF;
+            --card-bg: #FFFFFF;
+            --text-primary: #333333;
+            --text-secondary: #666666;
+            --border-radius: 16px;
+            --shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Microsoft YaHei', 'PingFang SC', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: var(--text-primary);
+            line-height: 1.8;
+            font-size: 18px;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .nav-bar {
+            background: white;
+            padding: 16px 24px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-home {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .nav-prev-next {
+            display: flex;
+            gap: 12px;
+        }
+
+        .nav-btn {
+            padding: 8px 16px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+
+        .header {
+            background: white;
+            padding: 40px 32px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        .day-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary), #6BB5FF);
+            color: white;
+            padding: 8px 24px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 18px;
+            margin-bottom: 16px;
+        }
+
+        .header h1 {
+            font-size: 32px;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .content-section, .exercise-section {
+            background: white;
+            padding: 32px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 24px;
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .knowledge-card, .exercise-card {
+            background: var(--primary-light);
+            padding: 24px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+
+        .knowledge-card h3, .exercise-card h3 {
+            font-size: 20px;
+            color: var(--primary);
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .example-box {
+            background: var(--success-light);
+            padding: 20px;
+            border-radius: 12px;
+            margin: 16px 0;
+        }
+
+        .tip-box {
+            background: var(--warning-light);
+            padding: 16px 20px;
+            border-radius: 12px;
+            margin: 16px 0;
+        }
+
+        .question {
+            background: white;
+            padding: 16px 20px;
+            margin: 12px 0;
+            border-radius: 8px;
+            font-size: 18px;
+        }
+
+        .fill-blank {
+            display: inline-block;
+            min-width: 100px;
+            padding: 4px 8px;
+            border: 2px solid var(--primary);
+            border-radius: 6px;
+            font-size: 18px;
+            text-align: center;
+        }
+
+        .practice-link, .submit-section {
+            text-align: center;
+            margin-top: 32px;
+            padding: 24px;
+            background: linear-gradient(135deg, var(--success-light), #E8F5E9);
+            border-radius: 12px;
+        }
+
+        .practice-link a, .submit-btn {
+            display: inline-block;
+            padding: 16px 48px;
+            background: linear-gradient(135deg, var(--success), #69F0AE);
+            color: white;
+            text-decoration: none;
+            border: none;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="nav-bar">
+            <a href="../index.html" class="nav-home">🏠 返回目录</a>
+            <div class="nav-prev-next">
+                <a href="day05_learning.html" class="nav-btn">⬅️ 回到学习</a>
+                <a href="day06_learning.html" class="nav-btn">第6天学习 ➡️</a>
+            </div>
+        </div>
+
+        <div class="header">
+            <div class="day-badge" style="background: linear-gradient(135deg, var(--warning), #FFD54F);">第 5 天 - 练习</div>
+            <h1>📝 5/9倍数特征与综合应用</h1>
+            <div style="color: #666;">主题一：数与代数</div>
+            <div style="color: #666;">共 10 道题 · 建议用时：60分钟</div>
+        </div>
+
+        <div class="exercise-section">
+            <div class="section-title">✏️ 练习题</div>
+            
+        <div class="exercise-card">
+            <h3>🌟 练习题</h3>
+            
+            <div class="question">
+                <strong>一、判断下列数是否是9的倍数（6题）</strong><br>
+                1. 81 □<br>
+                2. 162 □<br>
+                3. 273 □<br>
+                4. 351 □<br>
+                5. 405 □<br>
+                6. 1234 □
+            </div>
+
+            <div class="question">
+                <strong>二、写出同时是2、3、5倍数的数（4题）</strong><br>
+                7. 在 30, 45, 60, 75, 90 中：<br>
+                同时是2、3、5倍数的有：□<br>
+                8. 最小的三位数：□<br>
+                9. 最大的两位数：□<br>
+                10. 100以内的这样的数有：□
+            </div>
+
+            <div class="answer-reveal">
+                <strong>参考答案：</strong><br>
+                1. 是（8+1=9） 2. 是（1+6+2=9） 3. 不是（2+7+3=12，12不是9的倍数）<br>
+                4. 是（3+5+1=9） 5. 是（4+0+5=9） 6. 不是（1+2+3+4=10）<br>
+                7. 30, 60, 90 8. 120 9. 90 10. 30, 60, 90
+            </div>
+        </div>
+
+        </div>
+
+        <div class="submit-section">
+            <p style="font-size: 18px; margin-bottom: 16px; color: #666;">
+                📝 做完所有题目了吗？
+            </p>
+            <button class="submit-btn" onclick="alert('练习完成！')">✅ 提交练习</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            localStorage.setItem('day05_exercises_visited', 'true');
+        });
+    </script>
+</body>
+</html>
