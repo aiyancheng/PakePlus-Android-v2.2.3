@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第8天 - 因数与倍数概念 - 小学数学60天计划</title>
+    <style>
+        :root {
+            --primary: #4A90D9;
+            --primary-light: #E3F2FD;
+            --success: #52C41A;
+            --success-light: #F6FFED;
+            --warning: #FAAD14;
+            --warning-light: #FFF7E6;
+            --danger: #FF4D4F;
+            --background: #F0F7FF;
+            --card-bg: #FFFFFF;
+            --text-primary: #333333;
+            --text-secondary: #666666;
+            --border-radius: 16px;
+            --shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Microsoft YaHei', 'PingFang SC', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: var(--text-primary);
+            line-height: 1.8;
+            font-size: 18px;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .nav-bar {
+            background: white;
+            padding: 16px 24px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-home {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .nav-prev-next {
+            display: flex;
+            gap: 12px;
+        }
+
+        .nav-btn {
+            padding: 8px 16px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .header {
+            background: white;
+            padding: 40px 32px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        .day-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary), #6BB5FF);
+            color: white;
+            padding: 8px 24px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 18px;
+            margin-bottom: 16px;
+        }
+
+        .header h1 {
+            font-size: 32px;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .content-section {
+            background: white;
+            padding: 32px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 24px;
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .knowledge-card {
+            background: var(--primary-light);
+            padding: 24px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+
+        .knowledge-card h3 {
+            font-size: 20px;
+            color: var(--primary);
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .example-box {
+            background: var(--success-light);
+            padding: 20px;
+            border-radius: 12px;
+            margin: 16px 0;
+        }
+
+        .tip-box {
+            background: var(--warning-light);
+            padding: 16px 20px;
+            border-radius: 12px;
+            margin: 16px 0;
+        }
+
+        .practice-link {
+            text-align: center;
+            margin-top: 32px;
+            padding: 24px;
+            background: linear-gradient(135deg, var(--success-light), #E8F5E9);
+            border-radius: 12px;
+        }
+
+        .practice-link a {
+            display: inline-block;
+            padding: 16px 48px;
+            background: linear-gradient(135deg, var(--success), #69F0AE);
+            color: white;
+            text-decoration: none;
+            border: none;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .practice-link a:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(82, 196, 26, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="nav-bar">
+            <a href="../index.html" class="nav-home">🏠 返回目录</a>
+            <div class="nav-prev-next">
+                <a href="day07_exercises.html" class="nav-btn">⬅️ 第7天练习</a>
+                <a href="day08_exercises.html" class="nav-btn">做练习 ➡️</a>
+            </div>
+        </div>
+
+        <div class="header">
+            <div class="day-badge">第 8 天</div>
+            <h1>📚 因数与倍数概念</h1>
+            <div style="color: #666;">主题一：数与代数</div>
+        </div>
+
+        <div class="content-section">
+            <div class="section-title">📚 今天的学习内容</div>
+            
+            <div class="knowledge-card">
+                <h3>🌟 因数与倍数的定义</h3>
+                <p>如果 <strong>a × b = c</strong>（a、b、c都是非0自然数），那么：</p>
+                <p>- a和b是c的<strong>因数</strong></p>
+                <p>- c是a和b的<strong>倍数</strong></p>
+                <div class="example-box">
+                    <strong>📝 例子：</strong><br>
+                    - 3 × 4 = 12<br>
+                    → 3和4是12的因数<br>
+                    → 12是3和4的倍数<br><br>
+                    - 2 × 6 = 12<br>
+                    → 2和6也是12的因数<br>
+                    → 12也是2和6的倍数
+                </div>
+            </div>
+
+            <div class="knowledge-card">
+                <h3>🌟 找一个数的所有因数</h3>
+                <p><strong>方法</strong>：成对找因数</p>
+                <p><strong>步骤：</strong></p>
+                <p>1. 从1开始，用这个数除以1、2、3...</p>
+                <p>2. 如果能整除，除数和商都是这个数的因数</p>
+                <p>3. 直到除数和商接近或相等时停止</p>
+                <div class="example-box">
+                    <strong>📝 例子：找24的所有因数</strong><br>
+                    24 ÷ 1 = 24 → 1, 24<br>
+                    24 ÷ 2 = 12 → 2, 12<br>
+                    24 ÷ 3 = 8 → 3, 8<br>
+                    24 ÷ 4 = 6 → 4, 6<br>
+                    24 ÷ 5 = 4.8（不能整除）<br>
+                    24 ÷ 6 = 4（重复了，停止）<br>
+                    <strong>24的所有因数：1, 2, 3, 4, 6, 8, 12, 24</strong>
+                </div>
+            </div>
+
+            <div class="knowledge-card">
+                <h3>🌟 找一个数的倍数</h3>
+                <p><strong>方法</strong>：用这个数依次乘1、2、3、4...</p>
+                <div class="example-box">
+                    <strong>📝 例子：找7的倍数（前5个）</strong><br>
+                    7 × 1 = 7<br>
+                    7 × 2 = 14<br>
+                    7 × 3 = 21<br>
+                    7 × 4 = 28<br>
+                    7 × 5 = 35<br>
+                    <strong>7的前5个倍数：7, 14, 21, 28, 35</strong>
+                </div>
+            </div>
+
+            <div class="tip-box">
+                <strong>💡 重要结论：</strong><br>
+                1. 一个数的因数的个数是<strong>有限</strong>的<br>
+                2. 一个数的倍数的个数是<strong>无限</strong>的<br>
+                3. 一个数最大的因数是<strong>它本身</strong><br>
+                4. 一个数最小的倍数是<strong>它本身</strong>
+            </div>
+        </div>
+
+        <div class="practice-link">
+            <p style="font-size: 18px; margin-bottom: 16px; color: #666;">
+                📝 学完了吗？来做练习题吧！
+            </p>
+            <a href="day08_exercises.html">开始做练习 ➡️</a>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            localStorage.setItem('day08_learning_completed', 'true');
+        });
+    </script>
+</body>
+</html>
