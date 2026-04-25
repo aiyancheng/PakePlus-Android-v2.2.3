@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第3天 - 比较大小与十进制 - 小学数学60天计划</title>
+    <style>
+        :root {
+            --primary: #4A90D9;
+            --primary-light: #E3F2FD;
+            --success: #52C41A;
+            --success-light: #F6FFED;
+            --warning: #FAAD14;
+            --warning-light: #FFF7E6;
+            --danger: #FF4D4F;
+            --background: #F0F7FF;
+            --card-bg: #FFFFFF;
+            --text-primary: #333333;
+            --text-secondary: #666666;
+            --border-radius: 16px;
+            --shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Microsoft YaHei', 'PingFang SC', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: var(--text-primary);
+            line-height: 1.8;
+            font-size: 18px;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .nav-bar {
+            background: white;
+            padding: 16px 24px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-home {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .nav-prev-next {
+            display: flex;
+            gap: 12px;
+        }
+
+        .nav-btn {
+            padding: 8px 16px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .header {
+            background: white;
+            padding: 40px 32px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        .day-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary), #6BB5FF);
+            color: white;
+            padding: 8px 24px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 18px;
+            margin-bottom: 16px;
+        }
+
+        .header h1 {
+            font-size: 32px;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .content-section {
+            background: white;
+            padding: 32px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 24px;
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .knowledge-card {
+            background: var(--primary-light);
+            padding: 24px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+
+        .knowledge-card h3 {
+            font-size: 20px;
+            color: var(--primary);
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .example-box {
+            background: var(--success-light);
+            padding: 20px;
+            border-radius: 12px;
+            margin: 16px 0;
+        }
+
+        .tip-box {
+            background: var(--warning-light);
+            padding: 16px 20px;
+            border-radius: 12px;
+            margin: 16px 0;
+        }
+
+        .practice-link {
+            text-align: center;
+            margin-top: 32px;
+            padding: 24px;
+            background: linear-gradient(135deg, var(--success-light), #E8F5E9);
+            border-radius: 12px;
+        }
+
+        .practice-link a {
+            display: inline-block;
+            padding: 16px 48px;
+            background: linear-gradient(135deg, var(--success), #69F0AE);
+            color: white;
+            text-decoration: none;
+            border: none;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .practice-link a:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(82, 196, 26, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="nav-bar">
+            <a href="../index.html" class="nav-home">🏠 返回目录</a>
+            <div class="nav-prev-next">
+                <a href="day02_exercises.html" class="nav-btn">⬅️ 第2天练习</a>
+                <a href="day03_exercises.html" class="nav-btn">做练习 ➡️</a>
+            </div>
+        </div>
+
+        <div class="header">
+            <div class="day-badge">第 3 天</div>
+            <h1>📚 比较大小与十进制</h1>
+            <div style="color: #666;">主题一：数与代数</div>
+        </div>
+
+        <div class="content-section">
+            <div class="section-title">📚 今天的学习内容</div>
+            
+            <div class="knowledge-card">
+                <h3>🌟 多位数比较大小</h3>
+                <p><strong>方法</strong>：</p>
+                <p>1. <strong>先比位数</strong>：位数多的数大（如5位数 > 4位数）</p>
+                <p>2. <strong>位数相同，比高位</strong>：从最高位开始比，哪一位大这个数就大</p>
+                <div class="example-box">
+                    <strong>📝 例子：</strong><br>
+                    - 比较 34521 和 9827<br>
+                    &nbsp;&nbsp;→ 34521是5位数，9827是4位数<br>
+                    &nbsp;&nbsp;→ <strong>34521 > 9827</strong><br><br>
+                    - 比较 56789 和 56432<br>
+                    &nbsp;&nbsp;→ 位数相同，比最高位（万位）：都是5<br>
+                    &nbsp;&nbsp;→ 比下一位（千位）：都是6<br>
+                    &nbsp;&nbsp;→ 比再下一位（百位）：7 > 4<br>
+                    &nbsp;&nbsp;→ <strong>56789 > 56432</strong>
+                </div>
+            </div>
+
+            <div class="knowledge-card">
+                <h3>🌟 十进制计数法</h3>
+                <p><strong>定义</strong>：每相邻两个计数单位之间的进率都是<strong>10</strong>。</p>
+                <div class="example-box">
+                    <strong>📝 例子：</strong><br>
+                    - 10个一是十（10 × 1 = 10）<br>
+                    - 10个十是一百（10 × 10 = 100）<br>
+                    - 10个一百是一千（10 × 100 = 1000）<br>
+                    - 10个一千是一万（10 × 1000 = 10000）
+                </div>
+                <p><strong>数位顺序表（从右到左）</strong>：</p>
+                <p>个位 → 十位 → 百位 → 千位 → 万位 → 十万位 → 百万位 → 千万位 → 亿位...</p>
+            </div>
+
+            <div class="knowledge-card">
+                <h3>🌟 数的大小比较实际应用</h3>
+                <p><strong>步骤</strong>：</p>
+                <p>1. 先分类（按位数分类）</p>
+                <p>2. 位数多的排前面</p>
+                <p>3. 位数相同的，从最高位开始比较</p>
+                <div class="example-box">
+                    <strong>📝 例子：按从大到小排序</strong><br>
+                    数字：345, 12345, 6789, 98765<br><br>
+                    步骤：<br>
+                    1. 分类：3位数（345），4位数（6789），5位数（12345, 98765）<br>
+                    2. 位数多的排前面：5位数 > 4位数 > 3位数<br>
+                    3. 5位数内部比较：98765 > 12345<br>
+                    <strong>答案：98765 > 12345 > 6789 > 345</strong>
+                </div>
+            </div>
+
+            <div class="tip-box">
+                <strong>💡 学习提示：</strong><br>
+                1. 比较大小要<strong>对齐数位</strong>（个位对个位，十位对十位）<br>
+                2. 十进制就是"满10进1"<br>
+                3. 写数时，哪一位上一个单位也没有，就写<strong>0</strong>占位
+            </div>
+        </div>
+
+        <div class="practice-link">
+            <p style="font-size: 18px; margin-bottom: 16px; color: #666;">
+                📝 学完了吗？来做练习题吧！
+            </p>
+            <a href="day03_exercises.html">开始做练习 ➡️</a>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            localStorage.setItem('day03_learning_completed', 'true');
+            updateProgress();
+        });
+
+        function updateProgress() {
+            const allDays = 60;
+            let completed = 0;
+            for (let i = 1; i <= allDays; i++) {
+                const dayStr = i.toString().padStart(2, '0');
+                if (localStorage.getItem(`day${dayStr}_learning_completed`) === 'true') {
+                    completed++;
+                }
+            }
+            
+            const progress = Math.round((completed / allDays) * 100);
+            if (document.getElementById('progress-fill')) {
+                document.getElementById('progress-fill').style.width = progress + '%';
+                document.getElementById('progress-text').textContent = progress + '%';
+            }
+        }
+    </script>
+</body>
+</html>
