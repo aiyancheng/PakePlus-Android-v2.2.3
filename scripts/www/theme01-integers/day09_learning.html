@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第9天 - 最大公因数（GCD） - 小学数学60天计划</title>
+    <style>
+        :root {
+            --primary: #4A90D9;
+            --primary-light: #E3F2FD;
+            --success: #52C41A;
+            --success-light: #F6FFED;
+            --warning: #FAAD14;
+            --warning-light: #FFF7E6;
+            --danger: #FF4D4F;
+            --background: #F0F7FF;
+            --card-bg: #FFFFFF;
+            --text-primary: #333333;
+            --text-secondary: #666666;
+            --border-radius: 16px;
+            --shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Microsoft YaHei', 'PingFang SC', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: var(--text-primary);
+            line-height: 1.8;
+            font-size: 18px;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .nav-bar {
+            background: white;
+            padding: 16px 24px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-home {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .nav-prev-next {
+            display: flex;
+            gap: 12px;
+        }
+
+        .nav-btn {
+            padding: 8px 16px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .header {
+            background: white;
+            padding: 40px 32px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        .day-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary), #6BB5FF);
+            color: white;
+            padding: 8px 24px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 18px;
+            margin-bottom: 16px;
+        }
+
+        .header h1 {
+            font-size: 32px;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .content-section {
+            background: white;
+            padding: 32px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 24px;
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .knowledge-card {
+            background: var(--primary-light);
+            padding: 24px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+
+        .knowledge-card h3 {
+            font-size: 20px;
+            color: var(--primary);
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .example-box {
+            background: var(--success-light);
+            padding: 20px;
+            border-radius: 12px;
+            margin: 16px 0;
+        }
+
+        .tip-box {
+            background: var(--warning-light);
+            padding: 16px 20px;
+            border-radius: 12px;
+            margin: 16px 0;
+        }
+
+        .practice-link {
+            text-align: center;
+            margin-top: 32px;
+            padding: 24px;
+            background: linear-gradient(135deg, var(--success-light), #E8F5E9);
+            border-radius: 12px;
+        }
+
+        .practice-link a {
+            display: inline-block;
+            padding: 16px 48px;
+            background: linear-gradient(135deg, var(--success), #69F0AE);
+            color: white;
+            text-decoration: none;
+            border: none;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .practice-link a:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(82, 196, 26, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="nav-bar">
+            <a href="../index.html" class="nav-home">🏠 返回目录</a>
+            <div class="nav-prev-next">
+                <a href="day08_exercises.html" class="nav-btn">⬅️ 第8天练习</a>
+                <a href="day09_exercises.html" class="nav-btn">做练习 ➡️</a>
+            </div>
+        </div>
+
+        <div class="header">
+            <div class="day-badge">第 9 天</div>
+            <h1>📚 最大公因数（GCD）</h1>
+            <div style="color: #666;">主题一：数与代数</div>
+        </div>
+
+        <div class="content-section">
+            <div class="section-title">📚 今天的学习内容</div>
+            
+            <div class="knowledge-card">
+                <h3>🌟 最大公因数的定义</h3>
+                <p>几个数<strong>公有因数</strong>中最大的一个，叫做这几个数的<strong>最大公因数</strong>。</p>
+                <div class="example-box">
+                    <strong>📝 例子：求12和18的最大公因数</strong><br>
+                    12的因数：1, 2, 3, 4, 6, 12<br>
+                    18的因数：1, 2, 3, 6, 9, 18<br>
+                    公有因数：1, 2, 3, 6<br>
+                    <strong>最大公因数：6</strong>
+                </div>
+            </div>
+
+            <div class="knowledge-card">
+                <h3>🌟 求最大公因数的方法</h3>
+                <p><strong>方法一：列举法</strong>（上面例子的方法）</p>
+                <p><strong>方法二：短除法</strong></p>
+                <div class="example-box">
+                    <strong>📝 短除法例子：求12和18的最大公因数</strong><br>
+                    步骤：<br>
+                    1. 用公有质因数2除：12÷2=6, 18÷2=9<br>
+                    2. 用公有质因数3除：6÷3=2, 9÷3=3<br>
+                    3. 2和3互质，停止<br>
+                    <strong>最大公因数 = 2 × 3 = 6</strong>
+                </div>
+            </div>
+
+            <div class="knowledge-card">
+                <h3>🌟 生活中的应用</h3>
+                <p><strong>问题</strong>：把一根长12米和一根长18米的绳子，截成同样长的小段，没有剩余，每段最长是多少米？</p>
+                <div class="example-box">
+                    <strong>📝 解答：</strong><br>
+                    求12和18的<strong>最大公因数</strong><br>
+                    12和18的最大公因数是6<br>
+                    <strong>答：每段最长是6米。</strong>
+                </div>
+            </div>
+
+            <div class="tip-box">
+                <strong>💡 学习提示：</strong><br>
+                1. 如果两个数是互质数（只有公因数1），它们的最大公因数是<strong>1</strong><br>
+                2. 如果两个数是倍数关系，较小数就是它们的<strong>最大公因数</strong><br>
+                3. 短除法是求最大公因数的高效方法
+            </div>
+        </div>
+
+        <div class="practice-link">
+            <p style="font-size: 18px; margin-bottom: 16px; color: #666;">
+                📝 学完了吗？来做练习题吧！
+            </p>
+            <a href="day09_exercises.html">开始做练习 ➡️</a>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            localStorage.setItem('day09_learning_completed', 'true');
+        });
+    </script>
+</body>
+</html>
